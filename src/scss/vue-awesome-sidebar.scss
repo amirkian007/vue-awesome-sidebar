@@ -1,0 +1,39 @@
+.menu {
+  // .footer-slot{
+  //   position: relative;
+  //   bottom: 0px;
+  // }
+  * {
+    box-sizing: border-box;
+  }
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100vh;
+    width: 300px;
+    left: 0;
+    top: 0;
+    border-right: 1px solid #ececec;
+    // transition: all 50s ease;
+    overflow: auto;
+    // i {
+    //   position: fixed;
+    //   left: 250px;
+    //   font-size: 20px;
+    //   top: 15px;
+    //   user-select: none;
+    //   cursor: pointer;
+    //   transition: all 0.3s ease;
+    // }
+    &.small-menu {
+      //  overflow: inherit;
+      //  width: 60px;
+      //  padding-top: 50px;
+      //   i {
+      //     left: 20px;
+      //   }
+       left: -300px;
+    }
+  }
+  @import './menu-scrollbar'

@@ -1,0 +1,21 @@
+
+  .menu::-webkit-scrollbar {
+    //   transition: 2s;
+      width: 14px;
+  }
+  .menu::-webkit-scrollbar-thumb {
+      background-clip: content-box;
+      border: 4px solid transparent;
+      border-radius: 7px;
+      box-shadow: inset 0 0 0 10px;
+      color:pink
+  }
+  .menu::-webkit-scrollbar-button {
+      width: 0;
+      height: 0;
+      display: none;
+  }
+  .menu::-webkit-scrollbar-corner {
+      background-color: transparent;
+  }
+  

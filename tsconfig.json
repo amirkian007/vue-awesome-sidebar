@@ -1,0 +1,12 @@
+{
+ 
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "compilerOptions": {
+    "strictNullChecks": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
