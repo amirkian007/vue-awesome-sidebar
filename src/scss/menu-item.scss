@@ -1,0 +1,48 @@
+
+  .menu-item-type-simple-icon {
+    float: right;
+    align-self: center;
+    position: relative;
+    .label {
+      flex-direction: row;
+      justify-content: space-between;
+      white-space: nowrap;
+      width: 100%;
+      display: flex;
+      // color: #0094ff;
+      align-items: center;
+      user-select: none;
+      box-sizing: border-box;//r
+      transition: all 0.3s ease;//d
+      font-family: 'Inter';//r
+      font-size: 16px;//d
+      font-weight: 400;//d
+      > .left {
+        display: flex;
+        align-items: center;
+        
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    
+    // .items-container {
+    //   // width: 100%;
+    //   // left: calc(100% + 6px);
+    //   // transition: height 0.3s ease;
+    //   // overflow: hidden;
+    //   // &.small-menu {
+    //   //   width: fit-content;
+    //   //   position: absolute;
+    //   //   background: #fff;
+    //   //   box-shadow: 0 0 10px #ebebeb;
+    //   //   top: 0;
+    //   //   .label {
+    //   //     width: 100% !important;
+    //   //     padding-left: 20px !important;
+    //   //   }
+    //   // }
+    // }
+  }
+  @import './types/simple-icon.scss'

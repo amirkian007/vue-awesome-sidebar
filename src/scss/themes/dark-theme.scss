@@ -1,0 +1,11 @@
+.menu {
+    &.dark-theme{
+        border-right: 1px solid #ececec;
+        background-color: white;
+      
+            &::-webkit-scrollbar-thumb{
+         color: rgb(109, 243, 132);
+                
+            }
+    }
+}

@@ -1,0 +1,57 @@
+.icooons::after {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+      50%/2rem 2rem;
+    content: '';
+    -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+    filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+    height: 1.25rem;
+    margin-left: auto;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    transition: -webkit-transform 200ms linear;
+    transition: transform 200ms linear;
+    transition: transform 200ms linear, -webkit-transform 200ms linear;
+    min-width: 1.25rem;
+    width: 1.25rem;
+  }
+  .icooons.opened::after {
+    -webkit-transform: rotate(180deg) !important;
+    transform: rotate(180deg) !important;
+  }
+  .menu-item-type-simple-icon {
+    width: 97%;
+    margin-top: 3px;
+    border-radius: 4px;
+    .label {
+      padding: 6px 12px;
+      width: 100%;
+      border-radius: 4px;
+      display: flex;
+      height: 32px;
+      // color: #0094ff;
+      transition: all 0.3s ease;
+      .left {
+        span {
+          padding-left: 6px;
+          padding-bottom: 1.3px;
+        }
+      }
+    }
+    // .items-container {
+    //   // width: 100%;
+    //   // left: calc(100% + 6px);
+    //   // transition: height 0.3s ease;
+    //   // overflow: hidden;
+    //   // &.small-menu {
+    //   //   width: fit-content;
+    //   //   position: absolute;
+    //   //   background: #fff;
+    //   //   box-shadow: 0 0 10px #ebebeb;
+    //   //   top: 0;
+    //   //   .label {
+    //   //     width: 100% !important;
+    //   //     padding-left: 20px !important;
+    //   //   }
+    //   // }
+    // }
+  }

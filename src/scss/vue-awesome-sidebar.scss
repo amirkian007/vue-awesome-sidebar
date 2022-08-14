@@ -1,4 +1,13 @@
 .menu {
+  .menuOpenAnimation{
+    transition: height 0.3s ease;
+    overflow: hidden;
+  }
+  .menu-icon{
+    font-size: 20px;
+    width: 20px;
+    overflow: hidden;
+  }
   // .footer-slot{
   //   position: relative;
   //   bottom: 0px;
@@ -13,8 +22,8 @@
   height: 100vh;
   left: 0;
   top: 0;
-  border-right: 1px solid #ececec;
-  background-color: white;
+  // border-right: 1px solid #ececec;
+  // background-color: white;
   transition: all 0.25s ease-in-out;
   overflow: auto;
   // i {
@@ -37,3 +46,5 @@
   }
 }
 @import './menu-scrollbar';
+@import './themes/white-theme.scss';
+@import './themes/dark-theme.scss';
