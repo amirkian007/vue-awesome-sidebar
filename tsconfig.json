@@ -1,12 +1,41 @@
+// {
+
+//   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+//   "compilerOptions": {
+//     "strictNullChecks": false,
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["./src/*"]
+//     },
+//     "allowJs":true
+
+//   },
+//   "references": [{ "path": "./tsconfig.node.json" }]
+// }
 {
- 
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
-    "strictNullChecks": false,
-    "baseUrl": ".",
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    "skipLibCheck": true,
+    "allowJs": true,
+    "declaration": true,
     "paths": {
+      "@": ["./src"],
       "@/*": ["./src/*"]
     }
   },
+  "paths": {
+    "@": ["./src"],
+    "@/*": ["./src/*"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

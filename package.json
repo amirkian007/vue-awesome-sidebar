@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "vue": "^3.2.37"
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.0",
     "material-icons": "^1.11.8",
+    "prettier": "^2.7.1",
     "sass": "^1.54.3",
     "typescript": "^4.6.4",
     "vite": "^3.0.0",

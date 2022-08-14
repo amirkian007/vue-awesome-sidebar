@@ -1,7 +1,12 @@
 <template>
-  <div class="menu" :class="{ 'small-menu': sidebarMenuWidth }" >
-  <!-- <div class="menu" :class="{ 'small-menu': smallMenu }" > -->
-   <slot name="header"/>
+  <div
+    class="menu"
+    :class="{ 'small-menu': getIsCollapsed }"
+    :style="{ width: sidebarMenuWidth }"
+  >
+    <!-- <div class="menu" :class="{ 'small-menu': smallMenu }" > -->
+    <slot name="header" />
+    <div v-if="!$slots.header">deafult slot</div>
     <MenuItem
       v-for="(item, index) in menu"
       :key="index"
@@ -13,7 +18,7 @@
       :close="true"
     />
 
-   <div class="footer-slot">footer</div>
+    <div class="footer-slot">footer</div>
     <!-- <i @click="smallMenu = !smallMenu" class="material-icons">
       <v-icon color="green darken-2"> mdi-menu-open </v-icon></i
     > -->
@@ -22,9 +27,12 @@
 
 <script>
 import MenuItem from './MenuItem.vue'
+import { initAwsomeSideBar } from '../hooks/useAwseomeSideBar'
+import { ref, computed, inject, provide, reactive, toRefs, watch } from 'vue'
+
 export default {
   name: 'recursive-menu',
-   props: {
+  props: {
     menu: {
       type: Array,
       required: true
@@ -49,7 +57,7 @@ export default {
       type: String,
       default: '65px'
     },
-    collapseBreakPoint:{
+    collapseBreakPoint: {
       type: String,
       default: '65px'
     },
@@ -60,34 +68,60 @@ export default {
     rtl: {
       type: Boolean,
       default: false
-    },
-    
+    }
   },
   emits: {
-    'item-click' (event, item) {
+    'item-click'(event, item) {
       return !!(event && item)
     },
-    'update:collapsed' (collapsed) {
+    'update:collapsed'(collapsed) {
       return !!(typeof collapsed === 'boolean')
     }
   },
   data: () => ({
-    smallMenu: false,
+    smallMenu: false
   }),
-  created(){
-    //console.log(MenuItem.render())
-  },
+
   components: {
     MenuItem
   },
-  setup (props, context) {
-      const sidebarMenuWidth = computed(() => {
-      return isCollapsed.value ? props.widthCollapsed : '0px'
+  created() {},
+
+  computed: {
+    hasSlots() {
+      //console.log("change")
+      return this.$slots
+    }
+  },
+  setup(props, context) {
+    console.log(props)
+    const {
+      getIsCollapsed: isCollapsed,
+      updateIsCollapsed,
+      getSlotByName
+      // unsetMobileItem,
+      // updateCurrentRoute
+    } = initAwsomeSideBar(props, context)
+
+    const sidebarMenuWidth = computed(() => {
+      return props.width
     })
+    const getIsCollapsed = computed(() => {
+      return isCollapsed.value
+    })
+    watch(
+      () => props.collapsed,
+      (currentCollapsed) => {
+        updateIsCollapsed(currentCollapsed)
+      }
+    )
+    // console.log(isCollapsed.value)
+
+    return { sidebarMenuWidth, getIsCollapsed }
   }
 }
 </script>
 
 <style lang="scss">
-@import '../scss/vue-awesome-sidebar.scss'
+@import '../scss/vue-awesome-sidebar.scss';
 </style>

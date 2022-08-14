@@ -1,16 +1,12 @@
 <template>
   <div class="menu-item2" :class="{ opened: expanded }">
-
     <div
-      class="label "
-      :class="{ icooons: dataClose ,opened: expanded }"
+      class="label"
+      :class="{ icooons: dataClose, opened: expanded }"
       @click="toggleMenu()"
-      
     >
       <div class="left">
-        <i class="material-icons-outlined">
-          {{icon}}
-        </i>
+        <MenuItemIconVue :icon="icon" />
         <span v-if="showLabel">{{ name }}</span>
       </div>
       <!-- <div v-if="data" class="right ">
@@ -24,13 +20,13 @@
       :style="{ height: containerHeight }"
       ref="container"
     >
-    <!-- <div
+      <!-- <div
       v-show="showChildren"
       :class="{ 'small-menu': smallMenu }"
       class="items-container"
       :style="{ height: containerHeight }"
       ref="container"
-    > -->
+     > -->
       <menu-item
         :class="{ opened: showChildren }"
         v-for="(item, index) in data"
@@ -47,13 +43,17 @@
 </template>
 
 <script>
+import { ref, computed, inject, provide, reactive, toRefs, watch } from 'vue'
+import MenuItemIconVue from './MenuItemIcon.vue'
+
 export default {
   name: 'menu-item',
+  components: { MenuItemIconVue },
   data: () => ({
     showChildren: false,
     expanded: false,
     containerHeight: 0,
-    closeChild:false
+    closeChild: false
   }),
   props: {
     data: {
@@ -75,32 +75,36 @@ export default {
       type: Boolean
     }
   },
-  watch:{
-    close(){
+  watch: {
+    close() {
       this.closeChildren()
     }
   },
-  
+
   computed: {
     showLabel() {
       return this.smallMenu ? this.depth > 0 : true
     },
-    dataClose(){
+    dataClose() {
       return this.data
-    }
-    ,
-    expandClose(){
+    },
+    expandClose() {
       return this.expanded
     }
   },
+  setup(props, context) {
+    // const foo = inject('getSlotByName')
+    // let x = foo("header")
+    // console.log(x)
+  },
   methods: {
-    closeChildren(){
-      if(this.close){
+    closeChildren() {
+      if (this.close) {
         this.expanded = false
         this.closeChild = true
         this.showChildren = false
         this.closeMenu()
-      }else{
+      } else {
         this.closeChild = false
       }
     },
@@ -113,27 +117,27 @@ export default {
         this.closeMenu()
       }
     },
-    closeMenu(){
+    closeMenu() {
       this.containerHeight = this.$refs['container'].scrollHeight + 'px'
-        this.$refs['container'].style.overflow = 'hidden'
-        setTimeout(() => {
-          this.containerHeight = 0 + 'px'
-        }, 10)
-        setTimeout(() => {
-          this.showChildren = false
-        }, 300)
+      this.$refs['container'].style.overflow = 'hidden'
+      setTimeout(() => {
+        this.containerHeight = 0 + 'px'
+      }, 10)
+      setTimeout(() => {
+        this.showChildren = false
+      }, 300)
     },
-    openChildrenMenu(){
+    openChildrenMenu() {
       this.showChildren = true
-        this.$nextTick(() => {
-          this.containerHeight = this.$refs['container'].scrollHeight + 'px'
-          setTimeout(() => {
-            this.containerHeight = 'fit-content'
-            if (navigator.userAgent.indexOf('Firefox') != -1)
-              this.containerHeight = '-moz-max-content'
-            this.$refs['container'].style.overflow = 'visible'
-          }, 300)
-        })
+      this.$nextTick(() => {
+        this.containerHeight = this.$refs['container'].scrollHeight + 'px'
+        setTimeout(() => {
+          this.containerHeight = 'fit-content'
+          if (navigator.userAgent.indexOf('Firefox') != -1)
+            this.containerHeight = '-moz-max-content'
+          this.$refs['container'].style.overflow = 'visible'
+        }, 300)
+      })
     }
   }
 }
@@ -141,8 +145,9 @@ export default {
 
 <style lang="scss" scoped>
 .icooons::after {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>') 50%/2rem 2rem;
-  content: "";
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+    50%/2rem 2rem;
+  content: '';
   -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
   filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
   height: 1.25rem;
@@ -152,86 +157,83 @@ export default {
   transform: rotate(90deg);
   transition: -webkit-transform 200ms linear;
   transition: transform 200ms linear;
-  transition: transform 200ms linear,-webkit-transform 200ms linear;
-  
+  transition: transform 200ms linear, -webkit-transform 200ms linear;
+
   width: 1.25rem;
 }
 .icooons.opened::after {
   -webkit-transform: rotate(180deg) !important;
   transform: rotate(180deg) !important;
 }
-.menu-item2{
+.menu-item2 {
   width: 97%;
   float: right;
   //background-color: rgb(230, 230, 230);
   align-self: center;
-  margin-top:3px;
-  border-radius:4px;
+  margin-top: 3px;
+  border-radius: 4px;
   position: relative;
-  
+
   // padding:12px 16px
   // text-decoration-color:
-   .label {
+  .label {
     flex-direction: row;
     justify-content: space-between;
     white-space: nowrap;
-    padding:6px 12px;
+    padding: 6px 12px;
     width: 100%;
-    border-radius:4px;
+    border-radius: 4px;
     display: flex;
     height: 32px;
     align-items: center;
     user-select: none;
     box-sizing: border-box;
     transition: all 0.3s ease;
-    font-family:"Inter";
+    font-family: 'Inter';
     font-size: 16px;
     font-weight: 400;
-    color:#363636;
+    color: #363636;
     > div {
       display: flex;
       align-items: center;
     }
-    
+
     &:hover {
-      background:rgb(230, 230, 230);
+      background: rgb(230, 230, 230);
       cursor: pointer;
     }
-   }
-   i{
+  }
+  i {
     font-size: 20px;
-   }
-   .left{
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     
-     span{
-      padding-left:8px;
+  }
+  .left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      padding-left: 8px;
       padding-bottom: 1.5px;
-     }
-   }
-   .items-container {
-    width: 100%;
-    left: calc(100% + 6px);
-    transition: height 0.3s ease;
-    overflow: hidden;
-    &.small-menu {
-      width: fit-content;
-      position: absolute;
-      background: #fff;
-      box-shadow: 0 0 10px #ebebeb;
-      top: 0;
-      .label {
-        width: 100% !important;
-        padding-left: 20px !important;
-      }
     }
   }
-  
+  .items-container {
+    // width: 100%;
+    // left: calc(100% + 6px);
+    transition: height 0.3s ease;
+    overflow: hidden;
+    // &.small-menu {
+    //   width: fit-content;
+    //   position: absolute;
+    //   background: #fff;
+    //   box-shadow: 0 0 10px #ebebeb;
+    //   top: 0;
+    //   .label {
+    //     width: 100% !important;
+    //     padding-left: 20px !important;
+    //   }
+    // }
+  }
 }
-
-
 
 .menu-item {
   position: relative;
