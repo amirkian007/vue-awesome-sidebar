@@ -3,12 +3,54 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "A Awesome Vue.js Sidebar Menu Component",
+  "author": "AmirKian Adl <amircc1200@gmail.com>",
+  "license": "MIT",
+  "main": "",
+  "module": "",
+  "unpkg": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amirkian007/vue-awesome-sidebar.git"
+  },
+  "homepage": "",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build-demo": "vue-tsc --noEmit && vite build",
+    "build-component": ""
   },
+  "keywords": [
+    "vue-component",
+    "vue-sidebar",
+    "sidebar",
+    "sidebar-menu",
+    "admin-sidebar",
+    "vue-awesome-sidebar",
+    "sidenav",
+    "vue awesome sidebar",
+    "vue awesome",
+    "nuxt.js 3",
+    "vue.js 3",
+    "vue sidebar",
+    "vue sidebar component",
+    "vue sidebar module",
+    "vue sidebar",
+    "vue menu",
+    "vue.js sidebar",
+    "vue.js sidenav"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "types"
+  ],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "dependencies": {
     "vue": "^3.2.37"
   },
