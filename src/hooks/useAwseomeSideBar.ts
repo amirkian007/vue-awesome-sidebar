@@ -33,9 +33,14 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   //   const onItemClick = (event, item) => {
   //     context.emit('item-click', event, item)
   //   }
+  let userAgentHeight =
+    navigator.userAgent.indexOf('Firefox') != -1
+      ? '-moz-max-content'
+      : 'fit-content'
 
   provide('sidebarProps', props)
   provide('getSlotByName', getSlotByName)
+  provide('browserAgent', userAgentHeight)
   return {
     getIsCollapsed: isCollapsed,
     updateIsCollapsed,
