@@ -1,10 +1,19 @@
-import { ref, computed, inject, provide, reactive, toRefs } from 'vue'
+import {
+  ref,
+  computed,
+  inject,
+  provide,
+  onMounted,
+  reactive,
+  toRefs
+} from 'vue'
 
 export const initAwsomeSideBar = (props: any, context: any) => {
   const { autoCollapse, collapsed, relative, width, widthCollapsed, rtl } =
     toRefs(props)
   const isCollapsed = ref(collapsed.value)
   const slots = ref(context.slots)
+  const menuMounted = ref(false)
   const currentRoute = ref(
     window.location.pathname + window.location.search + window.location.hash
   )
@@ -38,12 +47,18 @@ export const initAwsomeSideBar = (props: any, context: any) => {
       ? '-moz-max-content'
       : 'fit-content'
 
+  onMounted(() => {
+    menuMounted.value = true
+  })
+
   provide('sidebarProps', props)
   provide('getSlotByName', getSlotByName)
   provide('browserAgent', userAgentHeight)
+  provide('menuMounted', menuMounted)
   return {
     getIsCollapsed: isCollapsed,
     updateIsCollapsed,
-    getSlotByName
+    getSlotByName,
+    menuMounted
   }
 }
