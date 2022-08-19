@@ -1,9 +1,13 @@
 .menu {
-  .menuOpenAnimation{
-    transition: height 0.3s ease;
+  .items-container {
+    height: fit-content;
+  }
+  .menuOpenAnimation {
+    // transition: all 0.25s ease;
     overflow: hidden;
   }
-  .menu-icon{
+
+  .menu-icon {
     font-size: 20px;
     width: 20px;
     overflow: hidden;
@@ -15,6 +19,11 @@
   * {
     box-sizing: border-box;
   }
+  .menuexpand .open {
+    //color: red;
+    // -webkit-transform: rotate(180deg) !important;
+    // transform: rotate(180deg) !important;
+  }
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -24,8 +33,8 @@
   top: 0;
   // border-right: 1px solid #ececec;
   // background-color: white;
-  transition: all 0.25s ease-in-out;
-  overflow: auto;
+  transition: all 0.3s ease-in-out;
+  overflow-y: overlay;
   // i {
   //   position: fixed;
   //   left: 250px;
@@ -43,6 +52,22 @@
     //     left: 20px;
     //   }
     left: -300px;
+  }
+  .activeClass {
+    background-color: red;
+  }
+  .miniActive {
+    background-color: blue;
+  }
+  .openAnima {
+    transition: -webkit-transform 250ms linear;
+    transition: transform 250ms linear;
+    transition: transform 250ms linear, -webkit-transform 250ms linear;
+    height: 100%;
+  }
+  .menuexpand .open {
+    -webkit-transform: rotate(180deg) !important;
+    transform: rotate(180deg) !important;
   }
 }
 @import './menu-scrollbar';

@@ -1,21 +1,24 @@
 .menu {
-    &.white-theme {
-        border-right: 1px solid #ececec;
-        background-color: white;
+  &.white-theme {
+    border-right: 1px solid #ececec;
+    background-color: white;
 
-        &::-webkit-scrollbar-thumb {
-            color: rgb(109, 243, 132);
-
-        }
-
-        .menu-item-type-simple-icon {
-            .label {
-                color: #434547;
-                &:hover {
-                  background: rgba(0,0,0,.05);
-                  color:#2c7ae0;
-                }
-            }
-        }
+    &::-webkit-scrollbar-thumb {
+      color: rgb(184, 184, 184);
     }
+
+    .menu-item-type-simple-icon {
+      .label {
+        color: #434547;
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+          color: #2c7ae0;
+        }
+        // &:active {
+        //   background: none;
+        //   color: none;
+        // }
+      }
+    }
+  }
 }
