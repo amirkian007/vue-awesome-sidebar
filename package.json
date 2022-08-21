@@ -15,7 +15,7 @@
   },
   "homepage": "",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "preview": "vite preview",
     "format": "prettier --write .",
     "build-demo": "vue-tsc --noEmit && vite build",
