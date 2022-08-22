@@ -38,7 +38,6 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     currentRoute.value =
       window.location.pathname + window.location.search + window.location.hash
   }
-
   //   const onItemClick = (event, item) => {
   //     context.emit('item-click', event, item)
   //   }
@@ -56,7 +55,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('browserAgent', userAgentHeight)
   provide('menuMounted', menuMounted)
   return {
-    getIsCollapsed: isCollapsed,
+    getIsCollapsed: collapsed,
     updateIsCollapsed,
     getSlotByName,
     menuMounted
