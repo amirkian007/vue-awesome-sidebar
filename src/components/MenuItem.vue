@@ -1,18 +1,13 @@
 <template>
   <div
-    class="menu-item-type-simple-icon"
-   
-    :class="{
-      miniCollapseIconWidth: miniCollapsed && depth == 0,
-      miniCollapseitemWidth: miniCollapsed && depth != 0
-    }"
+    :class="menuItemClass"
     ref="menuItem"
   >
     <div
       v-if="!menuitemSlut"
       class="label"
-       @[shouldMouseEnterEvent]="this.hover = true"
-    @[shouldMouseLeaveEvent]="this.hover = false"
+      @[shouldMouseEnterEvent]="this.hover = true"
+      @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
         menuexpand: expanded,
         activeClass: active,
@@ -81,14 +76,15 @@
       v-if="miniCollapsed"
       v-show="showChildren || depth != 0"
       :class="{ topContainer: depth == 0 }"
-      :style="{ top: containerSS }"
+      :style="{ top: containerSS,left:widthMiniCollapsed }"
     >
       <div
         class="items-container menuOpenAnimation"
         :class="{ 'small-menu': smallMenu }"
         :style="{
           maxHeight: heifth,
-          transition: transitionTime
+          transition: transitionTime,
+          
         }"
         ref="container"
         v-if="data"
@@ -138,7 +134,7 @@ export default {
     miniCollapsedItemContainerHover: false,
     hover: false,
     containerSSS: 0,
-    id:null
+    id: null
   }),
   props: ['data', 'smallMenu', 'close', 'name', 'icon', 'depth', 'href'],
   watch: {
@@ -149,30 +145,29 @@ export default {
       this.checkActive()
     },
     hover() {
-      if(!this.id){
-       this.id= this.getRandomUid()
+      if (!this.id) {
+        this.id = this.getRandomUid()
       }
-        if (this.hover) {
-          this.openItemCildren()
-          this.updateCurrantItemHover(this.id)
-        }else{
-          if((this.CurrantItemHover === this.id) && this.MenuHover){
-
-          }else{
-            this.closeItemChildren()
-            }
+      if (this.hover) {
+        this.updateCurrantItemHover(this.id)
+        this.openItemCildren()
+      } else {
+        if (this.CurrantItemHover === this.id && this.MenuHover) {
+        } else {
+          this.closeItemChildren()
         }
+      }
     },
-    MenuHover(){
-      if(!this.MenuHover){
-      //  this.showChildren = false
+    MenuHover() {
+      if (!this.MenuHover) {
+        //  this.showChildren = false
         this.closeItemChildren()
       }
     },
-    CurrantItemHover(){
-      if(this.CurrantItemHover != this.id ){
-          this.closeItemChildren()
-        }
+    CurrantItemHover() {
+      if (this.CurrantItemHover != this.id) {
+        this.closeItemChildren()
+      }
     },
     MenuScroll() {
       this.containerSSS =
@@ -211,12 +206,22 @@ export default {
     },
     containerSS() {
       return `${this.containerSSS}px`
+    },
+    menuItemClass(){
+    let obj = {}
+    obj[`menu-item-type-${this.menuType}`] = true
+    return {
+       miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
+      miniCollapseitemWidth: this.miniCollapsed && this.depth != 0,
+     ...obj
+    }
+     // return `menu-item-type-${this.menuType}`
     }
   },
   setup(props, context) {
     const router = useRouter()
     const foo = inject('getSlotByName')
-    const { animationDuration } = inject('sidebarProps')
+    const { animationDuration ,menuType,widthMiniCollapsed  } = inject('sidebarProps')
     const { userAgentHeight } = inject('browserAgent')
     const currentRoute = inject('currentRoute')
     const isSameUrl = inject('isSameUrl')
@@ -241,6 +246,8 @@ export default {
       userAgentHeight,
       menuitemSlut,
       isSameUrl,
+      menuType,
+      widthMiniCollapsed,
       extractChildrenRoutes,
       menuMounted,
       currentRoute,
@@ -269,8 +276,7 @@ export default {
             // clearTimeout(this.renderTimeOut)
             this.miniActive = true
             if (this.menuMounted || this.miniCollapsed) break
-            this.expanded = true
-            this.showChildren = true
+            
             this.openItemCildren()
             break
           }
@@ -284,29 +290,27 @@ export default {
       if (!this.data) return
       if (this.showChildren) {
         this.closeItemChildren()
-        } else {
+      } else {
         this.openItemCildren()
       }
       // this.showChildren ? this.openItemCildren() : this.closeItemChildren()
     },
-    setSmallMenuDataForToggle(val){
+    setSmallMenuDataForToggle(val) {
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
       this.expanded = val
       this.showChildren = val
     },
     openItemCildren() {
-      
       if (!this.data) return
-      if(this.expanded)return
+      if (this.expanded) return
       this.setSmallMenuDataForToggle(true)
       this.renderChildren = true
       if (this.cacheHieght) {
         this.containerHeight = this.cacheHieght
       } else {
-        //remove Magic Number 35
         this.containerHeight = this.menuMounted
-          ? this.data.length * 35
+          ? this.data.length * this.$refs['menuItem']?.offsetHeight +3
           : this.userAgentHeight
       }
       this.cacheHieght = null
@@ -339,7 +343,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//make props actually work
 
 @import '../scss/menu-item.scss'; // .menu-item {
 </style>

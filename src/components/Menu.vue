@@ -4,13 +4,21 @@
     ref="sidebarmen"
     :class="sidebarClass"
     :style="{ width: sidebarMenuWidth }"
-    @scroll="onMenuScroll"
-    @mouseenter="()=>{updateMenuHover(true)}"
-    @mouseleave="()=>{updateMenuHover(false)}"
+    @[menuScrollEvent]="onMenuScroll"
+    @{mouseEnterEvent}="
+      () => {
+        updateMenuHover(true)
+      }
+    "
+    @{mouseleaveEvent}="
+      () => {
+        updateMenuHover(false)
+      }
+    "
   >
     <!-- <div class="menu" :class="{ 'small-menu': smallMenu }" > -->
     <slot name="header" />
-    <div v-if="!$slots.header">deafult slot</div>
+    <!-- <div v-if="!$slots.header">deafult slot</div> -->
     <MenuItem
       v-for="(item, index) in menu"
       :key="index"
@@ -28,6 +36,7 @@
       <v-icon color="green darken-2"> mdi-menu-open </v-icon></i
     > -->
   </div>
+  <div v-if="!overLayer" class="over-layer"></div>
 </template>
 
 <script>
@@ -46,7 +55,7 @@ export default {
     },
     menuType: {
       type: String,
-      default: 'simple'
+      default: 'simple-icon'
     },
     collapsed: {
       type: Boolean,
@@ -54,7 +63,7 @@ export default {
     },
     miniCollapsed: {
       type: Boolean,
-      default: true
+      default: false
     },
     animationDuration: {
       type: Number,
@@ -76,28 +85,28 @@ export default {
       type: String,
       default: '65px'
     },
-    theme: {
-      type: String,
-      default: 'white'
-    },
     closeOnClickOutSide: {
       type: Boolean,
-      default: false
+      default: true
     },
+        overLayerOnOpen: {
+          type: Boolean,
+          default: true
+        },
+        overLayerColor: {
+          type: Boolean,
+          default: false
+        },
+      theme: {
+        type: String,
+        default: 'white'
+      },
     rtl: {
       type: Boolean,
       default: false
     },
-    overLayer: {
-      type: Boolean,
-      default: false
-    },
-    overLayerColor: {
-      type: Boolean,
-      default: false
-    },
-    position:{
-      type:String,
+    position: {
+      type: String,
       default: 'fixed'
     }
   },
@@ -115,7 +124,8 @@ export default {
     }
   },
   data: () => ({
-    smallMenu: false
+    smallMenu: false,
+    
   }),
 
   components: {
@@ -128,6 +138,17 @@ export default {
     $route(to) {
       this.updateCurrentRoute(window.location)
       //console.log("routeChnage",to)
+    }
+  },
+  computed:{
+    menuScrollEvent(){
+      return this.miniCollapsed ? "scroll":null
+    },
+    mouseEnterEvent(){
+      return this.miniCollapsed ? "mouseenter":null
+    },
+    mouseLeaveEvent(){
+      return this.miniCollapsed ? "mouseleave":null
     }
   },
   methods: {
@@ -147,33 +168,39 @@ export default {
       // unsetMobileItem,
       // updateCurrentRoute
     } = initAwsomeSideBar(props, context)
-    console.log(miniCollapsed)
     const { updateCurrentRoute } = initAwsomeRouter(props, context)
 
     const sidebarmen = ref(null)
-    const { removeSideBarListner, addSideBarListner } = useClickOutSide(
-      sidebarmen,
-      () => {
-        context.emit('update:collapsed', !isCollapsed.value)
-      },
-      isCollapsed
-    )
+    const overLayer = ref(false)
+    if(props.closeOnClickOutSide){
+      const { removeSideBarListner, addSideBarListner } = useClickOutSide(
+        sidebarmen,
+        () => {
+          context.emit('update:collapsed', !isCollapsed.value)
+        },
+        isCollapsed
+      )
+        watch(
+          () => props.collapsed,
+          (currentCollapsed) => {
+            // updateIsCollapsed(currentCollapsed)
+            if(props.overLayerOnOpen){
+              overLayer.value = currentCollapsed
+            }
+            if (currentCollapsed) {
+              
+              removeSideBarListner()
+            } else {
+              addSideBarListner()
+            }
+          }
+        )
+    }
 
     const sidebarMenuWidth = computed(() => {
       return miniCollapsed.value ? props.widthMiniCollapsed : props.width
     })
 
-    watch(
-      () => props.collapsed,
-      (currentCollapsed) => {
-        // updateIsCollapsed(currentCollapsed)
-        if (currentCollapsed) {
-          removeSideBarListner()
-        } else {
-          addSideBarListner()
-        }
-      }
-    )
 
     const sidebarClass = computed(() => {
       return [
@@ -191,7 +218,8 @@ export default {
       sidebarClass,
       sidebarmen,
       updateCurrentRoute,
-      updateMenuHover
+      updateMenuHover,
+      overLayer
     }
   }
 }
