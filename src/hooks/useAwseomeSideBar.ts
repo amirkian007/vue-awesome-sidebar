@@ -9,17 +9,24 @@ import {
 } from 'vue'
 
 export const initAwsomeSideBar = (props: any, context: any) => {
-  const { autoCollapse, collapsed, relative, width, widthCollapsed, rtl } =
-    toRefs(props)
+  const {
+    autoCollapse,
+    collapsed,
+    relative,
+    width,
+    widthCollapsed,
+    rtl,
+    miniCollapsed
+  } = toRefs(props)
   const isCollapsed = ref(collapsed.value)
   const slots = ref(context.slots)
   const menuMounted = ref(false)
+  const MenuScroll = ref(false)
+  const MenuHover = ref(false)
+  const CurrantItemHover = ref(null)
   const currentRoute = ref(
     window.location.pathname + window.location.search + window.location.hash
   )
-
-  //  if(autoCollapse.value){
-  //  }
 
   const getSlotByName = (slotName: any) => {
     return context.slots.hasOwnProperty(slotName)
@@ -38,6 +45,15 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     currentRoute.value =
       window.location.pathname + window.location.search + window.location.hash
   }
+  const updateMenuScroll = () => {
+    MenuScroll.value = !MenuScroll.value
+  }
+  const updateMenuHover = (val) => {
+    MenuHover.value = val
+  }
+  const updateCurrantItemHover = (id)=>{
+    CurrantItemHover.value = id
+  }
   //   const onItemClick = (event, item) => {
   //     context.emit('item-click', event, item)
   //   }
@@ -45,6 +61,12 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     navigator.userAgent.indexOf('Firefox') != -1
       ? '-moz-max-content'
       : 'fit-content'
+
+  let id = 0
+
+  const getRandomUid = ()=>{
+    return id++
+  }
 
   onMounted(() => {
     menuMounted.value = true
@@ -54,10 +76,19 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('getSlotByName', getSlotByName)
   provide('browserAgent', userAgentHeight)
   provide('menuMounted', menuMounted)
+  provide('miniCollapsed', miniCollapsed)
+  provide('MenuScroll', MenuScroll)
+  provide('MenuHover', MenuHover)
+  provide('getRandomUid', getRandomUid)
+  provide('updateCurrantItemHover', updateCurrantItemHover)
+  provide('CurrantItemHover', CurrantItemHover)
   return {
     getIsCollapsed: collapsed,
+    getIsMiniCollapsed: miniCollapsed,
     updateIsCollapsed,
     getSlotByName,
-    menuMounted
+    menuMounted,
+    updateMenuScroll,
+    updateMenuHover
   }
 }

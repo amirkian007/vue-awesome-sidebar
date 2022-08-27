@@ -1,8 +1,12 @@
 <template>
   <div
     class="menu"
-    :class="{ 'small-menu': getIsCollapsed }"
+    ref="sidebarmen"
+    :class="sidebarClass"
     :style="{ width: sidebarMenuWidth }"
+    @scroll="onMenuScroll"
+    @mouseenter="()=>{updateMenuHover(true)}"
+    @mouseleave="()=>{updateMenuHover(false)}"
   >
     <!-- <div class="menu" :class="{ 'small-menu': smallMenu }" > -->
     <slot name="header" />
@@ -13,6 +17,7 @@
       :data="item.children"
       :name="item.name"
       :icon="item.icon"
+      :href="item.href"
       :depth="0"
       :smallMenu="smallMenu"
       :close="true"
@@ -28,7 +33,9 @@
 <script>
 import MenuItem from './MenuItem.vue'
 import { initAwsomeSideBar } from '../hooks/useAwseomeSideBar'
-import { ref, computed, inject, provide, reactive, toRefs, watch } from 'vue'
+import { useClickOutSide } from '../hooks/useClickOutSide'
+import { initAwsomeRouter } from '../hooks/useAwsomeRouter'
+import { ref, computed, watch } from 'vue'
 
 export default {
   name: 'recursive-menu',
@@ -45,6 +52,14 @@ export default {
       type: Boolean,
       default: false
     },
+    miniCollapsed: {
+      type: Boolean,
+      default: true
+    },
+    animationDuration: {
+      type: Number,
+      default: 290
+    },
     //autoCollapse: {
     //   type: String||Boolean,
     //   default: true
@@ -53,7 +68,7 @@ export default {
       type: String,
       default: '290px'
     },
-    widthCollapsed: {
+    widthMiniCollapsed: {
       type: String,
       default: '65px'
     },
@@ -65,9 +80,25 @@ export default {
       type: String,
       default: 'white'
     },
+    closeOnClickOutSide: {
+      type: Boolean,
+      default: false
+    },
     rtl: {
       type: Boolean,
       default: false
+    },
+    overLayer: {
+      type: Boolean,
+      default: false
+    },
+    overLayerColor: {
+      type: Boolean,
+      default: false
+    },
+    position:{
+      type:String,
+      default: 'fixed'
     }
   },
   emits: {
@@ -75,6 +106,11 @@ export default {
       return !!(event && item)
     },
     'update:collapsed'(collapsed) {
+      //return collapsed
+      return !!(typeof collapsed === 'boolean')
+    },
+    'update:miniCollapsed'(collapsed) {
+      //return collapsed
       return !!(typeof collapsed === 'boolean')
     }
   },
@@ -85,39 +121,78 @@ export default {
   components: {
     MenuItem
   },
-  created() {},
-
-  computed: {
-    hasSlots() {
-      //console.log("change")
-      return this.$slots
+  mounted() {
+    // USAGE
+  },
+  watch: {
+    $route(to) {
+      this.updateCurrentRoute(window.location)
+      //console.log("routeChnage",to)
+    }
+  },
+  methods: {
+    onMenuScroll() {
+      this.updateMenuScroll()
+      //console.log("scrolled")
     }
   },
   setup(props, context) {
-    console.log(props)
     const {
       getIsCollapsed: isCollapsed,
+      getIsMiniCollapsed: miniCollapsed,
       updateIsCollapsed,
-      getSlotByName
+      getSlotByName,
+      updateMenuScroll,
+      updateMenuHover
       // unsetMobileItem,
       // updateCurrentRoute
     } = initAwsomeSideBar(props, context)
+    console.log(miniCollapsed)
+    const { updateCurrentRoute } = initAwsomeRouter(props, context)
+
+    const sidebarmen = ref(null)
+    const { removeSideBarListner, addSideBarListner } = useClickOutSide(
+      sidebarmen,
+      () => {
+        context.emit('update:collapsed', !isCollapsed.value)
+      },
+      isCollapsed
+    )
 
     const sidebarMenuWidth = computed(() => {
-      return props.width
+      return miniCollapsed.value ? props.widthMiniCollapsed : props.width
     })
-    const getIsCollapsed = computed(() => {
-      return isCollapsed.value
-    })
+
     watch(
       () => props.collapsed,
       (currentCollapsed) => {
-        updateIsCollapsed(currentCollapsed)
+        // updateIsCollapsed(currentCollapsed)
+        if (currentCollapsed) {
+          removeSideBarListner()
+        } else {
+          addSideBarListner()
+        }
       }
     )
-    // console.log(isCollapsed.value)
 
-    return { sidebarMenuWidth, getIsCollapsed }
+    const sidebarClass = computed(() => {
+      return [
+        props.theme === 'white' || props.theme === 'dark'
+          ? `${props.theme}-theme`
+          : 'white-theme',
+        isCollapsed.value ? 'compelete-coolapse-menu' : '',
+        miniCollapsed.value && !isCollapsed?.value ? 'mini-coolapse-menu' : ''
+      ]
+    })
+
+    return {
+      sidebarMenuWidth,
+      updateMenuScroll,
+      sidebarClass,
+      sidebarmen,
+      updateCurrentRoute,
+      updateMenuHover
+    }
   }
 }
 </script>

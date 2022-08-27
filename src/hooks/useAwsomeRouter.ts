@@ -1,4 +1,4 @@
-import { ref, computed, inject, watch,provide, reactive, toRefs } from 'vue'
+import { ref, computed, inject, watch, provide, reactive, toRefs } from 'vue'
 //import { useRoute } from 'vue-router';
 
 export const initAwsomeRouter = (props: any, context: any) => {
@@ -11,18 +11,18 @@ export const initAwsomeRouter = (props: any, context: any) => {
   // }, {flush: 'pre', immediate: true, deep: true})
   // let previousUrl = "/";
 
-// const observer = new MutationObserver(() => {
-//   console.log(window.location.href)
-//   if (window.location.href !== previousUrl) {
-//     console.log(`URL changed from ${previousUrl} to ${window.location.href}`);
-//     previousUrl = window.location.href;
-//     // do your thing
-//   }
-// });
-// const config = { subtree: true, childList: true };
+  // const observer = new MutationObserver(() => {
+  //   console.log(window.location.href)
+  //   if (window.location.href !== previousUrl) {
+  //     console.log(`URL changed from ${previousUrl} to ${window.location.href}`);
+  //     previousUrl = window.location.href;
+  //     // do your thing
+  //   }
+  // });
+  // const config = { subtree: true, childList: true };
 
-// // start observing change
-// observer.observe(document, config);
+  // // start observing change
+  // observer.observe(document, config);
 
   function isSameUrl(url, location = currentRoute.value) {
     var path = function (s) {
@@ -34,7 +34,7 @@ export const initAwsomeRouter = (props: any, context: any) => {
       location.hash == url
     )
   }
-  
+
   function extractChildrenRoutes(obj, keyToFind) {
     if (!obj) return
     return Object.entries(obj).reduce(
@@ -52,7 +52,7 @@ export const initAwsomeRouter = (props: any, context: any) => {
   //  }
 
   const updateCurrentRoute = (val: boolean) => {
-    currentRoute.value = {...val}
+    currentRoute.value = { ...val }
   }
   const updateSlots = (val: any) => {
     slots.value = val

@@ -1,12 +1,10 @@
 <template>
   <component
     :is="icon?.element ? icon.element : 'i'"
-    class="material-icons-outlined"
-    :class="
-      typeof icon === 'string' || icon instanceof String ? icon : icon.class
-    "
+    class="menu-icon"
+    :class="icon?.class ? icon?.class : ''"
     aria-hidden="true"
-    v-bind="icon.attributes"
+    v-bind="icon?.attributes"
   >
     {{ icon.text }}
   </component>
@@ -17,7 +15,6 @@ export default {
   name: 'MenuItemIcon',
   props: {
     icon: {
-      type: [String, Object],
       default: ''
     }
   }
