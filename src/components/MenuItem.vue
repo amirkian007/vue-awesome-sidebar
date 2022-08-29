@@ -1,8 +1,5 @@
 <template>
-  <div
-    :class="menuItemClass"
-    ref="menuItem"
-  >
+  <div :class="menuItemClass" ref="menuItem">
     <div
       v-if="!menuitemSlut"
       class="label"
@@ -29,13 +26,12 @@
         <div
           v-if="data && !iconSlut"
           class="icons"
-          :class="{ opened: showChildren }"
+          :class="{ opened: showChildren, openAnima: openAnimation }"
         ></div>
         <!--slot for menuitem prepand icon-->
         <div
           v-if="data && iconSlut"
-          class="openAnima"
-          :class="{ open: showChildren }"
+          :class="{ open: showChildren, openAnima: openAnimation }"
         >
           <component v-if="iconSlut" :icon="icon" :is="iconSlut"> </component>
         </div>
@@ -76,15 +72,14 @@
       v-if="miniCollapsed"
       v-show="showChildren || depth != 0"
       :class="{ topContainer: depth == 0 }"
-      :style="{ top: containerSS,left:widthMiniCollapsed }"
+      :style="{ top: ContainerOffsetYConputed, left: widthMiniCollapsed }"
     >
       <div
         class="items-container menuOpenAnimation"
         :class="{ 'small-menu': smallMenu }"
         :style="{
           maxHeight: heifth,
-          transition: transitionTime,
-          
+          transition: transitionTime
         }"
         ref="container"
         v-if="data"
@@ -111,7 +106,7 @@
 <script>
 import { computed, inject } from 'vue'
 import MenuItemIconVue from './MenuItemIcon.vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 export default {
   name: 'menu-item',
   components: { MenuItemIconVue },
@@ -133,7 +128,7 @@ export default {
     miniCollapsedItemIconHover: false,
     miniCollapsedItemContainerHover: false,
     hover: false,
-    containerSSS: 0,
+    ContainerOffsetY: 0,
     id: null
   }),
   props: ['data', 'smallMenu', 'close', 'name', 'icon', 'depth', 'href'],
@@ -170,16 +165,20 @@ export default {
       }
     },
     MenuScroll() {
-      this.containerSSS =
-        this.$refs['menuItem'].getBoundingClientRect().top + window.scrollY
+      if (this.depth == 0) {
+        this.ContainerOffsetY =
+          this.$refs['menuItem'].getBoundingClientRect().top + window.scrollY
+      }
     }
   },
   created() {
     this.checkActive()
   },
   mounted() {
-    this.containerSSS =
-      this.$refs['menuItem'].getBoundingClientRect().top + window.scrollY
+    if (this.depth == 0) {
+      this.ContainerOffsetY =
+        this.$refs['menuItem'].getBoundingClientRect().top + window.scrollY
+    }
   },
   computed: {
     showLabel() {
@@ -204,24 +203,25 @@ export default {
     shouldMouseLeaveEvent() {
       return this.miniCollapsed && this.depth == 0 ? 'mouseleave' : null
     },
-    containerSS() {
-      return `${this.containerSSS}px`
+    ContainerOffsetYConputed() {
+      return `${this.ContainerOffsetY - 3}px`
     },
-    menuItemClass(){
-    let obj = {}
-    obj[`menu-item-type-${this.menuType}`] = true
-    return {
-       miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
-      miniCollapseitemWidth: this.miniCollapsed && this.depth != 0,
-     ...obj
-    }
-     // return `menu-item-type-${this.menuType}`
+    menuItemClass() {
+      let obj = {}
+      obj[`menu-item-type-${this.menuType}`] = true
+      return {
+        miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
+        miniCollapseitemWidth: this.miniCollapsed && this.depth != 0,
+        ...obj
+      }
+      // return `menu-item-type-${this.menuType}`
     }
   },
-  setup(props, context) {
+  setup() {
     const router = useRouter()
     const foo = inject('getSlotByName')
-    const { animationDuration ,menuType,widthMiniCollapsed  } = inject('sidebarProps')
+    const { animationDuration, menuType, widthMiniCollapsed, openAnimation } =
+      inject('sidebarProps')
     const { userAgentHeight } = inject('browserAgent')
     const currentRoute = inject('currentRoute')
     const isSameUrl = inject('isSameUrl')
@@ -257,7 +257,8 @@ export default {
       MenuHover,
       getRandomUid,
       updateCurrantItemHover,
-      CurrantItemHover
+      CurrantItemHover,
+      openAnimation
     }
   },
   methods: {
@@ -276,7 +277,6 @@ export default {
             // clearTimeout(this.renderTimeOut)
             this.miniActive = true
             if (this.menuMounted || this.miniCollapsed) break
-            
             this.openItemCildren()
             break
           }
@@ -288,6 +288,8 @@ export default {
     toggleMenu() {
       if (this?.href) this.$router.push(this.href)
       if (!this.data) return
+      clearTimeout(this.hieghtTimeout)
+      clearTimeout(this.renderTimeOut)
       if (this.showChildren) {
         this.closeItemChildren()
       } else {
@@ -310,16 +312,19 @@ export default {
         this.containerHeight = this.cacheHieght
       } else {
         this.containerHeight = this.menuMounted
-          ? this.data.length * this.$refs['menuItem']?.offsetHeight +3
+          ? this.data.length * this.$refs['menuItem']?.offsetHeight + 3
           : this.userAgentHeight
       }
       this.cacheHieght = null
       //if manue is not maounted remove a
       if (!this.menuMounted) return
       //add animation
-      this.hieghtTimeout = setTimeout(() => {
-        this.containerHeight = this.userAgentHeight
-      }, this.animationDurationTime)
+      this.hieghtTimeout = setTimeout(
+        () => {
+          this.containerHeight = this.userAgentHeight
+        },
+        this.openAnimation ? this.animationDurationTime : 0
+      )
     },
     closeItemChildren() {
       if (!this.data) return
@@ -333,16 +338,18 @@ export default {
         this.containerHeight = 0
       }, 0)
       //return if keepchildren open
-      this.renderTimeOut = setTimeout(() => {
-        this.renderChildren = false
-        this.cacheHieght = null
-      }, this.animationDurationTime)
+      this.renderTimeOut = setTimeout(
+        () => {
+          this.renderChildren = false
+          this.cacheHieght = null
+        },
+        this.openAnimation ? this.animationDurationTime : 0
+      )
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 @import '../scss/menu-item.scss'; // .menu-item {
 </style>

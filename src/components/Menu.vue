@@ -3,18 +3,10 @@
     class="menu"
     ref="sidebarmen"
     :class="sidebarClass"
-    :style="{ width: sidebarMenuWidth }"
+    :style="{ width: sidebarMenuWidth, position: position }"
     @[menuScrollEvent]="onMenuScroll"
-    @{mouseEnterEvent}="
-      () => {
-        updateMenuHover(true)
-      }
-    "
-    @{mouseleaveEvent}="
-      () => {
-        updateMenuHover(false)
-      }
-    "
+    @[mouseEnterEvent]="onEnter"
+    @[mouseLeaveEvent]="onLeave"
   >
     <!-- <div class="menu" :class="{ 'small-menu': smallMenu }" > -->
     <slot name="header" />
@@ -36,7 +28,13 @@
       <v-icon color="green darken-2"> mdi-menu-open </v-icon></i
     > -->
   </div>
-  <div v-if="!overLayer" class="over-layer"></div>
+   <Transition>
+  <div
+    v-if="overLayer"
+    class="over-layer"
+    :style="{ backgroundColor: overLayerColor }"
+  ></div>
+  </Transition>
 </template>
 
 <script>
@@ -81,33 +79,37 @@ export default {
       type: String,
       default: '65px'
     },
-    collapseBreakPoint: {
-      type: String,
-      default: '65px'
-    },
     closeOnClickOutSide: {
       type: Boolean,
-      default: true
+      default: false
     },
-        overLayerOnOpen: {
-          type: Boolean,
-          default: true
-        },
-        overLayerColor: {
-          type: Boolean,
-          default: false
-        },
-      theme: {
-        type: String,
-        default: 'white'
-      },
-    rtl: {
+    overLayerOnOpen: {
       type: Boolean,
       default: false
+    },
+    overLayerColor: {
+      type: String,
+      default: 'rgba(0,0,0,.6)'
+    },
+    openAnimation: {
+      type: Boolean,
+      default: true
     },
     position: {
       type: String,
       default: 'fixed'
+    },
+    collapseBreakPoint: {
+      type: String,
+      default: '65px'
+    },
+    theme: {
+      type: String,
+      default: 'white'
+    },
+    rtl: {
+      type: Boolean,
+      default: false
     }
   },
   emits: {
@@ -124,8 +126,7 @@ export default {
     }
   },
   data: () => ({
-    smallMenu: false,
-    
+    smallMenu: false
   }),
 
   components: {
@@ -140,21 +141,27 @@ export default {
       //console.log("routeChnage",to)
     }
   },
-  computed:{
-    menuScrollEvent(){
-      return this.miniCollapsed ? "scroll":null
+  computed: {
+    menuScrollEvent() {
+      return this.miniCollapsed ? 'scroll' : null
     },
-    mouseEnterEvent(){
-      return this.miniCollapsed ? "mouseenter":null
+    mouseEnterEvent() {
+      return this.miniCollapsed ? 'mouseenter' : null
     },
-    mouseLeaveEvent(){
-      return this.miniCollapsed ? "mouseleave":null
+    mouseLeaveEvent() {
+      return this.miniCollapsed ? 'mouseleave' : null
     }
   },
   methods: {
     onMenuScroll() {
       this.updateMenuScroll()
       //console.log("scrolled")
+    },
+    onEnter() {
+      this.updateMenuHover(true)
+    },
+    onLeave() {
+      this.updateMenuHover(false)
     }
   },
   setup(props, context) {
@@ -172,7 +179,10 @@ export default {
 
     const sidebarmen = ref(null)
     const overLayer = ref(false)
-    if(props.closeOnClickOutSide){
+    if (props.closeOnClickOutSide) {
+      if (props.overLayerOnOpen) {
+            overLayer.value = !props.collapsed
+          }
       const { removeSideBarListner, addSideBarListner } = useClickOutSide(
         sidebarmen,
         () => {
@@ -180,27 +190,25 @@ export default {
         },
         isCollapsed
       )
-        watch(
-          () => props.collapsed,
-          (currentCollapsed) => {
-            // updateIsCollapsed(currentCollapsed)
-            if(props.overLayerOnOpen){
-              overLayer.value = currentCollapsed
-            }
-            if (currentCollapsed) {
-              
-              removeSideBarListner()
-            } else {
-              addSideBarListner()
-            }
+      watch(
+        () => props.collapsed,
+        (currentCollapsed) => {
+          // updateIsCollapsed(currentCollapsed)
+          if (props.overLayerOnOpen) {
+            overLayer.value = !currentCollapsed
           }
-        )
+          if (currentCollapsed) {
+            removeSideBarListner()
+          } else {
+            addSideBarListner()
+          }
+        }
+      )
     }
 
     const sidebarMenuWidth = computed(() => {
       return miniCollapsed.value ? props.widthMiniCollapsed : props.width
     })
-
 
     const sidebarClass = computed(() => {
       return [
@@ -208,7 +216,7 @@ export default {
           ? `${props.theme}-theme`
           : 'white-theme',
         isCollapsed.value ? 'compelete-coolapse-menu' : '',
-        miniCollapsed.value && !isCollapsed?.value ? 'mini-coolapse-menu' : ''
+        miniCollapsed.value ? 'mini-coolapse-menu' : ''
       ]
     })
 
@@ -226,5 +234,14 @@ export default {
 </script>
 
 <style lang="scss">
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 300ms ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 @import '../scss/vue-awesome-sidebar.scss';
 </style>

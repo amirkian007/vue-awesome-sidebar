@@ -51,7 +51,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const updateMenuHover = (val) => {
     MenuHover.value = val
   }
-  const updateCurrantItemHover = (id)=>{
+  const updateCurrantItemHover = (id) => {
     CurrantItemHover.value = id
   }
   //   const onItemClick = (event, item) => {
@@ -62,9 +62,9 @@ export const initAwsomeSideBar = (props: any, context: any) => {
       ? '-moz-max-content'
       : 'fit-content'
 
-  let id = 0
+  let id = 3
 
-  const getRandomUid = ()=>{
+  const getRandomUid = () => {
     return id++
   }
 
