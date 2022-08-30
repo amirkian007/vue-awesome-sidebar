@@ -1,12 +1,11 @@
 .menu-item-type-simple-icon {
   float: right;
-  align-self: center;
+  align-self:flex-start;
   position: relative;
   .label {
     flex-direction: row;
     justify-content: space-between;
     white-space: nowrap;
-    width: 100%;
     display: flex;
     // color: #0094ff;
     align-items: center;
@@ -16,6 +15,7 @@
     font-family: 'Inter'; //r
     font-size: 16px; //d
     font-weight: 400; //d
+    width: 100%;
     > .left {
       display: flex;
       align-items: center;

@@ -2,6 +2,15 @@
   //   transition: 2s;
   width: 14px;
 }
+.menu {
+  &.compelete-coolapse-menu::-webkit-scrollbar {
+    width: 14px;
+  }
+  &.mini-coolapse-menu::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+
 .menu::-webkit-scrollbar-thumb {
   background-clip: content-box;
   border: 4px solid transparent;
