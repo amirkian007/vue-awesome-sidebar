@@ -9,11 +9,19 @@
 
     .menu-item-type-simple-icon {
       .label {
+        &.activeClass {
+          background: rgba(0, 0, 0, 0.05);
+          color: #2c7ae0;
+        }
+        &.miniActive {
+          color: #2c7ae0;
+        }
         color: #434547;
         &:hover {
           background: rgba(0, 0, 0, 0.05);
           color: #2c7ae0;
         }
+
         // &:active {
         //   background: none;
         //   color: none;

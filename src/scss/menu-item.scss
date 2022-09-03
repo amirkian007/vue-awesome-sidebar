@@ -1,7 +1,30 @@
 .menu-item-type-simple-icon {
   float: right;
-  align-self:flex-start;
+  // align-self: flex-start;
   position: relative;
+  .labelMini {
+    //left: calc(-39px + 15px) !important;
+    //padding-left:calc(-39px + 15px) !important; ;
+    flex-direction: row;
+    justify-content: space-between;
+    white-space: nowrap;
+    display: flex;
+
+    align-items: center;
+    user-select: none;
+
+    position: fixed;
+    width: 200px;
+    font-size: 16px; //d
+
+    //left: 55.25px;
+    //   padding-left: 400px; width+ left
+    //   margin-left: -12px;
+    //   background: rgba(0, 0, 0, 0.05);
+    //           color: #2c7ae0;
+    //     padding: 6px 12px;
+    // width:500px !important;
+  }
   .label {
     flex-direction: row;
     justify-content: space-between;
@@ -15,11 +38,12 @@
     font-family: 'Inter'; //r
     font-size: 16px; //d
     font-weight: 400; //d
-    width: 100%;
     > .left {
       display: flex;
       align-items: center;
     }
+
+    position: relative;
     // &:hover {
 
     // }
