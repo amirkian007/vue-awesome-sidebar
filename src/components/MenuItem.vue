@@ -1,26 +1,28 @@
 <template>
   <div :class="menuItemClass" ref="menuItem">
     <div
+      lang
       v-if="!menuitemSlut"
       class="label"
       @[shouldMouseEnterEvent]="this.hover = true"
       @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
         menuexpand: expanded,
+        menuexpand2: miniCollapsed && expanded,
         activeClass: active,
-        miniActive: miniActive
+        miniActive: miniActive,
+        hoverClass: MiniCollapsemainItemHover
       }"
       @click="toggleMenu()"
     >
-      <div class="left" :class="{ marginAuto: miniCollapsed && depth == 0 }">
+      <div class="left" :class="{ marginAuto: miniCollapsed && depth === 0 }">
         <MenuItemIconVue v-if="!menuitemion" :icon="icon" />
         <!--slot for menuitem icon-->
         <component v-else :is="menuitemion" :iconData="icon"></component>
 
-        <span
-          v-if="(showLabel && miniCollapsed && depth != 0) || !miniCollapsed"
-          >{{ name }}</span
-        >
+        <span v-if="(showLabel && alignStart) || !miniCollapsed">{{
+          name
+        }}</span>
       </div>
       <template v-if="(miniCollapsed && depth != 0) || !miniCollapsed">
         <div
@@ -69,11 +71,35 @@
     </div>
     <!-- -->
     <div
+      class="parent"
+      @mouseenter="MiniCollapseContainerHover = true"
+      @mouseleave="MiniCollapseContainerHover = false"
       v-if="miniCollapsed"
       v-show="showChildren || depth != 0"
       :class="{ topContainer: depth == 0 }"
       :style="{ top: ContainerOffsetYConputed, left: widthMiniCollapsed }"
     >
+      <div
+        @mouseenter="MiniCollapsemainItemHover = true"
+        @mouseleave="MiniCollapsemainItemHover = false"
+        v-if="depth === 0"
+        class="labelMini"
+        :class="{
+          miniActive: miniActive,
+          activeClass: active,
+          fadeee: expanded,
+          fadeeeOut: !hover && !MiniCollapsemainItemHover
+        }"
+        :style="{
+          left: miniMenuOffsetX + 'px',
+          height: miniMenuOffsetHeight + 'px'
+        }"
+      >
+        <span>
+          {{ name }}
+        </span>
+      </div>
+      <div v-if="depth == 0" style="height: 32px"></div>
       <div
         class="items-container menuOpenAnimation"
         :class="{ 'small-menu': smallMenu }"
@@ -129,7 +155,13 @@ export default {
     miniCollapsedItemContainerHover: false,
     hover: false,
     ContainerOffsetY: 0,
-    id: null
+    id: null,
+    MiniCollapseContainerHover: false,
+    alignStart: true,
+    showText: true,
+    miniMenuOffsetX: 50,
+    menuexpandcOMPLETE: false,
+    MiniCollapsemainItemHover: false
   }),
   props: ['data', 'smallMenu', 'close', 'name', 'icon', 'depth', 'href'],
   watch: {
@@ -156,29 +188,64 @@ export default {
     MenuHover() {
       if (!this.MenuHover) {
         //  this.showChildren = false
+        // if(this?.href && this.isSameUrl(this?.href)){
+        //   this.miniActive = false
+        // }else{
+        // }
         this.closeItemChildren()
+      } else {
       }
     },
     CurrantItemHover() {
+      //   this.miniActive =this.CurrantItemHover != this.id
       if (this.CurrantItemHover != this.id) {
+        //this.miniActive = false
         this.closeItemChildren()
+      } else {
+        // this.miniActive = true
       }
     },
     MenuScroll() {
-      if (this.depth == 0) {
-        this.ContainerOffsetY =
-          this.$refs['menuItem'].getBoundingClientRect().top + window.scrollY
+      this.setItemOffsetHeight()
+    },
+    miniCollapsed() {
+      if (this.miniCollapsed) {
+        this.closeItemChildren()
+        this.alignStart = false
+
+        setTimeout(() => {}, 300)
       }
+      this.$nextTick(() => {
+        this.setItemOffsetHeight()
+      })
+    },
+    MiniCollapseContainerHover() {
+      //this.miniActive = this.MiniCollapseContainerHover
     }
   },
   created() {
     this.checkActive()
   },
   mounted() {
-    if (this.depth == 0) {
-      this.ContainerOffsetY =
-        this.$refs['menuItem'].getBoundingClientRect().top + window.scrollY
-    }
+    //console.log( this.$refs['menuItem2'])
+    this.setItemOffsetHeight()
+    //     if(!this.miniCollapsed)return
+    // console.log(this.$refs)
+    //     var div1rect = this.$refs['menuItem'].getBoundingClientRect();
+    // var div2rect = this.$refs['menuItem2'].getBoundingClientRect();
+
+    // // get div1's center point
+    // var div1x = div1rect.left + div1rect.width/2;
+    // var div1y = div1rect.top + div1rect.height/2;
+
+    // // get div2's center point
+    // var div2x = div2rect.left + div2rect.width/2;
+    // var div2y = div2rect.top + div2rect.height/2;
+
+    // // calculate the distance using the Pythagorean Theorem (a^2 + b^2 = c^2)
+    // var distanceSquared = Math.pow(div1x - div2x, 2) + Math.pow(div1y - div2y, 2);
+    // var distance = Math.sqrt(distanceSquared);
+    //     console.log(distance)
   },
   computed: {
     showLabel() {
@@ -212,16 +279,26 @@ export default {
       return {
         miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
         miniCollapseitemWidth: this.miniCollapsed && this.depth != 0,
+        alignStart: this.alignStart,
+        alignCenter: !this.alignStart,
         ...obj
       }
       // return `menu-item-type-${this.menuType}`
+    },
+    showOnMiniCollapse() {
+      showText && miniCollapsed && depth != 0
     }
   },
   setup() {
     const router = useRouter()
     const foo = inject('getSlotByName')
-    const { animationDuration, menuType, widthMiniCollapsed, openAnimation } =
-      inject('sidebarProps')
+    const {
+      animationDuration,
+      menuType,
+      widthMiniCollapsed,
+      openAnimation,
+      collapsed: menuCollapsed
+    } = inject('sidebarProps')
     const { userAgentHeight } = inject('browserAgent')
     const currentRoute = inject('currentRoute')
     const isSameUrl = inject('isSameUrl')
@@ -232,6 +309,7 @@ export default {
     const MenuHover = inject('MenuHover')
     const getRandomUid = inject('getRandomUid')
     const updateCurrantItemHover = inject('updateCurrantItemHover')
+    const updateCurranContainerHover = inject('updateCurranContainerHover')
     const CurrantItemHover = inject('CurrantItemHover')
     const animationDurationTime = computed(() => {
       return animationDuration
@@ -240,8 +318,10 @@ export default {
     let menuitemion = foo('menuitemion')
     let menuitemSlut = foo('menuitem')
     return {
+      menuCollapsed,
       iconSlut,
       menuitemion,
+      updateCurranContainerHover,
       animationDurationTime,
       userAgentHeight,
       menuitemSlut,
@@ -318,6 +398,9 @@ export default {
       this.cacheHieght = null
       //if manue is not maounted remove a
       if (!this.menuMounted) return
+      if (this.miniCollapsed && this.depth === 0) {
+        this.containerHeight = this.userAgentHeight
+      }
       //add animation
       this.hieghtTimeout = setTimeout(
         () => {
@@ -325,6 +408,9 @@ export default {
         },
         this.openAnimation ? this.animationDurationTime : 0
       )
+      this.$nextTick(() => {
+        this.menuexpandcOMPLETE = this.expanded
+      })
     },
     closeItemChildren() {
       if (!this.data) return
@@ -345,11 +431,60 @@ export default {
         },
         this.openAnimation ? this.animationDurationTime : 0
       )
+    },
+    setItemOffsetHeight() {
+      if (this.depth == 0) {
+        const x = this.$refs['menuItem'].getBoundingClientRect()
+        this.ContainerOffsetY = x.top + window.scrollY
+        this.miniMenuOffsetX = x.width + x.left
+        this.miniMenuOffsetHeight = x.height
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.alignStart {
+  align-self: flex-start;
+}
+.alignCenter {
+  align-self: center;
+}
+
+.fadeee {
+  overflow: hidden;
+  animation: fade1 0.3s forwards;
+}
+@keyframes fade1 {
+  0% {
+    background-color: none;
+  }
+  100% {
+    color: #2c7ae0;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+.fadeeeOut {
+  //width: 200px;
+  animation: fade1out 0.3s forwards;
+}
+@keyframes fade1out {
+  0% {
+    color: #2c7ae0;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  100% {
+    background-color: none;
+  }
+}
+// .fade-enter-from {
+//    background-color: none;
+
+// }
+// .fade-enter-to{
+//    background-color:  rgba(0, 0, 0, 0.05);
+
+// }
 @import '../scss/menu-item.scss'; // .menu-item {
 </style>
