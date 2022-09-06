@@ -16,16 +16,25 @@
         &.miniActive {
           color: #2c7ae0;
         }
-        color: #434547;
+        color: #1C1E21;
         &:hover {
           background: rgba(0, 0, 0, 0.05);
-          color: #2c7ae0;
+          //color: #2c7ae0;
         }
 
         // &:active {
         //   background: none;
         //   color: none;
         // }
+      }
+      .labelMini {
+        &.activeClass {
+          background: rgba(0, 0, 0, 0.05);
+          color: #2c7ae0;
+        }
+        &.miniActive {
+          color: #2c7ae0;
+        }
       }
     }
   }

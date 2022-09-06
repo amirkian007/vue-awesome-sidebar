@@ -22,8 +22,9 @@
     width: 70%;
   }
   &.miniCollapseitemWidth {
-    width: 98%;
-    //  transform: translate(-1.75%);
+    width: 95%;
+    margin-left: auto;
+     // transform: translate(-2.5%);
   }
   .label {
     padding: 6px 12px;
@@ -85,6 +86,10 @@
     color: red;
     -webkit-transform: rotate(180deg) !important;
     transform: rotate(180deg) !important;
+  }
+  .menuexpand2 {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
   }
 }
 

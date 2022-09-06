@@ -1,5 +1,6 @@
 <template>
-  <div :class="menuItemClass" ref="menuItem">
+  <div :class="menuItemClass" ref="menuItem"
+   :style="{float:miniCollapsed && (depth === 1) ?'left':''}" >
     <div
       lang
       v-if="!menuitemSlut"
@@ -229,23 +230,7 @@ export default {
   mounted() {
     //console.log( this.$refs['menuItem2'])
     this.setItemOffsetHeight()
-    //     if(!this.miniCollapsed)return
-    // console.log(this.$refs)
-    //     var div1rect = this.$refs['menuItem'].getBoundingClientRect();
-    // var div2rect = this.$refs['menuItem2'].getBoundingClientRect();
-
-    // // get div1's center point
-    // var div1x = div1rect.left + div1rect.width/2;
-    // var div1y = div1rect.top + div1rect.height/2;
-
-    // // get div2's center point
-    // var div2x = div2rect.left + div2rect.width/2;
-    // var div2y = div2rect.top + div2rect.height/2;
-
-    // // calculate the distance using the Pythagorean Theorem (a^2 + b^2 = c^2)
-    // var distanceSquared = Math.pow(div1x - div2x, 2) + Math.pow(div1y - div2y, 2);
-    // var distance = Math.sqrt(distanceSquared);
-    //     console.log(distance)
+  
   },
   computed: {
     showLabel() {
@@ -291,7 +276,7 @@ export default {
   },
   setup() {
     const router = useRouter()
-    const foo = inject('getSlotByName')
+    const getSlots = inject('getSlotByName')
     const {
       animationDuration,
       menuType,
@@ -314,9 +299,9 @@ export default {
     const animationDurationTime = computed(() => {
       return animationDuration
     })
-    let iconSlut = foo('icons')
-    let menuitemion = foo('menuitemion')
-    let menuitemSlut = foo('menuitem')
+    let iconSlut = getSlots('icons')
+    let menuitemion = getSlots('menuitemion')
+    let menuitemSlut = getSlots('menuitem')
     return {
       menuCollapsed,
       iconSlut,
@@ -445,6 +430,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use '../scss/menu-item.scss';
 .alignStart {
   align-self: flex-start;
 }
@@ -461,7 +447,7 @@ export default {
     background-color: none;
   }
   100% {
-    color: #2c7ae0;
+   // color: #2c7ae0;
     background-color: rgba(0, 0, 0, 0.05);
   }
 }
@@ -471,7 +457,7 @@ export default {
 }
 @keyframes fade1out {
   0% {
-    color: #2c7ae0;
+    //color: #2c7ae0;
     background-color: rgba(0, 0, 0, 0.05);
   }
   100% {
@@ -486,5 +472,6 @@ export default {
 //    background-color:  rgba(0, 0, 0, 0.05);
 
 // }
-@import '../scss/menu-item.scss'; // .menu-item {
+// remove space from left side
+ // .menu-item {
 </style>

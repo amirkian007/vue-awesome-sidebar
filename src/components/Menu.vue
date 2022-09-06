@@ -21,6 +21,7 @@
       :depth="0"
       :smallMenu="smallMenu"
       :close="true"
+      :siblingsHaveIcon="true"
     />
 
     <div class="footer-slot">footer</div>
@@ -28,12 +29,12 @@
       <v-icon color="green darken-2"> mdi-menu-open </v-icon></i
     > -->
   </div>
-   <Transition>
-  <div
-    v-if="overLayer"
-    class="over-layer"
-    :style="{ backgroundColor: overLayerColor }"
-  ></div>
+  <Transition>
+    <div
+      v-if="overLayer"
+      class="over-layer"
+      :style="{ backgroundColor: overLayerColor }"
+    ></div>
   </Transition>
 </template>
 
@@ -181,8 +182,8 @@ export default {
     const overLayer = ref(false)
     if (props.closeOnClickOutSide) {
       if (props.overLayerOnOpen) {
-            overLayer.value = !props.collapsed
-          }
+        overLayer.value = !props.collapsed
+      }
       const { removeSideBarListner, addSideBarListner } = useClickOutSide(
         sidebarmen,
         () => {
@@ -227,13 +228,15 @@ export default {
       sidebarmen,
       updateCurrentRoute,
       updateMenuHover,
-      overLayer
+      overLayer,
+      isCollapsed
     }
   }
 }
 </script>
 
 <style lang="scss">
+  @use '../scss/vue-awesome-sidebar.scss';
 .v-enter-active,
 .v-leave-active {
   transition: opacity 300ms ease;
@@ -243,5 +246,4 @@ export default {
 .v-leave-to {
   opacity: 0;
 }
-@import '../scss/vue-awesome-sidebar.scss';
 </style>
