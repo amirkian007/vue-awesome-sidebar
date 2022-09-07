@@ -1,6 +1,10 @@
 <template>
-  <div :class="menuItemClass" ref="menuItem"
-   :style="{float:miniCollapsed && (depth === 1) ?'left':''}" >
+  <div
+    :class="menuItemClass"
+    ref="menuItem"
+    class="menu-item-base"
+    :style="{ float: miniCollapsed && depth === 1 ? 'left' : '' }"
+  >
     <div
       lang
       v-if="!menuitemSlut"
@@ -230,7 +234,6 @@ export default {
   mounted() {
     //console.log( this.$refs['menuItem2'])
     this.setItemOffsetHeight()
-  
   },
   computed: {
     showLabel() {
@@ -438,32 +441,6 @@ export default {
   align-self: center;
 }
 
-.fadeee {
-  overflow: hidden;
-  animation: fade1 0.3s forwards;
-}
-@keyframes fade1 {
-  0% {
-    background-color: none;
-  }
-  100% {
-   // color: #2c7ae0;
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-}
-.fadeeeOut {
-  //width: 200px;
-  animation: fade1out 0.3s forwards;
-}
-@keyframes fade1out {
-  0% {
-    //color: #2c7ae0;
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  100% {
-    background-color: none;
-  }
-}
 // .fade-enter-from {
 //    background-color: none;
 
@@ -473,5 +450,5 @@ export default {
 
 // }
 // remove space from left side
- // .menu-item {
+// .menu-item {
 </style>
