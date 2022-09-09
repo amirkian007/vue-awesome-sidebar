@@ -3,7 +3,12 @@
     class="menu"
     ref="sidebarmen"
     :class="sidebarClass"
-    :style="{ width: sidebarMenuWidth, position: position }"
+    :style="{
+      width: sidebarMenuWidth,
+      position: position,
+      left: isCollapsed ? `calc(-1*(${sidebarMenuWidth} + 2px))` : '0px',
+      transition: `${transition} 0.3s ease-in-out`
+    }"
     @[menuScrollEvent]="onMenuScroll"
     @[mouseEnterEvent]="onEnter"
     @[mouseLeaveEvent]="onLeave"
@@ -11,18 +16,21 @@
     <!-- <div class="menu" :class="{ 'small-menu': smallMenu }" > -->
     <slot name="header" />
     <!-- <div v-if="!$slots.header">deafult slot</div> -->
-    <MenuItem
-      v-for="(item, index) in menu"
-      :key="index"
-      :data="item.children"
-      :name="item.name"
-      :icon="item.icon"
-      :href="item.href"
-      :depth="0"
-      :smallMenu="smallMenu"
-      :close="true"
-      :siblingsHaveIcon="true"
-    />
+    <template v-for="(item, index) in menu" :key="index">
+      <HeaderItem v-if="item?.header && !miniCollapsed" :data="item" />
+      <MenuItem
+        v-if="!item?.header"
+        :data="item.children"
+        :name="item.name"
+        :icon="item.icon"
+        :href="item.href"
+        :header="item.header"
+        :depth="0"
+        :smallMenu="smallMenu"
+        :close="true"
+        :siblingsHaveIcon="true"
+      />
+    </template>
 
     <div class="footer-slot">footer</div>
     <!-- <i @click="smallMenu = !smallMenu" class="material-icons">
@@ -39,6 +47,7 @@
 </template>
 
 <script>
+import HeaderItem from './HeaderItem.vue'
 import MenuItem from './MenuItem.vue'
 import { initAwsomeSideBar } from '../hooks/useAwseomeSideBar'
 import { useClickOutSide } from '../hooks/useClickOutSide'
@@ -127,11 +136,13 @@ export default {
     }
   },
   data: () => ({
-    smallMenu: false
+    smallMenu: false,
+    transition:'left'
   }),
 
   components: {
-    MenuItem
+    MenuItem,
+    HeaderItem
   },
   mounted() {
     // USAGE
@@ -140,6 +151,15 @@ export default {
     $route(to) {
       this.updateCurrentRoute(window.location)
       //console.log("routeChnage",to)
+    },
+    isCollapsed(){
+      if (this.miniCollapsed && this.isCollapsed){
+        setTimeout(() => {
+         this.transition = 'none'
+        }, 300);
+      }else{
+         this.transition = 'left'
+      }
     }
   },
   computed: {
@@ -163,6 +183,9 @@ export default {
     },
     onLeave() {
       this.updateMenuHover(false)
+    },
+    getWidth(w){
+      
     }
   },
   setup(props, context) {
@@ -216,7 +239,7 @@ export default {
         props.theme === 'white' || props.theme === 'dark'
           ? `${props.theme}-theme`
           : 'white-theme',
-        isCollapsed.value ? 'compelete-coolapse-menu' : '',
+        //isCollapsed.value ? 'compelete-coolapse-menu' : '',
         miniCollapsed.value ? 'mini-coolapse-menu' : ''
       ]
     })
@@ -236,7 +259,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @use '../scss/vue-awesome-sidebar.scss';
+@use '../scss/vue-awesome-sidebar.scss';
 .v-enter-active,
 .v-leave-active {
   transition: opacity 300ms ease;
