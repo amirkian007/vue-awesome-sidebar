@@ -17,7 +17,6 @@
     <slot name="header" />
     <!-- <div v-if="!$slots.header">deafult slot</div> -->
     <template v-for="(item, index) in menu" :key="index">
-      <HeaderItem v-if="item?.header && !miniCollapsed" :data="item" />
       <MenuItem
         v-if="!item?.header"
         :data="item.children"
@@ -30,6 +29,7 @@
         :close="true"
         :siblingsHaveIcon="true"
       />
+      <HeaderItem v-else :data="item" />
     </template>
 
     <div class="footer-slot">footer</div>
@@ -40,7 +40,7 @@
   <Transition>
     <div
       v-if="overLayer"
-      class="over-layer"
+      class="vas-over-layer"
       :style="{ backgroundColor: overLayerColor }"
     ></div>
   </Transition>
@@ -137,7 +137,7 @@ export default {
   },
   data: () => ({
     smallMenu: false,
-    transition:'left'
+    transition: 'left'
   }),
 
   components: {
@@ -152,13 +152,13 @@ export default {
       this.updateCurrentRoute(window.location)
       //console.log("routeChnage",to)
     },
-    isCollapsed(){
-      if (this.miniCollapsed && this.isCollapsed){
+    isCollapsed() {
+      if (this.miniCollapsed && this.isCollapsed) {
         setTimeout(() => {
-         this.transition = 'none'
-        }, 300);
-      }else{
-         this.transition = 'left'
+          this.transition = 'none'
+        }, 300)
+      } else {
+        this.transition = 'left'
       }
     }
   },
@@ -184,9 +184,7 @@ export default {
     onLeave() {
       this.updateMenuHover(false)
     },
-    getWidth(w){
-      
-    }
+    getWidth(w) {}
   },
   setup(props, context) {
     const {
