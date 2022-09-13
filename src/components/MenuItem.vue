@@ -98,6 +98,7 @@
           height: miniMenuOffsetHeight + 'px'
         }"
       >
+        <!--  -->
         <span>
           {{ name }}
         </span>
@@ -180,21 +181,17 @@ export default {
   ],
   watch: {
     MiniCollapsemainItemHover() {
-      if (!this.MiniCollapsemainItemHover) {
-        setTimeout(() => {
-          this.fadeOutAnimation = !this.hover && !this.MiniCollapsemainItemHover
-        }, 0)
-      } else {
+      this.PushToTopOfCallStack(() => {
         this.fadeOutAnimation = !this.hover && !this.MiniCollapsemainItemHover
-      }
+      })
     },
     currentRoute() {
       this.checkActive()
     },
     hover() {
-      setTimeout(() => {
+      this.PushToTopOfCallStack(() => {
         this.fadeOutAnimation = !this.hover && !this.MiniCollapsemainItemHover
-      }, 0)
+      })
       //TODO :MAKE THIS MORE EFFICEANT
       if (this.miniCollapsed) {
         this.setItemOffsetHeight()
@@ -359,6 +356,11 @@ export default {
     }
   },
   methods: {
+    PushToTopOfCallStack(cb) {
+      setTimeout(() => {
+        cb()
+      }, 0)
+    },
     checkActive() {
       if (this?.href && this.isSameUrl(this?.href)) {
         this.active = true
@@ -437,9 +439,9 @@ export default {
       }
       this.containerHeight = this.$refs['container']?.offsetHeight
       //this line must be pushed to top of call stack
-      setTimeout(() => {
+      this.PushToTopOfCallStack(() => {
         this.containerHeight = 0
-      }, 0)
+      })
       //return if keepchildren open
       this.renderTimeOut = setTimeout(
         () => {
@@ -469,15 +471,4 @@ export default {
 .alignCenter {
   align-self: center;
 }
-
-// .fade-enter-from {
-//    background-color: none;
-
-// }
-// .fade-enter-to{
-//    background-color:  rgba(0, 0, 0, 0.05);
-
-// }
-// remove space from left side
-// .menu-item {
 </style>
