@@ -25,9 +25,7 @@
         <!--slot for menuitem icon-->
         <component v-else :is="menuitemion" :iconData="icon"></component>
 
-        <span v-if="(showLabel && alignStart) || !miniCollapsed">{{
-          name
-        }}</span>
+        <span v-if="labelName">{{ labelName }}</span>
       </div>
       <template v-if="(miniCollapsed && depth != 0) || !miniCollapsed">
         <div
@@ -92,8 +90,8 @@
         :class="{
           miniActive: miniActive,
           activeClass: active,
-          fadeee: expanded,
-          fadeeeOut: !hover && !MiniCollapsemainItemHover
+          fadeeInAnimation: expanded,
+          fadeOutAnimation: fadeOutAnimation
         }"
         :style="{
           left: miniMenuOffsetX + 'px',
@@ -166,17 +164,42 @@ export default {
     showText: true,
     miniMenuOffsetX: 50,
     menuexpandcOMPLETE: false,
-    MiniCollapsemainItemHover: false
+    MiniCollapsemainItemHover: false,
+    miniMenuOffsetHeight: 0,
+    fadeOutAnimation: false
   }),
-  props: ['data', 'smallMenu', 'close', 'name', 'icon', 'depth', 'href'],
+  props: [
+    'data',
+    'smallMenu',
+    'close',
+    'header',
+    'name',
+    'icon',
+    'depth',
+    'href'
+  ],
   watch: {
-    close() {
-      //this.closeChildren()
+    MiniCollapsemainItemHover() {
+      if (!this.MiniCollapsemainItemHover) {
+        setTimeout(() => {
+          this.fadeOutAnimation = !this.hover && !this.MiniCollapsemainItemHover
+        }, 0)
+      } else {
+        this.fadeOutAnimation = !this.hover && !this.MiniCollapsemainItemHover
+      }
     },
     currentRoute() {
       this.checkActive()
     },
     hover() {
+      setTimeout(() => {
+        this.fadeOutAnimation = !this.hover && !this.MiniCollapsemainItemHover
+      }, 0)
+      //TODO :MAKE THIS MORE EFFICEANT
+      if (this.miniCollapsed) {
+        this.setItemOffsetHeight()
+      }
+
       if (!this.id) {
         this.id = this.getRandomUid()
       }
@@ -236,6 +259,12 @@ export default {
     this.setItemOffsetHeight()
   },
   computed: {
+    labelName() {
+      if (this.miniCollapsed) {
+        return this.depth != 0 ? this.name : false
+      }
+      return this.name
+    },
     showLabel() {
       return this.smallMenu ? this.depth > 0 : true
     },
@@ -268,7 +297,7 @@ export default {
         miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
         miniCollapseitemWidth: this.miniCollapsed && this.depth != 0,
         alignStart: this.alignStart,
-        alignCenter: !this.alignStart,
+        alignCenter: true,
         ...obj
       }
       // return `menu-item-type-${this.menuType}`
@@ -435,7 +464,7 @@ export default {
 <style lang="scss" scoped>
 @use '../scss/menu-item.scss';
 .alignStart {
-  align-self: flex-start;
+  //align-self: flex-start;
 }
 .alignCenter {
   align-self: center;
