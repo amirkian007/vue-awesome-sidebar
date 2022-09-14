@@ -18,7 +18,7 @@
         miniActive: miniActive,
         hoverClass: MiniCollapsemainItemHover
       }"
-      @click="toggleMenu()"
+      @[labelPressEvent]="toggleMenu()"
     >
       <div class="left" :class="{ marginAuto: miniCollapsed && depth === 0 }">
         <MenuItemIconVue v-if="!menuitemion" :icon="icon" />
@@ -80,7 +80,7 @@
       v-if="miniCollapsed"
       v-show="showChildren || depth != 0"
       :class="{ topContainer: depth == 0 }"
-      :style="{ top: ContainerOffsetYConputed, left: widthMiniCollapsed }"
+      :style="{ top: ContainerOffsetYConputed, left: `calc(${widthMiniCollapsed} - 1px)` }"
     >
       <div
         @mouseenter="MiniCollapsemainItemHover = true"
@@ -281,6 +281,9 @@ export default {
     shouldMouseEnterEvent() {
       return this.miniCollapsed && this.depth == 0 ? 'mouseenter' : null
     },
+    labelPressEvent() {
+      return this.miniCollapsed && this.depth == 0 ? 'keypress' : 'click'
+    },
     shouldMouseLeaveEvent() {
       return this.miniCollapsed && this.depth == 0 ? 'mouseleave' : null
     },
@@ -470,5 +473,5 @@ export default {
 }
 .alignCenter {
   align-self: center;
-}
+} 
 </style>
