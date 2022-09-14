@@ -6,8 +6,9 @@
     :style="{
       width: sidebarMenuWidth,
       position: position,
-      left: isCollapsed ? `calc(-1*(${sidebarMenuWidth} + 2px))` : '0px',
-      transition: `${transition} 0.3s ease-in-out`
+      [menuDirection]: isCollapsed ? `calc(-1*(${sidebarMenuWidth} + 2px))` : '0px',
+      transition: `${transition} 0.3s ease-in-out`,
+      direction : direction
     }"
     @[menuScrollEvent]="onMenuScroll"
     @[mouseEnterEvent]="onEnter"
@@ -29,7 +30,7 @@
         :close="true"
         :siblingsHaveIcon="true"
       />
-      <HeaderItem v-else :data="item" />
+      <HeaderItem v-else-if="item?.header && !miniCollapsed" :data="item" />
     </template>
 
     <div class="footer-slot">footer</div>
@@ -77,6 +78,10 @@ export default {
       type: Number,
       default: 290
     },
+    direction : {
+      type:String,
+      default:'ltr'
+    },
     //autoCollapse: {
     //   type: String||Boolean,
     //   default: true
@@ -113,9 +118,8 @@ export default {
       type: String,
       default: '65px'
     },
-    theme: {
-      type: String,
-      default: 'white'
+    dark: {
+      type: Boolean,
     },
     rtl: {
       type: Boolean,
@@ -158,7 +162,7 @@ export default {
           this.transition = 'none'
         }, 300)
       } else {
-        this.transition = 'left'
+        this.transition = this.menuDirection
       }
     }
   },
@@ -171,7 +175,10 @@ export default {
     },
     mouseLeaveEvent() {
       return this.miniCollapsed ? 'mouseleave' : null
-    }
+    },
+    // menuDirection(){
+    //   return this.direction ==='rtl' ? 'right':'left'
+    // }
   },
   methods: {
     onMenuScroll() {
@@ -193,7 +200,8 @@ export default {
       updateIsCollapsed,
       getSlotByName,
       updateMenuScroll,
-      updateMenuHover
+      updateMenuHover,
+      menuDirection
       // unsetMobileItem,
       // updateCurrentRoute
     } = initAwsomeSideBar(props, context)
@@ -203,8 +211,8 @@ export default {
     const overLayer = ref(false)
     if (props.closeOnClickOutSide) {
       if (props.overLayerOnOpen) {
-        overLayer.value = !props.collapsed
-      }
+          overLayer.value = !props.collapsed
+        }
       const { removeSideBarListner, addSideBarListner } = useClickOutSide(
         sidebarmen,
         () => {
@@ -233,10 +241,9 @@ export default {
     })
 
     const sidebarClass = computed(() => {
-      return [
-        props.theme === 'white' || props.theme === 'dark'
-          ? `${props.theme}-theme`
-          : 'white-theme',
+      const theme = props.dark ? 'dark' : 'white'
+      return [ `${theme}-theme`,
+      props.direction,
         //isCollapsed.value ? 'compelete-coolapse-menu' : '',
         miniCollapsed.value ? 'mini-coolapse-menu' : ''
       ]
@@ -250,7 +257,8 @@ export default {
       updateCurrentRoute,
       updateMenuHover,
       overLayer,
-      isCollapsed
+      isCollapsed,
+      menuDirection
     }
   }
 }

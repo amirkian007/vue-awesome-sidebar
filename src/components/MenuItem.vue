@@ -3,7 +3,7 @@
     :class="menuItemClass"
     ref="menuItem"
     class="menu-item-base"
-    :style="{ float: miniCollapsed && depth === 1 ? 'left' : '' }"
+    :style="{ float: miniCollapsed && depth === 1 ? menuDirection : '' }"
   >
     <div
       lang
@@ -13,7 +13,7 @@
       @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
         menuexpand: expanded,
-        menuexpand2: miniCollapsed && expanded,
+        menuexpand2: miniCollapsed && expanded && depth === 0,
         activeClass: active,
         miniActive: miniActive,
         hoverClass: MiniCollapsemainItemHover
@@ -80,7 +80,7 @@
       v-if="miniCollapsed"
       v-show="showChildren || depth != 0"
       :class="{ topContainer: depth == 0 }"
-      :style="{ top: ContainerOffsetYConputed, left: `calc(${widthMiniCollapsed} - 1px)` }"
+      :style="{ top: ContainerOffsetYConputed, [menuDirection]: `calc(${widthMiniCollapsed} - 1px)` }"
     >
       <div
         @mouseenter="MiniCollapsemainItemHover = true"
@@ -94,7 +94,8 @@
           fadeOutAnimation: fadeOutAnimation
         }"
         :style="{
-          left: miniMenuOffsetX + 'px',
+          [menuDirection]: menuDirection ==='left' ? miniMenuOffsetXLeft + 'px' :miniMenuOffsetXRight + 'px' ,
+          
           height: miniMenuOffsetHeight + 'px'
         }"
       >
@@ -163,7 +164,8 @@ export default {
     MiniCollapseContainerHover: false,
     alignStart: true,
     showText: true,
-    miniMenuOffsetX: 50,
+    miniMenuOffsetXLeft: 50,
+    miniMenuOffsetXRight: 50,
     menuexpandcOMPLETE: false,
     MiniCollapsemainItemHover: false,
     miniMenuOffsetHeight: 0,
@@ -193,7 +195,7 @@ export default {
         this.fadeOutAnimation = !this.hover && !this.MiniCollapsemainItemHover
       })
       //TODO :MAKE THIS MORE EFFICEANT
-      if (this.miniCollapsed) {
+      if (this.miniCollapsed && this.hover) {
         this.setItemOffsetHeight()
       }
 
@@ -328,6 +330,7 @@ export default {
     const updateCurrantItemHover = inject('updateCurrantItemHover')
     const updateCurranContainerHover = inject('updateCurranContainerHover')
     const CurrantItemHover = inject('CurrantItemHover')
+    const menuDirection = inject('menuDirection')
     const animationDurationTime = computed(() => {
       return animationDuration
     })
@@ -337,6 +340,7 @@ export default {
     return {
       menuCollapsed,
       iconSlut,
+      menuDirection,
       menuitemion,
       updateCurranContainerHover,
       animationDurationTime,
@@ -458,7 +462,8 @@ export default {
       if (this.depth == 0) {
         const x = this.$refs['menuItem'].getBoundingClientRect()
         this.ContainerOffsetY = x.top + window.scrollY
-        this.miniMenuOffsetX = x.width + x.left
+        this.miniMenuOffsetXLeft = x.width + x.left
+        this.miniMenuOffsetXRight = window.innerWidth - x.left
         this.miniMenuOffsetHeight = x.height
       }
     }

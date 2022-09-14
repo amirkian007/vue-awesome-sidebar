@@ -1,37 +1,64 @@
-$textActiveColor: #2c7ae0;
+$textActiveColor: rgb(44, 122, 224);
 $hoverBackGround: hsla(0, 0%, 100%, 0.05);
 $textColorNoneHover: rgb(218, 221, 225);
 $top: rgba(170, 170, 170, 0.329);
 $backGroundColor: #242526;
-$borderColor : rgba(170, 170, 170, 0.329);
+$borderColor: rgba(170, 170, 170, 0.329);
 .menu {
   &.dark-theme {
-    border-right: 1px solid $borderColor;
+    &.rtl{
+      border-left: 1px solid $borderColor;
+    }
+    &.ltr{
+      border-right: 1px solid $borderColor;
+    }
     background-color: $backGroundColor;
 
     &::-webkit-scrollbar-thumb {
       color: #686868;
     }
-
+    .vsss-header{
+      color:#FFFFFFDE ;
+    }
+    &.rtl{
+      .topContainer {
+        border-top: 1px solid $borderColor;
+        border-bottom: 1px solid $borderColor;
+        border-left: 1px solid $borderColor;
+        background-color: $backGroundColor;
+      }
+    }
+    &.ltr{
+      .topContainer {
+        border-top: 1px solid $borderColor;
+        border-bottom: 1px solid $borderColor;
+        border-right: 1px solid $borderColor;
+        background-color: $backGroundColor;
+      }
+    }
     .menu-item-type-simple-icon {
+      
       .hoverClass {
         background: $hoverBackGround;
-      }
-      .topContainer {
-        border-left: 1px solid $backGroundColor !important;
-        border: 1px solid $borderColor;
-        background-color: $backGroundColor;
       }
       .label {
         &.activeClass {
           background: $hoverBackGround;
           color: $textActiveColor;
         }
+
         &.miniActive {
+          // .icons {
+          //   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+          //     50%/2rem 2rem;
+          //   -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+          //   filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+          // }
           color: $textActiveColor;
         }
         color: $textColorNoneHover;
         &:hover {
+        
           background: $hoverBackGround;
           //color: $textActiveColor;
         }
@@ -46,21 +73,21 @@ $borderColor : rgba(170, 170, 170, 0.329);
           color: $textActiveColor;
         }
       }
-     
-      .fadeee {
+
+      .fadeeInAnimation {
         overflow: hidden;
         animation: fade1Dark 0.3s forwards;
       }
-      .fadeeeOut {
+      .fadeOutAnimation {
         //width: 200px;
         animation: fade1outDark 0.3s forwards;
       }
-      .icons {
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
-          50%/2rem 2rem;
-        -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-        filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-      }
+        .icons {
+          background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+            50%/2rem 2rem;
+          -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+          filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+        }
     }
     @keyframes fade1Dark {
       0% {

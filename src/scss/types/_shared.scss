@@ -1,0 +1,20 @@
+%padding-shared {
+  padding: 6px 13px;
+}
+
+.vsss-header,
+.menu-item-type-simple-icon {
+  width: 97%;
+}
+.menu-item-type-simple-icon {
+  .label {
+    @extend %padding-shared;
+  }
+}
+.vsss-header {
+padding-top: 12px;
+padding-left: 16px;
+padding-right: 16px;
+padding-bottom: 1px;
+font-weight: 600;
+}

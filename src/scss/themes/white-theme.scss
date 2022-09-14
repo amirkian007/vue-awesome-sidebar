@@ -6,22 +6,25 @@ $backGroundColor: white;
 
 .menu {
   &.white-theme {
-    border-right: 1px solid #ececec;
+    &.rtl{
+      border-left: 1px solid #ececec;
+    }
+    &.ltr{
+      border-right: 1px solid #ececec;
+    }
     background-color: $backGroundColor;
 
     &::-webkit-scrollbar-thumb {
       color: rgb(184, 184, 184);
     }
-
+    .vsss-header{
+      color: #213547;
+    }
     .menu-item-type-simple-icon {
       .hoverClass {
         background: $hoverBackGround;
       }
-      .topContainer {
-        border-left: 1px solid $backGroundColor !important;
-        border: 1px solid rgba(170, 170, 170, 0.329);
-        background-color: $backGroundColor;
-      }
+      
       .label {
         &.activeClass {
           background: $hoverBackGround;
@@ -32,7 +35,7 @@ $backGroundColor: white;
         }
         color: $textColorNoneHover;
         &:hover {
-          background: $hoverBackGround;
+          background-color: $hoverBackGround;
           //color: $textActiveColor;
         }
 
@@ -50,15 +53,15 @@ $backGroundColor: white;
           color: $textActiveColor;
         }
       }
-      .fadeee {
+      .fadeeInAnimation {
         overflow: hidden;
         animation: fade1White 0.3s forwards;
       }
-      .fadeeeOut {
+      .fadeOutAnimation {
         //width: 200px;
         animation: fade1outWhite 0.3s forwards;
       }
-       .icons {
+      .icons {
         background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
           50%/2rem 2rem;
         -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
@@ -83,6 +86,22 @@ $backGroundColor: white;
       }
       100% {
         background-color: none;
+      }
+    }
+    &.rtl{
+      .topContainer {
+        border-top: 1px solid rgba(170, 170, 170, 0.329);
+        border-bottom: 1px solid rgba(170, 170, 170, 0.329);
+        border-left: 1px solid rgba(170, 170, 170, 0.329);
+        background-color: $backGroundColor;
+      }
+    }
+    &.ltr{
+      .topContainer {
+        border-top: 1px solid rgba(170, 170, 170, 0.329);
+        border-bottom: 1px solid rgba(170, 170, 170, 0.329);
+        border-right: 1px solid rgba(170, 170, 170, 0.329);
+        background-color: $backGroundColor;
       }
     }
   }

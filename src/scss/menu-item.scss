@@ -47,7 +47,7 @@
   }
   .topContainer {
     position: fixed;
-
+    transition: all 0.5s ease;
     width: 250px;
     //float: left;
     z-index: 858588;
@@ -70,18 +70,36 @@
     }
   }
   .icons {
+    fill: red !important;
     content: '';
     height: 1.25rem;
-    margin-left: auto;
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
     min-width: 1.25rem;
     width: 1.25rem;
   }
+  .rtl & {
+    .icons {
+      margin-right: auto;
+      -webkit-transform: rotate(-90deg);
+      transform: rotate(-90deg);
+    }
+  }
+  .ltr & {
+    .icons {
+      margin-left: auto;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    }
+  }
   .icons.opened {
     padding: auto;
-    -webkit-transform: rotate(180deg) !important;
-    transform: rotate(180deg) !important;
+    .ltr &{
+      -webkit-transform: rotate(180deg) !important;
+       transform: rotate(180deg) !important;
+    }
+    .rtl &{
+      -webkit-transform: rotate(-180deg) !important;
+       transform: rotate(-180deg) !important;
+    }
   }
   //slot animation
   .openAnima {
@@ -95,7 +113,13 @@
     transform: rotate(180deg) !important;
   }
   .menuexpand2 {
-    border-top-right-radius: 0px !important;
-    border-bottom-right-radius: 0px !important;
+    .rtl &{
+      border-top-left-radius:  0px !important;
+    border-bottom-left-radius:  0px !important;
+    }
+    .ltr &{
+      border-top-right-radius: 0px !important;
+      border-bottom-right-radius: 0px !important;
+    }
   }
 }
