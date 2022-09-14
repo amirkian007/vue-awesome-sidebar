@@ -1,11 +1,11 @@
 .menu-item-type-simple-icon {
-  width: 97%;
   margin-top: 1.5px;
   margin-bottom: 1.5px;
   border-radius: 4px;
   // &.smallwidthy{
   //   width: calc(100% - 20px) !important;
   // }
+
   .labelMini {
     transition: all 0.3s ease;
     border-top-right-radius: 4px;
@@ -14,7 +14,7 @@
     font-size: 16px; //d
   }
   .label {
-    transition: all 0.3s ease; //d
+    transition: background-color 0.3s ease , color 0.3s ease; //d
     font-size: 16px; //d
 
     > .left {
@@ -41,16 +41,14 @@
     width: 95%;
   }
   .label {
-    padding: 6px 12px;
     width: 100%;
     border-radius: 4px;
     height: 32px;
     .left {
       span {
         padding-left: 6px;
-        padding-bottom: 1.3px;
+        //padding-bottom: 1.3px;
       }
     }
   }
-
 }
