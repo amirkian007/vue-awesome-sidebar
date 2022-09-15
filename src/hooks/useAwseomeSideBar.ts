@@ -16,7 +16,8 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     width,
     widthCollapsed,
     rtl,
-    miniCollapsed
+    miniCollapsed,
+    direction
   } = toRefs(props)
   const isCollapsed = ref(collapsed.value)
   const slots = ref(context.slots)
@@ -24,6 +25,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const MenuScroll = ref(false)
   const MenuHover = ref(false)
   const CurrantItemHover = ref(null)
+  const CurranContainerHover = ref(null)
   const currentRoute = ref(
     window.location.pathname + window.location.search + window.location.hash
   )
@@ -54,6 +56,12 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const updateCurrantItemHover = (id) => {
     CurrantItemHover.value = id
   }
+  const updateCurranContainerHover = (id) => {
+    CurranContainerHover.value = id
+  }
+  const menuDirection = computed(() => {
+    return direction.value === 'rtl' ? 'right' : 'left'
+  })
   //   const onItemClick = (event, item) => {
   //     context.emit('item-click', event, item)
   //   }
@@ -81,7 +89,11 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('MenuHover', MenuHover)
   provide('getRandomUid', getRandomUid)
   provide('updateCurrantItemHover', updateCurrantItemHover)
+  provide('updateCurranContainerHover', updateCurranContainerHover)
   provide('CurrantItemHover', CurrantItemHover)
+  provide('CurranContainerHover', CurranContainerHover)
+  provide('getIsCollapsed', collapsed)
+  provide('menuDirection', menuDirection)
   return {
     getIsCollapsed: collapsed,
     getIsMiniCollapsed: miniCollapsed,
@@ -89,6 +101,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     getSlotByName,
     menuMounted,
     updateMenuScroll,
-    updateMenuHover
+    updateMenuHover,
+    menuDirection
   }
 }
