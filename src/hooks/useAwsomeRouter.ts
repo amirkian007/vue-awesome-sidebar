@@ -25,13 +25,12 @@ export const initAwsomeRouter = (props: any, context: any) => {
   // observer.observe(document, config);
 
   function isSameUrl(url, location = currentRoute.value) {
-    var path = function (s) {
-      return s.replace(/\?.*$/, '').replace(/\#.*$/, '')
-    }
     return (
-      path(location.href) == url ||
-      path(location.pathname + location.hash) == url ||
-      location.hash == url
+      location.href === location.origin + url ||
+      location.pathname + location.hash === url ||
+      location.pathname + location.search === url ||
+      location.href === url ||
+      location.hash === url
     )
   }
 
