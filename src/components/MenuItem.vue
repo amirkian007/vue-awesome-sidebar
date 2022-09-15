@@ -125,12 +125,14 @@
         @mouseleave="MiniCollapsemainItemHover = false"
         v-if="depth === 0"
         :class="{
-          miniActive: miniActive,
-          activeClass: active,
-          fadeeInAnimation: showChildren,
-          labelMini: true
+          miniActive: !menuitemSlut && miniActive,
+          activeClass: !menuitemSlut && active,
+          fadeeInAnimation:  showChildren,
+          labelMini: !menuitemSlut
         }"
         :style="{
+          position: 'fixed',
+          whiteSpace:'nowrap',
           [menuDirection]:
             menuDirection === 'left'
               ? miniMenuOffsetXLeft + 'px'
