@@ -518,8 +518,8 @@ export default {
         const x = this.$refs['menuItem'].getBoundingClientRect()
         this.ContainerOffsetY = x.top + window.scrollY
         // this.miniMenuOffsetXLeft = x.width + x.left
-        this.miniMenuOffsetXLeft = x.left
-        this.miniMenuOffsetXRight = window.innerWidth - x.left
+        this.miniMenuOffsetXLeft = x[this.menuDirection]
+        this.miniMenuOffsetXRight = window.innerWidth - x[this.menuDirection]
         this.miniMenuOffsetHeight = x.height
       }
     }
@@ -528,6 +528,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 @use '../scss/menu-item.scss';
 .alignStart {
   //align-self: flex-start;
