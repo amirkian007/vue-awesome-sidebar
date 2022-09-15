@@ -27,9 +27,15 @@
       }"
     >
       <div class="left" :class="{ marginAuto: miniCollapsed && depth === 0 }">
-        <MenuItemIconVue v-if="!menuitemion" :icon="icon" />
-        <!-- !!! slot for menuitem icon-->
-        <component v-else :is="menuitemion" :iconData="icon"></component>
+        <template v-if="siblingsHaveIconProp">
+          <MenuItemIconVue v-if="!menuitemion" :icon="icon" />
+          <!-- !!! slot for menuitem icon-->
+          <component
+            v-else-if="menuitemion"
+            :is="menuitemion"
+            :iconData="icon"
+          ></component>
+        </template>
 
         <span v-if="labelName">{{ labelName }}</span>
       </div>
@@ -92,6 +98,8 @@
           <menu-item
             :class="{ opened: showChildren }"
             v-for="(item, index) in data"
+            :siblingsHaveIconProp="siblingsHaveIcon"
+            :isParentFlat="siblingsHaveIconProp"
             :key="index"
             :data="item.children"
             :name="item.name"
@@ -127,12 +135,12 @@
         :class="{
           miniActive: !menuitemSlut && miniActive,
           activeClass: !menuitemSlut && active,
-          fadeeInAnimation:  showChildren,
+          fadeeInAnimation: showChildren,
           labelMini: !menuitemSlut
         }"
         :style="{
           position: 'fixed',
-          whiteSpace:'nowrap',
+          whiteSpace: 'nowrap',
           [menuDirection]:
             menuDirection === 'left'
               ? miniMenuOffsetXLeft + 'px'
@@ -140,7 +148,7 @@
           height: miniMenuOffsetHeight + 'px'
         }"
       >
-      <!--main menu btn-->
+        <!--main menu btn-->
         <div
           v-if="!menuitemSlut"
           class="left"
@@ -159,7 +167,6 @@
           @[shouldMouseEnterEvent]="this.hover = true"
           @[shouldMouseLeaveEvent]="this.hover = false"
           @[labelPressEvent]="toggleMenu"
-         
         >
           <component
             :isActive="active"
@@ -188,6 +195,8 @@
           <menu-item
             :class="{ opened: showChildren }"
             v-for="(item, index) in data"
+            :siblingsHaveIconProp="siblingsHaveIcon"
+            :isParentFlat="siblingsHaveIconProp"
             :key="index"
             :data="item.children"
             :name="item.name"
@@ -200,7 +209,6 @@
         </template>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -238,7 +246,8 @@ export default {
     miniMenuOffsetXRight: 50,
     menuexpandcOMPLETE: false,
     MiniCollapsemainItemHover: false,
-    miniMenuOffsetHeight: 0
+    miniMenuOffsetHeight: 0,
+    siblingsHaveIcon: false
   }),
   props: [
     'data',
@@ -248,7 +257,9 @@ export default {
     'name',
     'icon',
     'depth',
-    'href'
+    'href',
+    'siblingsHaveIconProp',
+    'isParentFlat'
   ],
   watch: {
     currentRoute() {
@@ -309,6 +320,7 @@ export default {
     this.checkActive()
   },
   mounted() {
+    this.checkSiblingsForIcon()
     //console.log( this.$refs['menuItem2'])
     this.setItemOffsetHeight()
   },
@@ -355,6 +367,15 @@ export default {
         miniCollapseitemWidth: this.miniCollapsed && this.depth != 0,
         alignStart: this.alignStart,
         alignCenter: true,
+        noIconWidth:
+          !this.miniCollapsed &&
+          !this.siblingsHaveIconProp &&
+          this.isParentFlat,
+        noIconWidthMiniMenu:
+          this.miniCollapsed &&
+          this.depth != 0 &&
+          !this.siblingsHaveIconProp &&
+          this.isParentFlat,
         ...obj
       }
       // return `menu-item-type-${this.menuType}`
@@ -464,6 +485,15 @@ export default {
       this.expanded = val
       this.showChildren = val
     },
+    checkSiblingsForIcon() {
+      if (!this.data) return
+      for (var i = 0; i < this.data.length; i++) {
+        if (this.data[i]?.icon) {
+          this.siblingsHaveIcon = true
+          break
+        }
+      }
+    },
     openItemCildren() {
       if (!this.data) return
       if (this.expanded) return
@@ -528,11 +558,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 @use '../scss/menu-item.scss';
-.alignStart {
-  //align-self: flex-start;
-}
 .alignCenter {
   align-self: center;
 }
