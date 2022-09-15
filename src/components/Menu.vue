@@ -78,9 +78,9 @@ export default {
       type: Number,
       default: 290
     },
-    direction : {
-      type:String,
-      default:'ltr'
+    direction: {
+      type: String,
+      default: 'ltr'
     },
     //autoCollapse: {
     //   type: String||Boolean,
@@ -119,7 +119,7 @@ export default {
       default: '65px'
     },
     dark: {
-      type: Boolean,
+      type: Boolean
     },
     rtl: {
       type: Boolean,
@@ -175,7 +175,7 @@ export default {
     },
     mouseLeaveEvent() {
       return this.miniCollapsed ? 'mouseleave' : null
-    },
+    }
     // menuDirection(){
     //   return this.direction ==='rtl' ? 'right':'left'
     // }
@@ -211,8 +211,8 @@ export default {
     const overLayer = ref(false)
     if (props.closeOnClickOutSide) {
       if (props.overLayerOnOpen) {
-          overLayer.value = !props.collapsed
-        }
+        overLayer.value = !props.collapsed
+      }
       const { removeSideBarListner, addSideBarListner } = useClickOutSide(
         sidebarmen,
         () => {
@@ -242,8 +242,9 @@ export default {
 
     const sidebarClass = computed(() => {
       const theme = props.dark ? 'dark' : 'white'
-      return [ `${theme}-theme`,
-      props.direction,
+      return [
+        `${theme}-theme`,
+        props.direction,
         //isCollapsed.value ? 'compelete-coolapse-menu' : '',
         miniCollapsed.value ? 'mini-coolapse-menu' : ''
       ]
