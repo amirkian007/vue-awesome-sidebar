@@ -6,9 +6,11 @@
     :style="{
       width: sidebarMenuWidth,
       position: position,
-      [menuDirection]: isCollapsed ? `calc(-1*(${sidebarMenuWidth} + 2px))` : '0px',
+      [menuDirection]: isCollapsed
+        ? `calc(-1*(${sidebarMenuWidth} + 2px))`
+        : '0px',
       transition: `${transition} 0.3s ease-in-out`,
-      direction : direction
+      direction: direction
     }"
     @[menuScrollEvent]="onMenuScroll"
     @[mouseEnterEvent]="onEnter"
@@ -19,7 +21,7 @@
     <!-- <div v-if="!$slots.header">deafult slot</div> -->
     <template v-for="(item, index) in menu" :key="index">
       <MenuItem
-        v-if="!item?.header"
+        v-if="!item?.header && !item?.line"
         :data="item.children"
         :name="item.name"
         :icon="item.icon"
@@ -31,6 +33,7 @@
         :siblingsHaveIcon="true"
       />
       <HeaderItem v-else-if="item?.header && !miniCollapsed" :data="item" />
+      <hr v-else-if="item?.line && !miniCollapsed">
     </template>
 
     <div class="footer-slot">footer</div>
@@ -267,6 +270,7 @@ export default {
 
 <style lang="scss">
 @use '../scss/vue-awesome-sidebar.scss';
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 300ms ease;
