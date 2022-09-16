@@ -7,6 +7,12 @@
   width: 97%;
 }
 .menu-item-type-simple-icon {
+  .noIconWidth {
+    width: calc(97% - 20px) !important;
+  }
+  .noIconWidthMiniMenu {
+    width: calc(95% - 20px) !important;
+  }
   .label {
     @extend %padding-shared;
   }
