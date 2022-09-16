@@ -1,7 +1,6 @@
 @use './types/simple-icon.scss';
 
 .menu-item-base {
-  float: right;
   position: relative;
 
   .labelMini {
@@ -14,7 +13,7 @@
     display: flex;
     align-items: center;
     user-select: none;
-    
+
     > .left {
       display: flex;
     }
@@ -81,6 +80,7 @@
     width: 1.25rem;
   }
   .rtl & {
+    //float: left;
     .icons {
       margin-right: auto;
       -webkit-transform: rotate(-90deg);
@@ -88,6 +88,8 @@
     }
   }
   .ltr & {
+    // float: right;
+
     .icons {
       margin-left: auto;
       -webkit-transform: rotate(90deg);

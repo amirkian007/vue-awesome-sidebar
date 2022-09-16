@@ -3,7 +3,9 @@
     :class="menuItemClass"
     ref="menuItem"
     class="menu-item-base"
-    :style="{ float: miniCollapsed && depth === 1 ? menuDirection : '' }"
+    :style="{
+      float: miniCollapsed && depth === 1 ? menuDirection : menuDirectionOposite
+    }"
   >
     <!-- ========================= -->
     <!-- 1 this is basiclly the menu btn  -->
@@ -158,7 +160,9 @@
           <!--slot for menuitem icon-->
           <component v-else :is="menuitemion" :iconData="icon"></component>
 
-          <span style="padding-left: 15px">{{ name }}</span>
+          <span style="padding-left: 15px; padding-right: 15px">{{
+            name
+          }}</span>
         </div>
 
         <!--slot fot menu item-->
@@ -325,6 +329,9 @@ export default {
     this.setItemOffsetHeight()
   },
   computed: {
+    menuDirectionOposite() {
+      return this.menuDirection === 'right' ? 'left' : 'right'
+    },
     labelName() {
       if (this.miniCollapsed) {
         return this.depth != 0 ? this.name : false
