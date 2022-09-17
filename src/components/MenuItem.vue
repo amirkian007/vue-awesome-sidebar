@@ -133,6 +133,7 @@
       <div
         @mouseenter="MiniCollapsemainItemHover = true"
         @mouseleave="MiniCollapsemainItemHover = false"
+        @click="miniLabelClick"
         v-if="depth === 0"
         :class="{
           miniActive: !menuitemSlut && miniActive,
@@ -155,6 +156,7 @@
           v-if="!menuitemSlut"
           class="left"
           :class="{ marginAuto: miniCollapsed && depth === 0 }"
+          
         >
           <MenuItemIconVue v-if="!menuitemion" :icon="icon" />
           <!--slot for menuitem icon-->
@@ -170,7 +172,7 @@
           v-else
           @[shouldMouseEnterEvent]="this.hover = true"
           @[shouldMouseLeaveEvent]="this.hover = false"
-          @[labelPressEvent]="toggleMenu"
+          @keypress="miniLabelClick"
         >
           <component
             :isActive="active"
@@ -270,6 +272,7 @@ export default {
       this.checkActive()
     },
     hover() {
+
       //TODO :MAKE THIS MORE EFFICEANT
       if (this.miniCollapsed && this.hover) {
         this.setItemOffsetHeight()
@@ -279,6 +282,7 @@ export default {
         this.id = this.getRandomUid()
       }
       if (this.hover) {
+        
         this.updateCurrantItemHover(this.id)
         this.openItemCildren()
       } else {
@@ -306,11 +310,10 @@ export default {
       this.setItemOffsetHeight()
     },
     miniCollapsed() {
+      console.log("collapse")
       if (this.miniCollapsed) {
         this.closeItemChildren()
         this.alignStart = false
-
-        setTimeout(() => {}, 300)
       }
       this.$nextTick(() => {
         this.setItemOffsetHeight()
@@ -474,6 +477,9 @@ export default {
         this.miniActive = hasFound
       }
     },
+    miniLabelClick(){
+      if (this?.href) this.$router.push(this.href)
+    },
     toggleMenu() {
       if (this?.href) this.$router.push(this.href)
       if (!this.data) return
@@ -502,6 +508,9 @@ export default {
       }
     },
     openItemCildren() {
+      if(this.miniCollapsed && this.depth === 0){
+        this.showChildren = true
+      }
       if (!this.data) return
       if (this.expanded) return
       this.setSmallMenuDataForToggle(true)
@@ -531,6 +540,9 @@ export default {
       })
     },
     closeItemChildren() {
+      if(this.miniCollapsed && this.depth === 0){
+        this.showChildren = false
+      }
       if (!this.data) return
       this.setSmallMenuDataForToggle(false)
       if (!this.cacheHieght) {
