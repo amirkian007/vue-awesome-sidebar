@@ -9,6 +9,8 @@
   >
     <!-- ========================= -->
     <!-- 1 this is basiclly the menu btn  -->
+        <!-- hoverClass: MiniCollapsemainItemHover -->
+        <!-- menuexpand2: miniCollapsed && showChildren && depth === 0, -->
     <!-- ========================= -->
 
     <div
@@ -18,10 +20,8 @@
       @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
         menuexpand: showChildren,
-        menuexpand2: miniCollapsed && showChildren && depth === 0,
         activeClass: active,
         miniActive: miniActive,
-        hoverClass: MiniCollapsemainItemHover
       }"
       @[labelPressEvent]="toggleMenu"
       :style="{
@@ -30,12 +30,12 @@
     >
       <div class="left" :class="{ marginAuto: miniCollapsed && depth === 0 }">
         <template v-if=" !removeIconSpace|| removeIconSpace&&siblingsHaveIconProp">
-          <MenuItemIconVue v-if="!menuitemion" :icon="icon" />
+          <MenuItemIconVue v-if="!menuitemion" :icon="item?.icon" />
           <!-- !!! slot for menuitem icon-->
           <component
             v-else-if="menuitemion"
             :is="menuitemion"
-            :iconData="icon"
+            :iconData="item?.icon"
           ></component>
         </template>
 
@@ -45,13 +45,13 @@
         <div
           v-if="data && !iconSlut"
           class="icons"
-          :class="{ opened: showChildren, openAnima: openAnimation }"
+          :class="{ opened: showChildren, postIconOpenAnima: openAnimation }"
         ></div>
         <!-- !!!  slot for menuitem prepand icon-->
-        <div v-if="data && iconSlut" :class="{ open: showChildren }">
+        <div v-if="data && iconSlut">
           <component
             v-if="iconSlut"
-            :icon="icon"
+            :icon="item?.icon"
             :isMenuOpen="openAnimation"
             :is="iconSlut"
           >
@@ -90,7 +90,7 @@
     <!-- ========================= -->
     <div v-if="!miniCollapsed">
       <div
-        class="items-container menuOpenAnimation"
+        class="items-container"
         :class="{ 'small-menu': smallMenu }"
         :style="{ maxHeight: heifth, transition: transitionTime }"
         ref="container"
@@ -98,13 +98,13 @@
       >
         <template v-if="renderChildren">
           <menu-item
-            :class="{ opened: showChildren }"
             v-for="(item, index) in data"
             :siblingsHaveIconProp="siblingsHaveIcon"
             :isParentFlat="siblingsHaveIconProp"
             :key="index"
             :data="item.children"
             :name="item.name"
+            :item="item"
             :icon="item.icon"
             :href="item.href"
             :depth="depth + 1"
@@ -127,7 +127,7 @@
       :class="{ topContainer: depth == 0 }"
       :style="{
         top: ContainerOffsetYConputed,
-        [menuDirection]: `calc(${widthMiniCollapsed} - 1px)`
+        [menuDirection]: `calc(${widthMiniCollapsed})`
       }"
     >
       <div
@@ -159,9 +159,9 @@
           class="left"
           :class="{ marginAuto: miniCollapsed && depth === 0 }"
         >
-          <MenuItemIconVue v-if="!menuitemion" :icon="icon" />
+          <MenuItemIconVue v-if="!menuitemion" :icon="item?.icon" />
           <!--slot for menuitem icon-->
-          <component v-else :is="menuitemion" :iconData="icon"></component>
+          <component v-else :is="menuitemion" :iconData="item?.icon"></component>
 
           <span style="padding-left: 15px; padding-right: 15px">{{
             name
@@ -189,7 +189,7 @@
       </div>
       <div v-if="depth == 0" :style="`height: ${miniMenuOffsetHeight}px`"></div>
       <div
-        class="items-container menuOpenAnimation"
+        class="items-container"
         :class="{ 'small-menu': smallMenu }"
         :style="{
           maxHeight: heifth,
@@ -200,11 +200,11 @@
       >
         <template v-if="renderChildren">
           <menu-item
-            :class="{ opened: showChildren }"
             v-for="(item, index) in data"
             :siblingsHaveIconProp="siblingsHaveIcon"
             :isParentFlat="siblingsHaveIconProp"
             :key="index"
+            :item="item"
             :data="item.children"
             :name="item.name"
             :icon="item.icon"
@@ -264,9 +264,9 @@ export default {
     'name',
     'icon',
     'depth',
-    'href',
     'siblingsHaveIconProp',
-    'isParentFlat'
+    'isParentFlat',
+    'item'
   ],
   watch: {
     currentRoute() {
@@ -353,7 +353,7 @@ export default {
     },
     menuItemSlotData() {
       return {
-        icon: { icon: this.icon || {}, name: this.name }
+        icon: { icon: this.item?.icon || {}, name: this.name }
       }
     },
     shouldMouseEnterEvent() {
@@ -373,7 +373,7 @@ export default {
       obj[`menu-item-type-${this.menuType}`] = true
       return {
         miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
-        miniCollapseitemWidth: this.miniCollapsed && this.depth != 0,
+        MenuItemWidthOnMiniCollapse: this.miniCollapsed && this.depth != 0,
         alignStart: this.alignStart,
         alignCenter: true,
         noIconWidth:
@@ -419,6 +419,7 @@ export default {
     const updateCurranContainerHover = inject('updateCurranContainerHover')
     const CurrantItemHover = inject('CurrantItemHover')
     const menuDirection = inject('menuDirection')
+    const emitOnItemClick = inject('emitOnItemClick')
     const animationDurationTime = computed(() => {
       return animationDuration
     })
@@ -428,6 +429,7 @@ export default {
     return {
       menuCollapsed,
       iconSlut,
+      emitOnItemClick,
       menuDirection,
       menuitemion,
       updateCurranContainerHover,
@@ -458,7 +460,7 @@ export default {
       }, 0)
     },
     checkActive() {
-      if (this?.href && this.isSameUrl(this?.href)) {
+      if (this.item?.href && this.isSameUrl(this.item?.href)) {
         this.active = true
       } else {
         this.active = false
@@ -481,10 +483,12 @@ export default {
       }
     },
     miniLabelClick() {
-      if (this?.href) this.$router.push(this.href)
+      this.emitOnItemClick(this.item)
+      if (this.item?.href) this.$router.push(this.item?.href)
     },
     toggleMenu() {
-      if (this?.href) this.$router.push(this.href)
+      this.emitOnItemClick(this.item)
+      if (this.item?.href) this.$router.push(this.item?.href)
       if (!this.data) return
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
