@@ -17,8 +17,8 @@
       @[shouldMouseEnterEvent]="this.hover = true"
       @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
-        menuexpand: expanded,
-        menuexpand2: miniCollapsed && expanded && depth === 0,
+        menuexpand: showChildren,
+        menuexpand2: miniCollapsed && showChildren && depth === 0,
         activeClass: active,
         miniActive: miniActive,
         hoverClass: MiniCollapsemainItemHover
@@ -29,7 +29,7 @@
       }"
     >
       <div class="left" :class="{ marginAuto: miniCollapsed && depth === 0 }">
-        <template v-if="siblingsHaveIconProp">
+        <template v-if=" !removeIconSpace|| removeIconSpace&&siblingsHaveIconProp">
           <MenuItemIconVue v-if="!menuitemion" :icon="icon" />
           <!-- !!! slot for menuitem icon-->
           <component
@@ -138,7 +138,6 @@
         :class="{
           miniActive: !menuitemSlut && miniActive,
           activeClass: !menuitemSlut && active,
-          fadeeInAnimation: showChildren,
           labelMini: !menuitemSlut
         }"
         :style="{
@@ -148,7 +147,10 @@
             menuDirection === 'left'
               ? miniMenuOffsetXLeft + 'px'
               : miniMenuOffsetXRight + 'px',
-          height: miniMenuOffsetHeight + 'px'
+          height: miniMenuOffsetHeight + 'px',
+          width: expanded
+            ? `calc(${widthMiniCollapsed}/2 - ${$refs['menuItem'].clientWidth}px/2 + ${$refs['menuItem'].clientWidth}px + 250px)`
+            : `${$refs['menuItem'].clientWidth}px`
         }"
       >
         <!--main menu btn-->
@@ -156,7 +158,6 @@
           v-if="!menuitemSlut"
           class="left"
           :class="{ marginAuto: miniCollapsed && depth === 0 }"
-          
         >
           <MenuItemIconVue v-if="!menuitemion" :icon="icon" />
           <!--slot for menuitem icon-->
@@ -272,7 +273,6 @@ export default {
       this.checkActive()
     },
     hover() {
-
       //TODO :MAKE THIS MORE EFFICEANT
       if (this.miniCollapsed && this.hover) {
         this.setItemOffsetHeight()
@@ -282,7 +282,7 @@ export default {
         this.id = this.getRandomUid()
       }
       if (this.hover) {
-        
+        // this.kirkhar = `calc(${this.widthMiniCollapsed/2}px + ${this.$refs['menuItem'].clientWidth} + 250px)`
         this.updateCurrantItemHover(this.id)
         this.openItemCildren()
       } else {
@@ -310,7 +310,6 @@ export default {
       this.setItemOffsetHeight()
     },
     miniCollapsed() {
-      console.log("collapse")
       if (this.miniCollapsed) {
         this.closeItemChildren()
         this.alignStart = false
@@ -378,10 +377,12 @@ export default {
         alignStart: this.alignStart,
         alignCenter: true,
         noIconWidth:
+        this.removeIconSpace&&
           !this.miniCollapsed &&
           !this.siblingsHaveIconProp &&
           this.isParentFlat,
         noIconWidthMiniMenu:
+        this.removeIconSpace&&
           this.miniCollapsed &&
           this.depth != 0 &&
           !this.siblingsHaveIconProp &&
@@ -402,6 +403,7 @@ export default {
       menuType,
       widthMiniCollapsed,
       openAnimation,
+      removeIconSpace,
       collapsed: menuCollapsed
     } = inject('sidebarProps')
     const { userAgentHeight } = inject('browserAgent')
@@ -434,6 +436,7 @@ export default {
       menuitemSlut,
       isSameUrl,
       menuType,
+      removeIconSpace,
       widthMiniCollapsed,
       extractChildrenRoutes,
       menuMounted,
@@ -477,7 +480,7 @@ export default {
         this.miniActive = hasFound
       }
     },
-    miniLabelClick(){
+    miniLabelClick() {
       if (this?.href) this.$router.push(this.href)
     },
     toggleMenu() {
@@ -495,10 +498,13 @@ export default {
     setSmallMenuDataForToggle(val) {
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
-      this.expanded = val
+      this.$nextTick(() => {
+        this.expanded = val
+      })
       this.showChildren = val
     },
     checkSiblingsForIcon() {
+      if(!this.removeIconSpace)return
       if (!this.data) return
       for (var i = 0; i < this.data.length; i++) {
         if (this.data[i]?.icon) {
@@ -508,8 +514,12 @@ export default {
       }
     },
     openItemCildren() {
-      if(this.miniCollapsed && this.depth === 0){
+      if (this.miniCollapsed && this.depth === 0) {
         this.showChildren = true
+
+        this.$nextTick(() => {
+          this.expanded = true
+        })
       }
       if (!this.data) return
       if (this.expanded) return
@@ -540,8 +550,11 @@ export default {
       })
     },
     closeItemChildren() {
-      if(this.miniCollapsed && this.depth === 0){
+      if (this.miniCollapsed && this.depth === 0) {
         this.showChildren = false
+        this.$nextTick(() => {
+          this.expanded = false
+        })
       }
       if (!this.data) return
       this.setSmallMenuDataForToggle(false)

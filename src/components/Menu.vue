@@ -1,5 +1,5 @@
 <template>
-  <div
+  <aside
     class="menu"
     ref="sidebarmen"
     :class="sidebarClass"
@@ -18,6 +18,7 @@
   >
     <!-- <div class="menu" :class="{ 'small-menu': smallMenu }" > -->
     <slot name="header" />
+
     <!-- <div v-if="!$slots.header">deafult slot</div> -->
     <template v-for="(item, index) in menu" :key="index">
       <MenuItem
@@ -30,17 +31,18 @@
         :depth="0"
         :smallMenu="smallMenu"
         :close="true"
-        :siblingsHaveIcon="true"
+        :siblingsHaveIconProp="siblingsHaveIcon"
       />
       <HeaderItem v-else-if="item?.header && !miniCollapsed" :data="item" />
-      <hr v-else-if="item?.line && !miniCollapsed">
+      <hr v-else-if="item?.line && !miniCollapsed" />
     </template>
 
-    <div class="footer-slot">footer</div>
+    <!-- <div class="footer-slot">footer</div> -->
+    <slot name="footer" />
     <!-- <i @click="smallMenu = !smallMenu" class="material-icons">
       <v-icon color="green darken-2"> mdi-menu-open </v-icon></i
     > -->
-  </div>
+  </aside>
   <Transition>
     <div
       v-if="overLayer"
@@ -97,6 +99,10 @@ export default {
       type: String,
       default: '65px'
     },
+    removeIconSpace: {
+      type: Boolean,
+      default: false
+    },
     closeOnClickOutSide: {
       type: Boolean,
       default: false
@@ -144,7 +150,8 @@ export default {
   },
   data: () => ({
     smallMenu: false,
-    transition: 'left'
+    transition: 'left',
+    siblingsHaveIcon: false
   }),
 
   components: {
@@ -152,6 +159,7 @@ export default {
     HeaderItem
   },
   mounted() {
+    this.checkSiblingsForIcon()
     // USAGE
   },
   watch: {
@@ -166,6 +174,11 @@ export default {
         }, 300)
       } else {
         this.transition = this.menuDirection
+      }
+    },
+    miniCollapsed() {
+      if (this.miniCollapsed) {
+        this.updateMenuHover(true)
       }
     }
   },
@@ -194,7 +207,15 @@ export default {
     onLeave() {
       this.updateMenuHover(false)
     },
-    getWidth(w) {}
+    checkSiblingsForIcon() {
+      if(!this.removeIconSpace)return
+      for (var i = 0; i < this.menu.length; i++) {
+        if (this.menu[i]?.icon) {
+          this.siblingsHaveIcon = true
+          break
+        }
+      }
+    }
   },
   setup(props, context) {
     const {
