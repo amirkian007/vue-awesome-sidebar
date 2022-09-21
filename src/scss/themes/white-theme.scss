@@ -4,7 +4,7 @@ $textColorNoneHover: rgb(28, 30, 33);
 $top: rgba(170, 170, 170, 0.329);
 $backGroundColor: white;
 
-.menu {
+.vas-awesome-menu {
   &.white-theme {
     hr {
       border-color: $hoverBackGround;
@@ -50,7 +50,7 @@ $backGroundColor: white;
       .labelMini {
         overflow: hidden;
         background-color: $hoverBackGround;
-        width: 30px;
+        //width: 30px;
         &.activeClass {
           background: $hoverBackGround;
           color: $textActiveColor;

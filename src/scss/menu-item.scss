@@ -1,25 +1,32 @@
 @use './types/simple-icon.scss';
 
+%hoverPointer {
+@media (hover: hover) and (pointer: fine) {
+  cursor: pointer;
+}
+@media (hover: none) and (pointer: coarse) {
+  cursor: none;
+}
+}
+
 .menu-item-base {
   position: relative;
-
   .labelMini {
-    border-radius: 4px;
+    transition: all 0.4s ease;
     background: none;
-    cursor: pointer;
     flex-direction: row;
     justify-content: space-between;
     white-space: nowrap;
     display: flex;
     align-items: center;
     user-select: none;
-
     > .left {
       display: flex;
     }
+    @extend %hoverPointer
   }
-
   .label {
+    position: relative;
     flex-direction: row;
     justify-content: space-between;
     white-space: nowrap;
@@ -27,60 +34,34 @@
     align-items: center;
     user-select: none;
     box-sizing: border-box; //r
-
-    > .left {
+    .left {
       display: flex;
+      &.marginAuto {
+        margin: auto;
+      }
     }
+    @extend %hoverPointer
 
-    position: relative;
-    // &:hover {
-
-    // }
-    @media (hover: hover) and (pointer: fine) {
-      /* ... */
-      cursor: pointer;
-    }
-    @media (hover: none) and (pointer: coarse) {
-      /* ... */
-      cursor: none;
-    }
   }
   .hoverClass {
-    cursor: pointer;
+    @extend %hoverPointer
   }
   .topContainer {
     position: fixed;
     transition: all 0.5s ease;
     width: 250px;
-    //float: left;
     z-index: 858588;
-    // left: 65px; //d
-    // top: 4px;//d
   }
-  &.miniCollapseitemWidth {
+  &.MenuItemWidthOnMiniCollapse {
     margin-left: auto;
-    // transform: translate(-2.5%);
-  }
-  .label {
-    &.miniCollapseIcon {
-      padding: none;
-    }
-    display: flex;
-    .left {
-      &.marginAuto {
-        margin: auto;
-      }
-    }
   }
   .icons {
-    fill: red !important;
     content: '';
     height: 1.25rem;
     min-width: 1.25rem;
     width: 1.25rem;
   }
   .rtl & {
-    //float: left;
     .icons {
       margin-right: auto;
       -webkit-transform: rotate(-90deg);
@@ -88,8 +69,6 @@
     }
   }
   .ltr & {
-    // float: right;
-
     .icons {
       margin-left: auto;
       -webkit-transform: rotate(90deg);
@@ -107,25 +86,14 @@
       transform: rotate(-180deg) !important;
     }
   }
-  //slot animation
-  .openAnima {
-    transition: -webkit-transform 250ms linear;
-    transition: transform 250ms linear;
-    transition: transform 250ms linear, -webkit-transform 250ms linear;
-    height: 100%;
-  }
-  .menuexpand .open {
-    -webkit-transform: rotate(180deg) !important;
-    transform: rotate(180deg) !important;
-  }
-  .menuexpand2 {
-    .rtl & {
-      border-top-left-radius: 0px !important;
-      border-bottom-left-radius: 0px !important;
-    }
-    .ltr & {
-      border-top-right-radius: 0px !important;
-      border-bottom-right-radius: 0px !important;
-    }
-  }
+  // .menuexpand2 {
+  //   .rtl & {
+  //     border-top-left-radius: 10px !important;
+  //     border-bottom-left-radius: 10px !important;
+  //   }
+  //   .ltr & {
+  //     border-top-right-radius: 10px !important;
+  //     border-bottom-right-radius: 10px !important;
+  //   }
+  // }
 }

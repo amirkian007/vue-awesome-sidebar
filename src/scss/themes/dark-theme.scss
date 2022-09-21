@@ -4,7 +4,7 @@ $textColorNoneHover: rgb(218, 221, 225);
 $top: rgba(170, 170, 170, 0.329);
 $backGroundColor: #242526;
 $borderColor: rgba(170, 170, 170, 0.329);
-.menu {
+.vas-awesome-menu {
   &.dark-theme {
     hr {
       border-color: $hoverBackGround;
@@ -67,7 +67,7 @@ $borderColor: rgba(170, 170, 170, 0.329);
       .labelMini {
         overflow: hidden;
         background: $hoverBackGround;
-        width: 30px;
+        // width: 30px;
         color: $textColorNoneHover;
         &.activeClass {
           background: $hoverBackGround;
@@ -99,7 +99,7 @@ $borderColor: rgba(170, 170, 170, 0.329);
       }
       100% {
         // color: #2c7ae0;
-        width: 300px;
+        width: attr(kirkhat);
       }
     }
 
