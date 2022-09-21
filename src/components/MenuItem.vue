@@ -102,11 +102,7 @@
             :siblingsHaveIconProp="siblingsHaveIcon"
             :isParentFlat="siblingsHaveIconProp"
             :key="index"
-            :data="item.children"
-            :name="item.name"
             :item="item"
-            :icon="item.icon"
-            :href="item.href"
             :depth="depth + 1"
             :smallMenu="smallMenu"
             :close="closeChild"
@@ -164,7 +160,7 @@
           <component v-else :is="menuitemion" :iconData="item?.icon"></component>
 
           <span style="padding-left: 15px; padding-right: 15px">{{
-            name
+            item?.name
           }}</span>
         </div>
 
@@ -205,10 +201,6 @@
             :isParentFlat="siblingsHaveIconProp"
             :key="index"
             :item="item"
-            :data="item.children"
-            :name="item.name"
-            :icon="item.icon"
-            :href="item.href"
             :depth="depth + 1"
             :smallMenu="smallMenu"
             :close="closeChild"
@@ -336,9 +328,9 @@ export default {
     },
     labelName() {
       if (this.miniCollapsed) {
-        return this.depth != 0 ? this.name : false
+        return this.depth != 0 ? this.item?.name : false
       }
-      return this.name
+      return this.item?.name
     },
     showLabel() {
       return this.smallMenu ? this.depth > 0 : true
@@ -353,7 +345,7 @@ export default {
     },
     menuItemSlotData() {
       return {
-        icon: { icon: this.item?.icon || {}, name: this.name }
+        icon: { icon: this.item?.icon || {}, name: this.item?.name }
       }
     },
     shouldMouseEnterEvent() {
@@ -464,9 +456,9 @@ export default {
         this.active = true
       } else {
         this.active = false
-        if (!this.data) return
+        if (!this.item?.children) return
         let hasFound = false
-        let x = this.extractChildrenRoutes(this.data, 'href') || []
+        let x = this.extractChildrenRoutes(this.item?.children, 'href') || []
         for (var i = 0; i < x.length; i++) {
           if (this.isSameUrl(x[i])) {
             hasFound = true
@@ -489,7 +481,7 @@ export default {
     toggleMenu() {
       this.emitOnItemClick(this.item)
       if (this.item?.href) this.$router.push(this.item?.href)
-      if (!this.data) return
+      if (!this.item?.children) return
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
       if (this.showChildren) {
@@ -509,9 +501,9 @@ export default {
     },
     checkSiblingsForIcon() {
       if(!this.removeIconSpace)return
-      if (!this.data) return
-      for (var i = 0; i < this.data.length; i++) {
-        if (this.data[i]?.icon) {
+      if (!this.item?.children) return
+      for (var i = 0; i < this.item?.children.length; i++) {
+        if (this.item?.children[i]?.icon) {
           this.siblingsHaveIcon = true
           break
         }
@@ -525,7 +517,7 @@ export default {
           this.expanded = true
         })
       }
-      if (!this.data) return
+      if (!this.item?.children) return
       if (this.expanded) return
       this.setSmallMenuDataForToggle(true)
       this.renderChildren = true
@@ -533,7 +525,7 @@ export default {
         this.containerHeight = this.cacheHieght
       } else {
         this.containerHeight = this.menuMounted
-          ? this.data.length * this.$refs['menuItem']?.offsetHeight + 3
+          ? this.item?.children.length * this.$refs['menuItem']?.offsetHeight + 3
           : this.userAgentHeight
       }
       this.cacheHieght = null
@@ -560,7 +552,7 @@ export default {
           this.expanded = false
         })
       }
-      if (!this.data) return
+      if (!this.item?.children) return
       this.setSmallMenuDataForToggle(false)
       if (!this.cacheHieght) {
         this.cacheHieght = this.$refs['container']?.offsetHeight
