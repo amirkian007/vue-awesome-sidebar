@@ -1,3 +1,4 @@
+
 <template>
   <div
     :class="menuItemClass"
@@ -9,8 +10,8 @@
   >
     <!-- ========================= -->
     <!-- 1 this is basiclly the menu btn  -->
-        <!-- hoverClass: MiniCollapsemainItemHover -->
-        <!-- menuexpand2: miniCollapsed && showChildren && depth === 0, -->
+    <!-- hoverClass: MiniCollapsemainItemHover -->
+    <!-- menuexpand2: miniCollapsed && showChildren && depth === 0, -->
     <!-- ========================= -->
 
     <div
@@ -21,7 +22,7 @@
       :class="{
         menuexpand: showChildren,
         activeClass: active,
-        miniActive: miniActive,
+        miniActive: miniActive
       }"
       @[labelPressEvent]="toggleMenu"
       :style="{
@@ -29,7 +30,9 @@
       }"
     >
       <div class="left" :class="{ marginAuto: miniCollapsed && depth === 0 }">
-        <template v-if=" !removeIconSpace|| removeIconSpace&&siblingsHaveIconProp">
+        <template
+          v-if="!removeIconSpace || (removeIconSpace && siblingsHaveIconProp)"
+        >
           <MenuItemIconVue v-if="!menuitemion" :icon="item?.icon" />
           <!-- !!! slot for menuitem icon-->
           <component
@@ -43,12 +46,12 @@
       </div>
       <template v-if="(miniCollapsed && depth != 0) || !miniCollapsed">
         <div
-          v-if="data && !iconSlut"
+          v-if="item.children && !iconSlut"
           class="icons"
           :class="{ opened: showChildren, postIconOpenAnima: openAnimation }"
         ></div>
         <!-- !!!  slot for menuitem prepand icon-->
-        <div v-if="data && iconSlut">
+        <div v-if="item.children && iconSlut">
           <component
             v-if="iconSlut"
             :icon="item?.icon"
@@ -92,20 +95,19 @@
       <div
         class="items-container"
         :class="{ 'small-menu': smallMenu }"
-        :style="{ maxHeight: heifth, transition: transitionTime }"
+        :style="{ maxHeight: heifOfContainer, transition: transitionTime }"
         ref="container"
-        v-if="data"
+        v-if="item.children"
       >
         <template v-if="renderChildren">
           <menu-item
-            v-for="(item, index) in data"
+            v-for="(item, index) in item.children"
             :siblingsHaveIconProp="siblingsHaveIcon"
             :isParentFlat="siblingsHaveIconProp"
             :key="index"
             :item="item"
             :depth="depth + 1"
             :smallMenu="smallMenu"
-            :close="closeChild"
           />
         </template>
       </div>
@@ -116,8 +118,6 @@
     <!-- ========================= -->
 
     <div
-      @mouseenter="MiniCollapseContainerHover = true"
-      @mouseleave="MiniCollapseContainerHover = false"
       v-if="miniCollapsed"
       v-show="showChildren || depth != 0"
       :class="{ topContainer: depth == 0 }"
@@ -139,14 +139,9 @@
         :style="{
           position: 'fixed',
           whiteSpace: 'nowrap',
-          [menuDirection]:
-            menuDirection === 'left'
-              ? miniMenuOffsetXLeft + 'px'
-              : miniMenuOffsetXRight + 'px',
+          [menuDirection]: miniLabelDirection,
           height: miniMenuOffsetHeight + 'px',
-          width: expanded
-            ? `calc(${widthMiniCollapsed}/2 - ${$refs['menuItem'].clientWidth}px/2 + ${$refs['menuItem'].clientWidth}px + 250px)`
-            : `${$refs['menuItem'].clientWidth}px`
+          width: miniLabelWidth
         }"
       >
         <!--main menu btn-->
@@ -157,7 +152,11 @@
         >
           <MenuItemIconVue v-if="!menuitemion" :icon="item?.icon" />
           <!--slot for menuitem icon-->
-          <component v-else :is="menuitemion" :iconData="item?.icon"></component>
+          <component
+            v-else
+            :is="menuitemion"
+            :iconData="item?.icon"
+          ></component>
 
           <span style="padding-left: 15px; padding-right: 15px">{{
             item?.name
@@ -188,22 +187,21 @@
         class="items-container"
         :class="{ 'small-menu': smallMenu }"
         :style="{
-          maxHeight: heifth,
+          maxHeight: heifOfContainer,
           transition: transitionTime
         }"
         ref="container"
-        v-if="data"
+        v-if="item.children"
       >
         <template v-if="renderChildren">
           <menu-item
-            v-for="(item, index) in data"
+            v-for="(item, index) in item.children"
             :siblingsHaveIconProp="siblingsHaveIcon"
             :isParentFlat="siblingsHaveIconProp"
             :key="index"
             :item="item"
             :depth="depth + 1"
             :smallMenu="smallMenu"
-            :close="closeChild"
           />
         </template>
       </div>
@@ -212,9 +210,9 @@
 </template>
 
 <script>
-import { computed, inject } from 'vue'
+import { defineComponent } from 'vue'
 import MenuItemIconVue from './MenuItemIcon.vue'
-import { useRouter } from 'vue-router'
+import { computed, inject ,reactive,watch } from 'vue'
 export default {
   name: 'menu-item',
   components: { MenuItemIconVue },
@@ -222,173 +220,22 @@ export default {
     showChildren: false,
     expanded: false,
     containerHeight: '0',
-    closeChild: false,
-    iconOpen: false,
     hieghtTimeout: null,
     renderTimeOut: null,
-    renderChild: false,
     renderChildren: false,
     cacheHieght: null,
     active: false,
     miniActive: false,
-    menuMounted: false,
-    eventname: null,
-    miniCollapsedItemIconHover: false,
-    miniCollapsedItemContainerHover: false,
     hover: false,
     ContainerOffsetY: 0,
     id: null,
-    MiniCollapseContainerHover: false,
-    alignStart: true,
-    showText: true,
     miniMenuOffsetXLeft: 50,
     miniMenuOffsetXRight: 50,
-    menuexpandcOMPLETE: false,
     MiniCollapsemainItemHover: false,
     miniMenuOffsetHeight: 0,
     siblingsHaveIcon: false
   }),
-  props: [
-    'data',
-    'smallMenu',
-    'close',
-    'header',
-    'name',
-    'icon',
-    'depth',
-    'siblingsHaveIconProp',
-    'isParentFlat',
-    'item'
-  ],
-  watch: {
-    currentRoute() {
-      this.checkActive()
-    },
-    hover() {
-      //TODO :MAKE THIS MORE EFFICEANT
-      if (this.miniCollapsed && this.hover) {
-        this.setItemOffsetHeight()
-      }
-
-      if (!this.id) {
-        this.id = this.getRandomUid()
-      }
-      if (this.hover) {
-        // this.kirkhar = `calc(${this.widthMiniCollapsed/2}px + ${this.$refs['menuItem'].clientWidth} + 250px)`
-        this.updateCurrantItemHover(this.id)
-        this.openItemCildren()
-      } else {
-        if (this.CurrantItemHover === this.id && this.MenuHover) {
-        } else {
-          this.closeItemChildren()
-        }
-      }
-    },
-    MenuHover() {
-      if (!this.MenuHover) {
-        this.closeItemChildren()
-      }
-    },
-    CurrantItemHover() {
-      //   this.miniActive =this.CurrantItemHover != this.id
-      if (this.CurrantItemHover != this.id) {
-        //this.miniActive = false
-        this.closeItemChildren()
-      } else {
-        // this.miniActive = true
-      }
-    },
-    MenuScroll() {
-      this.setItemOffsetHeight()
-    },
-    miniCollapsed() {
-      if (this.miniCollapsed) {
-        this.closeItemChildren()
-        this.alignStart = false
-      }
-      this.$nextTick(() => {
-        this.setItemOffsetHeight()
-      })
-    },
-    MiniCollapseContainerHover() {
-      //this.miniActive = this.MiniCollapseContainerHover
-    }
-  },
-  created() {
-    this.checkActive()
-  },
-  mounted() {
-    this.checkSiblingsForIcon()
-    //console.log( this.$refs['menuItem2'])
-    this.setItemOffsetHeight()
-  },
-  computed: {
-    menuDirectionOposite() {
-      return this.menuDirection === 'right' ? 'left' : 'right'
-    },
-    labelName() {
-      if (this.miniCollapsed) {
-        return this.depth != 0 ? this.item?.name : false
-      }
-      return this.item?.name
-    },
-    showLabel() {
-      return this.smallMenu ? this.depth > 0 : true
-    },
-    heifth() {
-      return this.containerHeight === this.userAgentHeight
-        ? this.containerHeight
-        : this.containerHeight + 'px'
-    },
-    transitionTime() {
-      return `all ${this.animationDurationTime / 1000}s ease-in-out`
-    },
-    menuItemSlotData() {
-      return {
-        icon: { icon: this.item?.icon || {}, name: this.item?.name }
-      }
-    },
-    shouldMouseEnterEvent() {
-      return this.miniCollapsed && this.depth == 0 ? 'mouseenter' : null
-    },
-    labelPressEvent() {
-      return this.miniCollapsed && this.depth == 0 ? 'keypress' : 'click'
-    },
-    shouldMouseLeaveEvent() {
-      return this.miniCollapsed && this.depth == 0 ? 'mouseleave' : null
-    },
-    ContainerOffsetYConputed() {
-      return `${this.ContainerOffsetY - 3}px`
-    },
-    menuItemClass() {
-      let obj = {}
-      obj[`menu-item-type-${this.menuType}`] = true
-      return {
-        miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
-        MenuItemWidthOnMiniCollapse: this.miniCollapsed && this.depth != 0,
-        alignStart: this.alignStart,
-        alignCenter: true,
-        noIconWidth:
-        this.removeIconSpace&&
-          !this.miniCollapsed &&
-          !this.siblingsHaveIconProp &&
-          this.isParentFlat,
-        noIconWidthMiniMenu:
-        this.removeIconSpace&&
-          this.miniCollapsed &&
-          this.depth != 0 &&
-          !this.siblingsHaveIconProp &&
-          this.isParentFlat,
-        ...obj
-      }
-      // return `menu-item-type-${this.menuType}`
-    },
-    showOnMiniCollapse() {
-      showText && miniCollapsed && depth != 0
-    }
-  },
-  setup() {
-    const router = useRouter()
+  setup(){
     const getSlots = inject('getSlotByName')
     const {
       animationDuration,
@@ -435,7 +282,6 @@ export default {
       extractChildrenRoutes,
       menuMounted,
       currentRoute,
-      router,
       miniCollapsed,
       MenuScroll,
       MenuHover,
@@ -444,7 +290,141 @@ export default {
       CurrantItemHover,
       openAnimation
     }
+
   },
+  props: [
+    'smallMenu',
+    'header',
+    'depth',
+    'siblingsHaveIconProp',
+    'isParentFlat',
+    'item'
+  ],
+  watch: {
+    currentRoute() {
+      this.checkActive()
+    },
+    hover() {
+      //TODO :MAKE THIS MORE EFFICEANT
+      if (this.miniCollapsed && this.hover) {
+        this.setItemOffsetHeight()
+      }
+
+      if (!this.id) {
+        this.id = this.getRandomUid()
+      }
+      if (this.hover) {
+        this.updateCurrantItemHover(this.id)
+        this.openItemCildren()
+      } else {
+        if (this.CurrantItemHover === this.id && this.MenuHover) {
+        } else {
+          this.closeItemChildren()
+        }
+      }
+    },
+    MenuHover() {
+      if (!this.MenuHover) {
+        this.closeItemChildren()
+      }
+    },
+    CurrantItemHover() {
+      //   this.miniActive =this.CurrantItemHover != this.id
+      if (this.CurrantItemHover != this.id) {
+        //this.miniActive = false
+        this.closeItemChildren()
+      } else {
+        // this.miniActive = true
+      }
+    },
+    MenuScroll() {
+      this.setItemOffsetHeight()
+    },
+    miniCollapsed() {
+      if (this.miniCollapsed) {
+        this.closeItemChildren()
+      }
+      this.$nextTick(() => {
+        this.setItemOffsetHeight()
+      })
+    }
+  },
+  created() {
+    this.checkActive()
+  },
+  mounted() {
+    this.checkSiblingsForIcon()
+    this.setItemOffsetHeight()
+  },
+  computed: {
+    menuDirectionOposite() {
+      return this.menuDirection === 'right' ? 'left' : 'right'
+    },
+    labelName() {
+      if (this.miniCollapsed) {
+        return this.depth != 0 ? this.item?.name : false
+      }
+      return this.item?.name
+    },
+    heifOfContainer() {
+      return this.containerHeight === this.userAgentHeight
+        ? this.containerHeight
+        : this.containerHeight + 'px'
+    },
+    transitionTime() {
+      return `all ${this.animationDurationTime / 1000}s ease-in-out`
+    },
+    menuItemSlotData() {
+      return {
+        icon: { icon: this.item?.icon || {}, name: this.item?.name }
+      }
+    },
+    shouldMouseEnterEvent() {
+      return this.miniCollapsed && this.depth == 0 ? 'mouseenter' : null
+    },
+    labelPressEvent() {
+      return this.miniCollapsed && this.depth == 0 ? 'keypress' : 'click'
+    },
+    shouldMouseLeaveEvent() {
+      return this.miniCollapsed && this.depth == 0 ? 'mouseleave' : null
+    },
+    ContainerOffsetYConputed() {
+      return `${this.ContainerOffsetY - 3}px`
+    },
+    menuItemClass() {
+      let obj = {}
+      obj[`menu-item-type-${this.menuType}`] = true
+      return {
+        miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
+        MenuItemWidthOnMiniCollapse: this.miniCollapsed && this.depth != 0,
+        alignCenter: true,
+        noIconWidth:
+          this.removeIconSpace &&
+          !this.miniCollapsed &&
+          !this.siblingsHaveIconProp &&
+          this.isParentFlat,
+        noIconWidthMiniMenu:
+          this.removeIconSpace &&
+          this.miniCollapsed &&
+          this.depth != 0 &&
+          !this.siblingsHaveIconProp &&
+          this.isParentFlat,
+        ...obj
+      }
+      // return `menu-item-type-${this.menuType}`
+    },
+    miniLabelWidth() {
+      return this.expanded
+        ? `calc(${this.widthMiniCollapsed}/2 - ${this.$refs['menuItem'].clientWidth}px/2 + ${this.$refs['menuItem'].clientWidth}px + 250px)`
+        : `${this.$refs['menuItem'].clientWidth}px`
+    },
+    miniLabelDirection() {
+      return this.menuDirection === 'left'
+        ? this.miniMenuOffsetXLeft + 'px'
+        : this.miniMenuOffsetXRight + 'px'
+    }
+  },
+  
   methods: {
     PushToTopOfCallStack(cb) {
       setTimeout(() => {
@@ -476,11 +456,11 @@ export default {
     },
     miniLabelClick() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href) this.$router.push(this.item?.href)
+      if (this.item?.href && !this.vueRouterDisabel) this.$router.push(this.item?.href)
     },
     toggleMenu() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href) this.$router.push(this.item?.href)
+      if (this.item?.href && !this.vueRouterDisabel) this.$router.push(this.item?.href)
       if (!this.item?.children) return
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
@@ -500,7 +480,7 @@ export default {
       this.showChildren = val
     },
     checkSiblingsForIcon() {
-      if(!this.removeIconSpace)return
+      if (!this.removeIconSpace) return
       if (!this.item?.children) return
       for (var i = 0; i < this.item?.children.length; i++) {
         if (this.item?.children[i]?.icon) {
@@ -525,7 +505,8 @@ export default {
         this.containerHeight = this.cacheHieght
       } else {
         this.containerHeight = this.menuMounted
-          ? this.item?.children.length * this.$refs['menuItem']?.offsetHeight + 3
+          ? this.item?.children.length * this.$refs['menuItem']?.offsetHeight +
+            3
           : this.userAgentHeight
       }
       this.cacheHieght = null
@@ -541,9 +522,7 @@ export default {
         },
         this.openAnimation ? this.animationDurationTime : 0
       )
-      this.$nextTick(() => {
-        this.menuexpandcOMPLETE = this.expanded
-      })
+
     },
     closeItemChildren() {
       if (this.miniCollapsed && this.depth === 0) {
