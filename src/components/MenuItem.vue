@@ -1,9 +1,8 @@
-
 <template>
   <div
     :class="menuItemClass"
     ref="menuItem"
-    class="menu-item-base"
+    class="menu-item-base alignCenter"
     :style="{
       float: miniCollapsed && depth === 1 ? menuDirection : menuDirectionOposite
     }"
@@ -26,7 +25,8 @@
       }"
       @[labelPressEvent]="toggleMenu"
       :style="{
-        opacity: miniCollapsed && depth === 0 && showChildren ? '0' : '1'
+        opacity: miniCollapsed && depth === 0 && showChildren ? '0' : '1',
+        paddingLeft: menuType === 'fully' ? `${depth * 18}px` : ``
       }"
     >
       <div class="left" :class="{ marginAuto: miniCollapsed && depth === 0 }">
@@ -212,8 +212,8 @@
 <script>
 import { defineComponent } from 'vue'
 import MenuItemIconVue from './MenuItemIcon.vue'
-import { computed, inject ,reactive,watch } from 'vue'
-export default {
+import { inject } from 'vue'
+export default defineComponent({
   name: 'menu-item',
   components: { MenuItemIconVue },
   data: () => ({
@@ -235,7 +235,7 @@ export default {
     miniMenuOffsetHeight: 0,
     siblingsHaveIcon: false
   }),
-  setup(){
+  setup() {
     const getSlots = inject('getSlotByName')
     const {
       animationDuration,
@@ -259,9 +259,6 @@ export default {
     const CurrantItemHover = inject('CurrantItemHover')
     const menuDirection = inject('menuDirection')
     const emitOnItemClick = inject('emitOnItemClick')
-    const animationDurationTime = computed(() => {
-      return animationDuration
-    })
     let iconSlut = getSlots('icons')
     let menuitemion = getSlots('menuitemion')
     let menuitemSlut = getSlots('menuitem')
@@ -272,7 +269,7 @@ export default {
       menuDirection,
       menuitemion,
       updateCurranContainerHover,
-      animationDurationTime,
+      animationDuration,
       userAgentHeight,
       menuitemSlut,
       isSameUrl,
@@ -290,7 +287,6 @@ export default {
       CurrantItemHover,
       openAnimation
     }
-
   },
   props: [
     'smallMenu',
@@ -372,7 +368,7 @@ export default {
         : this.containerHeight + 'px'
     },
     transitionTime() {
-      return `all ${this.animationDurationTime / 1000}s ease-in-out`
+      return `all ${this.animationDuration / 1000}s ease-in-out`
     },
     menuItemSlotData() {
       return {
@@ -393,11 +389,11 @@ export default {
     },
     menuItemClass() {
       let obj = {}
-      obj[`menu-item-type-${this.menuType}`] = true
+      obj[`vas-${this.menuType}`] = true
       return {
         miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
         MenuItemWidthOnMiniCollapse: this.miniCollapsed && this.depth != 0,
-        alignCenter: true,
+
         noIconWidth:
           this.removeIconSpace &&
           !this.miniCollapsed &&
@@ -424,7 +420,7 @@ export default {
         : this.miniMenuOffsetXRight + 'px'
     }
   },
-  
+
   methods: {
     PushToTopOfCallStack(cb) {
       setTimeout(() => {
@@ -456,11 +452,13 @@ export default {
     },
     miniLabelClick() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href && !this.vueRouterDisabel) this.$router.push(this.item?.href)
+      if (this.item?.href && !this.vueRouterDisabel)
+        this.$router.push(this.item?.href)
     },
     toggleMenu() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href && !this.vueRouterDisabel) this.$router.push(this.item?.href)
+      if (this.item?.href && !this.vueRouterDisabel)
+        this.$router.push(this.item?.href)
       if (!this.item?.children) return
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
@@ -480,7 +478,7 @@ export default {
       this.showChildren = val
     },
     checkSiblingsForIcon() {
-      if (!this.removeIconSpace) return
+      if (!this.removeIconSpace && this.menuType == 'fully') return
       if (!this.item?.children) return
       for (var i = 0; i < this.item?.children.length; i++) {
         if (this.item?.children[i]?.icon) {
@@ -520,9 +518,8 @@ export default {
         () => {
           this.containerHeight = this.userAgentHeight
         },
-        this.openAnimation ? this.animationDurationTime : 0
+        this.openAnimation ? this.animationDuration : 0
       )
-
     },
     closeItemChildren() {
       if (this.miniCollapsed && this.depth === 0) {
@@ -547,7 +544,7 @@ export default {
           this.renderChildren = false
           this.cacheHieght = null
         },
-        this.openAnimation ? this.animationDurationTime : 0
+        this.openAnimation ? this.animationDuration : 0
       )
     },
     setItemOffsetHeight() {
@@ -561,12 +558,9 @@ export default {
       }
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
 @use '../scss/menu-item.scss';
-.alignCenter {
-  align-self: center;
-}
 </style>
