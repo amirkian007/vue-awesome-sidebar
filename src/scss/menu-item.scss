@@ -1,15 +1,19 @@
 @use './types/simple-icon.scss';
+@use './types/fully.scss';
 
 %hoverPointer {
-@media (hover: hover) and (pointer: fine) {
-  cursor: pointer;
-}
-@media (hover: none) and (pointer: coarse) {
-  cursor: none;
-}
+  @media (hover: hover) and (pointer: fine) {
+    cursor: pointer;
+  }
+  @media (hover: none) and (pointer: coarse) {
+    cursor: none;
+  }
 }
 
 .menu-item-base {
+  &.alignCenter {
+    align-self: center;
+  }
   position: relative;
   .labelMini {
     transition: all 0.4s ease;
@@ -23,7 +27,7 @@
     > .left {
       display: flex;
     }
-    @extend %hoverPointer
+    @extend %hoverPointer;
   }
   .label {
     position: relative;
@@ -40,11 +44,11 @@
         margin: auto;
       }
     }
-    @extend %hoverPointer
 
+    @extend %hoverPointer;
   }
   .hoverClass {
-    @extend %hoverPointer
+    @extend %hoverPointer;
   }
   .topContainer {
     position: fixed;

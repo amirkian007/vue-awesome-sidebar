@@ -2,7 +2,7 @@
 //@use './types/shared';
 @use './themes/white-theme.scss';
 @use './themes/dark-theme.scss';
-.vas-awesome-menu {
+.vas-menu {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -10,8 +10,8 @@
   overflow-y: overlay;
   -webkit-overflow-scrolling: touch;
   z-index: 858589;
-  .menu-item-type-simple-icon {
-    +.vsss-header {
+  .vas-simple-icon {
+    + .vsss-header {
       align-self: center;
       font-size: 13px;
       white-space: nowrap;
@@ -21,14 +21,13 @@
       padding-right: 16px;
       padding-bottom: 1px;
       font-weight: 600;
-  width: 97%;
-
+      width: 97%;
     }
   }
 
   .items-container {
-   height: fit-content;
-  overflow: hidden;
+    height: fit-content;
+    overflow: hidden;
   }
 
   hr {
@@ -48,14 +47,13 @@
   * {
     box-sizing: border-box;
   }
-  
+
   .postIconOpenAnima {
     transition: -webkit-transform 250ms linear;
     transition: transform 250ms linear;
     transition: transform 250ms linear, -webkit-transform 250ms linear;
     height: 100%;
   }
- 
 }
 .vas-over-layer {
   width: 100%;
