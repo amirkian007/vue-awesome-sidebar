@@ -16,6 +16,7 @@
   "homepage": "",
   "scripts": {
     "dev": "vite --host",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "format": "prettier --write .",
     "build-demo": "vue-tsc --noEmit && vite build",
@@ -52,6 +53,7 @@
     "not ie <= 8"
   ],
   "dependencies": {
+    "rollup-plugin-terser": "^7.0.2",
     "vue": "^3.2.37",
     "vue-router": "4"
   },

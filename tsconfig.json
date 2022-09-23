@@ -27,6 +27,7 @@
     "skipLibCheck": true,
     "allowJs": true,
     "declaration": true,
+    "isolatedModules": true,
     "paths": {
       "@": ["./src"],
       "@/*": ["./src/*"]
