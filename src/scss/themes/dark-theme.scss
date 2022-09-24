@@ -4,7 +4,7 @@ $textColorNoneHover: rgb(218, 221, 225);
 $top: rgba(170, 170, 170, 0.329);
 $backGroundColor: #242526;
 $borderColor: rgba(170, 170, 170, 0.329);
-.vas-awesome-menu {
+.vas-menu {
   &.dark-theme {
     hr {
       border-color: $hoverBackGround;
@@ -39,78 +39,55 @@ $borderColor: rgba(170, 170, 170, 0.329);
         background-color: $backGroundColor;
       }
     }
-    .menu-item-type-simple-icon {
-      .hoverClass {
-        background: $hoverBackGround;
+    // .vas-simple-icon {
+    .hoverClass {
+      background: $hoverBackGround;
+    }
+    .label {
+      &.activeClass .left::before {
+        background-color: $textActiveColor;
       }
-      .label {
-        &.activeClass {
-          background: $hoverBackGround;
-          color: $textActiveColor;
-        }
-
-        &.miniActive {
-          // .icons {
-          //   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
-          //     50%/2rem 2rem;
-          //   -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-          //   filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-          // }
-          color: $textActiveColor;
-        }
-        color: $textColorNoneHover;
-        &:hover {
-          background: $hoverBackGround;
-          //color: $textActiveColor;
-        }
-      }
-      .labelMini {
-        overflow: hidden;
+      &.activeClass {
         background: $hoverBackGround;
-        // width: 30px;
-        color: $textColorNoneHover;
-        &.activeClass {
-          background: $hoverBackGround;
-          color: $textActiveColor;
-        }
-        &.miniActive {
-          color: $textActiveColor;
-        }
+        color: $textActiveColor;
       }
 
-      .fadeeInAnimation {
-        //overflow: hidden;
-        animation: fade1Dark 0.4s ease forwards;
+      &.miniActive {
+        // .icons {
+        //   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+        //     50%/2rem 2rem;
+        //   -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+        //   filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+        // }
+        color: $textActiveColor;
       }
-      .fadeOutAnimation {
-        //width: 200px;
-        animation: fade1outDark 0.4s forwards;
-      }
-      .icons {
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
-          50%/2rem 2rem;
-        -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-        filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      color: $textColorNoneHover;
+      &:hover {
+        background: $hoverBackGround;
+        //color: $textActiveColor;
       }
     }
-    @keyframes fade1Dark {
-      0% {
-        width: 30px;
+    .labelMini {
+      &.activeClass .left::before {
+        background-color: $textActiveColor;
       }
-      100% {
-        // color: #2c7ae0;
-        width: attr(kirkhat);
+      overflow: hidden;
+      background: $hoverBackGround;
+      // width: 30px;
+      color: $textColorNoneHover;
+      &.activeClass {
+        background: $hoverBackGround;
+        color: $textActiveColor;
+      }
+      &.miniActive {
+        color: $textActiveColor;
       }
     }
-
-    @keyframes fade1outDark {
-      0% {
-        //color: #2c7ae0;
-        background-color: $hoverBackGround;
-      }
-      100% {
-        background-color: none;
-      }
+    .icons {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+        50%/2rem 2rem;
+      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
     }
   }
 }

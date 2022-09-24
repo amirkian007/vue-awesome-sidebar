@@ -4,7 +4,7 @@ $textColorNoneHover: rgb(28, 30, 33);
 $top: rgba(170, 170, 170, 0.329);
 $backGroundColor: white;
 
-.vas-awesome-menu {
+.vas-menu {
   &.white-theme {
     hr {
       border-color: $hoverBackGround;
@@ -23,76 +23,56 @@ $backGroundColor: white;
     .vsss-header {
       color: #213547;
     }
-    .menu-item-type-simple-icon {
-      .hoverClass {
+    // .vas-simple-icon {
+    .hoverClass {
+      background: $hoverBackGround;
+    }
+
+    .label {
+      &.activeClass .left::before {
+        background-color: $textActiveColor;
+      }
+      &.activeClass {
         background: $hoverBackGround;
+        color: $textActiveColor;
       }
-
-      .label {
-        &.activeClass {
-          background: $hoverBackGround;
-          color: $textActiveColor;
-        }
-        &.miniActive {
-          color: $textActiveColor;
-        }
-        color: $textColorNoneHover;
-        &:hover {
-          background-color: $hoverBackGround;
-          //color: $textActiveColor;
-        }
-
-        // &:active {
-        //   background: none;
-        //   color: none;
-        // }
+      &.miniActive {
+        color: $textActiveColor;
       }
-      .labelMini {
-        overflow: hidden;
+      color: $textColorNoneHover;
+      &:hover {
         background-color: $hoverBackGround;
-        //width: 30px;
-        &.activeClass {
-          background: $hoverBackGround;
-          color: $textActiveColor;
-        }
-        &.miniActive {
-          color: $textActiveColor;
-        }
+        //color: $textActiveColor;
       }
-      .fadeeInAnimation {
-        animation: fade1White 0.4s forwards;
-      }
-      .fadeOutAnimation {
-        //width: 200px;
-        // animation: fade1outWhite 0.3ms forwards;
-      }
-      .icons {
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
-          50%/2rem 2rem;
-        -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-        filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-      }
-    }
 
-    @keyframes fade1White {
-      0% {
-        width: 30px;
+      // &:active {
+      //   background: none;
+      //   color: none;
+      // }
+    }
+    .labelMini {
+      &.activeClass .left::before {
+        background-color: $textActiveColor;
       }
-      100% {
-        // color: #2c7ae0;
-        width: 300px;
+      overflow: hidden;
+      background-color: $hoverBackGround;
+      //width: 30px;
+      &.activeClass {
+        background: $hoverBackGround;
+        color: $textActiveColor;
+      }
+      &.miniActive {
+        color: $textActiveColor;
       }
     }
+    .icons {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+        50%/2rem 2rem;
+      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+    }
+    //}
 
-    @keyframes fade1outWhite {
-      0% {
-        //color: #2c7ae0;
-        background-color: $hoverBackGround;
-      }
-      100% {
-        background-color: none;
-      }
-    }
     &.rtl {
       .topContainer {
         border-top: 1px solid rgba(170, 170, 170, 0.329);
