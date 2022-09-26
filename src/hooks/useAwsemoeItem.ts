@@ -7,5 +7,4 @@ export function useAwsemoeItem(target: any, callBack: any, isCollapsed: any) {
 
   const itemShow = ref(false)
   const itemHover = ref(false)
-  return { isSameUrl }
 }

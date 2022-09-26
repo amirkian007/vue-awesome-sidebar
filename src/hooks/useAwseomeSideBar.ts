@@ -9,15 +9,26 @@ import {
 } from 'vue'
 
 export const initAwsomeSideBar = (props: any, context: any) => {
+  //const { collapsed, miniCollapsed, direction } = toRefs(props)
+
   const {
-    autoCollapse,
+    menu,
+    menuType,
     collapsed,
-    relative,
-    width,
-    widthCollapsed,
-    rtl,
     miniCollapsed,
-    direction
+    animationDuration,
+    direction,
+    width,
+    widthMiniCollapsed,
+    removeIconSpace,
+    closeOnClickOutSide,
+    overLayerOnOpen,
+    overLayerColor,
+    openAnimation,
+    position,
+    collapseBreakPoint,
+    dark,
+    rtl
   } = toRefs(props)
   const isCollapsed = ref(collapsed.value)
   const slots = ref(context.slots)
@@ -26,9 +37,6 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const MenuHover = ref(false)
   const CurrantItemHover = ref(null)
   const CurranContainerHover = ref(null)
-  const currentRoute = ref(
-    window.location.pathname + window.location.search + window.location.hash
-  )
 
   const getSlotByName = (slotName: any) => {
     return context.slots.hasOwnProperty(slotName)
@@ -39,32 +47,24 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const updateIsCollapsed = (val: boolean) => {
     isCollapsed.value = val
   }
-  const updateSlots = (val: any) => {
-    slots.value = val
-  }
-
-  const updateCurrentRoute = () => {
-    currentRoute.value =
-      window.location.pathname + window.location.search + window.location.hash
-  }
   const updateMenuScroll = () => {
     MenuScroll.value = !MenuScroll.value
   }
-  const updateMenuHover = (val) => {
+  const updateMenuHover = (val: any) => {
     MenuHover.value = val
   }
-  const updateCurrantItemHover = (id) => {
+  const updateCurrantItemHover = (id: any) => {
     CurrantItemHover.value = id
   }
-  const updateCurranContainerHover = (id) => {
+  const updateCurranContainerHover = (id: any) => {
     CurranContainerHover.value = id
   }
   const menuDirection = computed(() => {
     return direction.value === 'rtl' ? 'right' : 'left'
   })
-  //   const onItemClick = (event, item) => {
-  //     context.emit('item-click', event, item)
-  //   }
+  const emitOnItemClick = (item: any) => {
+    context.emit('item-click', item)
+  }
   let userAgentHeight =
     navigator.userAgent.indexOf('Firefox') != -1
       ? '-moz-max-content'
@@ -80,7 +80,25 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     menuMounted.value = true
   })
 
-  provide('sidebarProps', props)
+  provide('sidebarProps', {
+    menu,
+    menuType,
+    collapsed,
+    miniCollapsed,
+    animationDuration,
+    direction,
+    width,
+    widthMiniCollapsed,
+    removeIconSpace,
+    closeOnClickOutSide,
+    overLayerOnOpen,
+    overLayerColor,
+    openAnimation,
+    position,
+    collapseBreakPoint,
+    dark,
+    rtl
+  })
   provide('getSlotByName', getSlotByName)
   provide('browserAgent', userAgentHeight)
   provide('menuMounted', menuMounted)
@@ -94,6 +112,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('CurranContainerHover', CurranContainerHover)
   provide('getIsCollapsed', collapsed)
   provide('menuDirection', menuDirection)
+  provide('emitOnItemClick', emitOnItemClick)
   return {
     getIsCollapsed: collapsed,
     getIsMiniCollapsed: miniCollapsed,

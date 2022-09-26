@@ -5,26 +5,8 @@ export const initAwsomeRouter = (props: any, context: any) => {
   const { autoCollapse, collapsed, relative, width, widthCollapsed, rtl } =
     toRefs(props)
   const currentRoute = ref(window.location)
-  // const route = useRoute();
-  // watch(route, (to) => {
-  //   currentRoute.value = {...window.location}
-  // }, {flush: 'pre', immediate: true, deep: true})
-  // let previousUrl = "/";
 
-  // const observer = new MutationObserver(() => {
-  //   console.log(window.location.href)
-  //   if (window.location.href !== previousUrl) {
-  //     console.log(`URL changed from ${previousUrl} to ${window.location.href}`);
-  //     previousUrl = window.location.href;
-  //     // do your thing
-  //   }
-  // });
-  // const config = { subtree: true, childList: true };
-
-  // // start observing change
-  // observer.observe(document, config);
-
-  function isSameUrl(url, location = currentRoute.value) {
+  function isSameUrl(url: any, location = currentRoute.value) {
     return (
       location.href === location.origin + url ||
       location.pathname + location.hash === url ||
@@ -34,10 +16,10 @@ export const initAwsomeRouter = (props: any, context: any) => {
     )
   }
 
-  function extractChildrenRoutes(obj, keyToFind) {
+  function extractChildrenRoutes(obj: any, keyToFind: any): any {
     if (!obj) return
     return Object.entries(obj).reduce(
-      (acc, [key, value]) =>
+      (acc: any, [key, value]: any) =>
         key === keyToFind
           ? acc.concat(value)
           : typeof value === 'object'
@@ -50,11 +32,8 @@ export const initAwsomeRouter = (props: any, context: any) => {
   //  if(autoCollapse.value){
   //  }
 
-  const updateCurrentRoute = (val: boolean) => {
+  const updateCurrentRoute = (val: any) => {
     currentRoute.value = { ...val }
-  }
-  const updateSlots = (val: any) => {
-    slots.value = val
   }
 
   provide('currentRoute', currentRoute)
