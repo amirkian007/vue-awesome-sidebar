@@ -9,7 +9,6 @@
   >
     <!-- ========================= -->
     <!-- 1 this is basiclly the menu btn  -->
-    <!-- hoverClass: MiniCollapsemainItemHover -->
     <!-- menuexpand2: miniCollapsed && showChildren && depth === 0, -->
     <!-- ========================= -->
 
@@ -127,10 +126,9 @@
       }"
     >
       <div
-        @mouseenter="MiniCollapsemainItemHover = true"
-        @mouseleave="MiniCollapsemainItemHover = false"
+        v-if="depth === 0 && showChildren"
         @click="miniLabelClick"
-        v-if="depth === 0"
+        @mousewheel="mousewheelop"
         :class="{
           miniActive: !menuitemSlut && miniActive,
           activeClass: !menuitemSlut && active,
@@ -141,7 +139,8 @@
           whiteSpace: 'nowrap',
           [menuDirection]: menuType ==='fully'? '0px' : miniLabelDirection,
           height: miniMenuOffsetHeight + 'px',
-          width: miniLabelWidth
+          width: miniLabelWidth,
+          top: ContainerOffsetYConputed
         }"
       >
         <!--main menu btn-->
@@ -182,7 +181,7 @@
           </component>
         </div>
       </div>
-      <div v-if="depth == 0" :style="`height: ${miniMenuOffsetHeight}px`"></div>
+      <div v-if="depth == 0  && showChildren" :style="`height: ${miniMenuOffsetHeight}px`"></div>
       <div
         class="items-container"
         :class="{ 'small-menu': smallMenu }"
@@ -231,7 +230,6 @@ export default defineComponent({
     id: null,
     miniMenuOffsetXLeft: 50,
     miniMenuOffsetXRight: 50,
-    MiniCollapsemainItemHover: false,
     miniMenuOffsetHeight: 0,
     siblingsHaveIcon: false
   }),
@@ -385,7 +383,7 @@ export default defineComponent({
       return this.miniCollapsed && this.depth == 0 ? 'mouseleave' : null
     },
     ContainerOffsetYConputed() {
-      return `${this.ContainerOffsetY - 3}px`
+      return `${this.ContainerOffsetY}px`
     },
     menuItemClass() {
       let obj = {}
@@ -410,10 +408,10 @@ export default defineComponent({
       // return `menu-item-type-${this.menuType}`
     },
     miniLabelWidth() {
-      const zarib = Number(this.menuType != 'fully')
+        const zarib = Number(this.menuType != 'fully')
       return this.expanded
         ? `calc(${this.widthMiniCollapsed}*${zarib}/2 - ${this.$refs['menuItem'].clientWidth}*${zarib}px/2 + ${this.$refs['menuItem'].clientWidth}px + 250px)`
-        : `${this.$refs['menuItem'].clientWidth}px`
+        : `${this.$refs['menuItem']?.clientWidth || 35}px`
 
     },
     miniLabelDirection() {
@@ -424,6 +422,9 @@ export default defineComponent({
   },
 
   methods: {
+    mousewheelop(w){
+      document.querySelector('.vas-menu').scrollBy(0,w.deltaY)
+    },
     PushToTopOfCallStack(cb) {
       setTimeout(() => {
         cb()
