@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="menu"
+    class="vas-menu"
     ref="sidebarmen"
     :class="sidebarClass"
     :style="{
@@ -23,14 +23,9 @@
     <template v-for="(item, index) in menu" :key="index">
       <MenuItem
         v-if="!item?.header && !item?.line"
-        :data="item.children"
-        :name="item.name"
-        :icon="item.icon"
-        :href="item.href"
-        :header="item.header"
+        :item="item"
         :depth="0"
         :smallMenu="smallMenu"
-        :close="true"
         :siblingsHaveIconProp="siblingsHaveIcon"
       />
       <HeaderItem v-else-if="item?.header && !miniCollapsed" :data="item" />
@@ -136,8 +131,8 @@ export default {
     }
   },
   emits: {
-    'item-click'(event, item) {
-      return !!(event && item)
+    'item-click'(item) {
+      return !!item
     },
     'update:collapsed'(collapsed) {
       //return collapsed
@@ -163,9 +158,8 @@ export default {
     // USAGE
   },
   watch: {
-    $route(to) {
+    $route() {
       this.updateCurrentRoute(window.location)
-      //console.log("routeChnage",to)
     },
     isCollapsed() {
       if (this.miniCollapsed && this.isCollapsed) {
@@ -192,14 +186,10 @@ export default {
     mouseLeaveEvent() {
       return this.miniCollapsed ? 'mouseleave' : null
     }
-    // menuDirection(){
-    //   return this.direction ==='rtl' ? 'right':'left'
-    // }
   },
   methods: {
     onMenuScroll() {
       this.updateMenuScroll()
-      //console.log("scrolled")
     },
     onEnter() {
       this.updateMenuHover(true)
@@ -208,7 +198,7 @@ export default {
       this.updateMenuHover(false)
     },
     checkSiblingsForIcon() {
-      if(!this.removeIconSpace)return
+      if (!this.removeIconSpace && this.menuType == 'fully') return
       for (var i = 0; i < this.menu.length; i++) {
         if (this.menu[i]?.icon) {
           this.siblingsHaveIcon = true
@@ -221,13 +211,9 @@ export default {
     const {
       getIsCollapsed: isCollapsed,
       getIsMiniCollapsed: miniCollapsed,
-      updateIsCollapsed,
-      getSlotByName,
       updateMenuScroll,
       updateMenuHover,
       menuDirection
-      // unsetMobileItem,
-      // updateCurrentRoute
     } = initAwsomeSideBar(props, context)
     const { updateCurrentRoute } = initAwsomeRouter(props, context)
 
@@ -247,7 +233,6 @@ export default {
       watch(
         () => props.collapsed,
         (currentCollapsed) => {
-          // updateIsCollapsed(currentCollapsed)
           if (props.overLayerOnOpen) {
             overLayer.value = !currentCollapsed
           }
