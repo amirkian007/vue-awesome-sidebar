@@ -25,7 +25,7 @@
       @[labelPressEvent]="toggleMenu"
       :style="{
         opacity: miniCollapsed && depth === 0 && showChildren ? '0' : '1',
-       paddingLeft : menuType === 'fully' ? `${depth*18}px`:``
+        paddingLeft: menuType === 'fully' ? `${depth * 18}px` : ``
       }"
     >
       <div class="left" :class="{ marginAuto: miniCollapsed && depth === 0 }">
@@ -137,7 +137,7 @@
         :style="{
           position: 'fixed',
           whiteSpace: 'nowrap',
-          [menuDirection]: menuType ==='fully'? '0px' : miniLabelDirection,
+          [menuDirection]: menuType === 'fully' ? '0px' : miniLabelDirection,
           height: miniMenuOffsetHeight + 'px',
           width: miniLabelWidth,
           top: ContainerOffsetYConputed
@@ -181,7 +181,10 @@
           </component>
         </div>
       </div>
-      <div v-if="depth == 0  && showChildren" :style="`height: ${miniMenuOffsetHeight}px`"></div>
+      <div
+        v-if="depth == 0 && showChildren"
+        :style="`height: ${miniMenuOffsetHeight}px`"
+      ></div>
       <div
         class="items-container"
         :class="{ 'small-menu': smallMenu }"
@@ -391,7 +394,7 @@ export default defineComponent({
       return {
         miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
         MenuItemWidthOnMiniCollapse: this.miniCollapsed && this.depth != 0,
-       
+
         noIconWidth:
           this.removeIconSpace &&
           !this.miniCollapsed &&
@@ -408,11 +411,10 @@ export default defineComponent({
       // return `menu-item-type-${this.menuType}`
     },
     miniLabelWidth() {
-        const zarib = Number(this.menuType != 'fully')
+      const zarib = Number(this.menuType != 'fully')
       return this.expanded
         ? `calc(${this.widthMiniCollapsed}*${zarib}/2 - ${this.$refs['menuItem'].clientWidth}*${zarib}px/2 + ${this.$refs['menuItem'].clientWidth}px + 250px)`
         : `${this.$refs['menuItem']?.clientWidth || 35}px`
-
     },
     miniLabelDirection() {
       return this.menuDirection === 'left'
@@ -422,8 +424,8 @@ export default defineComponent({
   },
 
   methods: {
-    mousewheelop(w){
-      document.querySelector('.vas-menu').scrollBy(0,w.deltaY)
+    mousewheelop(w) {
+      document.querySelector('.vas-menu').scrollBy(0, w.deltaY)
     },
     PushToTopOfCallStack(cb) {
       setTimeout(() => {
@@ -481,7 +483,7 @@ export default defineComponent({
       this.showChildren = val
     },
     checkSiblingsForIcon() {
-      if (!this.removeIconSpace && this.menuType =="fully") return
+      if (!this.removeIconSpace && this.menuType == 'fully') return
       if (!this.item?.children) return
       for (var i = 0; i < this.item?.children.length; i++) {
         if (this.item?.children[i]?.icon) {
@@ -566,5 +568,4 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @use '../scss/menu-item.scss';
-
 </style>
