@@ -16,7 +16,8 @@
   }
   position: relative;
   .labelMini {
-    transition: all 0.4s ease;
+    z-index: 1000;
+    transition: width 0.4s ease;
     background: none;
     flex-direction: row;
     justify-content: space-between;
@@ -52,9 +53,9 @@
   }
   .topContainer {
     position: fixed;
-    transition: all 0.5s ease;
+   // transition: all 0s ease;
     width: 250px;
-    z-index: 858588;
+    z-index: 997;
   }
   &.MenuItemWidthOnMiniCollapse {
     margin-left: auto;

@@ -9,7 +9,7 @@
   top: 0;
   overflow-y: overlay;
   -webkit-overflow-scrolling: touch;
-  z-index: 858589;
+  z-index: 999;
   .vas-simple-icon {
     + .vsss-header {
       align-self: center;
@@ -61,5 +61,5 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 858584;
+  z-index: 998;
 }
