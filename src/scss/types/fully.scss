@@ -1,3 +1,5 @@
+@use './shared';
+
 %padding-shared {
   padding: 25px 0px;
 }
@@ -28,9 +30,7 @@
   //   width: calc(100% - 20px) !important;
   // }
   .menu-icon {
-    font-size: 20px;
-    width: 20px; ///ssssss dyynamiiiic
-    overflow: hidden;
+    @extend .menu-iconS;
   }
   .labelMini {
     &.activeClass .left::before {
@@ -40,22 +40,24 @@
       width: 5px;
       top: 0px;
     }
-     .rtl & .left::before {
+    .rtl & .left::before {
       right: 0px;
     }
     .ltr & .left::before {
       left: 0px;
     }
     //  border-radius: 4px;
-    font-size: 16px; //d
-    .rtl & {
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
-    .ltr & {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
+    // font-size: 16px; //d
+    @extend .labelMiniS;
+
+    // .rtl & {
+    //   border-top-left-radius: 4px;
+    //   border-bottom-left-radius: 4px;
+    // }
+    // .ltr & {
+    //   border-top-right-radius: 4px;
+    //   border-bottom-right-radius: 4px;
+    // }
   }
   .label {
     &.activeClass .left::before {
@@ -64,7 +66,6 @@
       position: absolute;
       width: 5px;
       top: 0px;
-
     }
     .rtl & .left::before {
       right: 0px;
@@ -82,25 +83,14 @@
       align-items: center;
     }
   }
+
   .hoverClass {
-    //color: #2c7ae0 !important;
-    transition: all 0.3s;
+    @extend .hoverClassS;
   }
   .topContainer {
-    //  border-left: 0px solid;
-   // padding: 2px;
-    .rtl & {
-      border-top-left-radius: 7px;
-      border-bottom-left-radius: 7px;
-    }
-    .ltr & {
-      border-top-right-radius: 7px;
-      border-bottom-right-radius: 7px;
-    }
-    //float: left;
-    // left: 65px; //d
-    // top: 4px;//d
+    @extend .topContainerS;
   }
+
   &.miniCollapseIconWidth {
     width: 100%;
   }
@@ -108,16 +98,6 @@
     width: 100%;
   }
   .label {
-    width: 100%;
-    // border-radius: 4px;
-    height: 32px;
-    .left {
-      height: 100%;
-      span {
-        padding-left: 6px;
-        padding-right: 6px;
-        //padding-bottom: 1.3px;
-      }
-    }
+    @extend .labelS;
   }
 }
