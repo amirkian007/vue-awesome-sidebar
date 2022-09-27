@@ -1,35 +1,3 @@
-<script setup>
-
- const getSlots = inject('getSlotByName')
-    const {
-      animationDuration,
-      menuType,
-      widthMiniCollapsed,
-      openAnimation,
-      removeIconSpace,
-      collapsed: menuCollapsed
-    } = inject('sidebarProps')
-    const { userAgentHeight } = inject('browserAgent')
-    const currentRoute = inject('currentRoute')
-    const isSameUrl = inject('isSameUrl')
-    const extractChildrenRoutes = inject('extractChildrenRoutes')
-    const menuMounted = inject('menuMounted')
-    const miniCollapsed = inject('miniCollapsed')
-    const MenuScroll = inject('MenuScroll')
-    const MenuHover = inject('MenuHover')
-    const getRandomUid = inject('getRandomUid')
-    const updateCurrantItemHover = inject('updateCurrantItemHover')
-    const updateCurranContainerHover = inject('updateCurranContainerHover')
-    const CurrantItemHover = inject('CurrantItemHover')
-    const menuDirection = inject('menuDirection')
-    const emitOnItemClick = inject('emitOnItemClick')
-    let iconSlut = getSlots('icons')
-    let menuitemion = getSlots('menuitemion')
-    let menuitemSlut = getSlots('menuitem')
-  
-</script>
-
-    
 <template>
   <div
     :class="menuItemClass"
@@ -60,7 +28,11 @@
         paddingLeft: menuType === 'fully' ? `${depth * 18}px` : ``
       }"
     >
-      <div class="left" ref="labelRef" :class="{ marginAuto: miniCollapsed && depth === 0 }">
+      <div
+        class="left"
+        ref="labelRef"
+        :class="{ marginAuto: miniCollapsed && depth === 0 }"
+      >
         <template
           v-if="!removeIconSpace || (removeIconSpace && siblingsHaveIconProp)"
         >
@@ -154,7 +126,9 @@
       :class="{ topContainer: depth == 0 }"
       ref="topContainerRef"
       :style="{
-        [MakeSpace ? 'bottom' : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
+        [MakeSpace
+          ? 'bottom'
+          : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
         [menuDirection]: `calc(${widthMiniCollapsed})`,
         maxHeight: MakeSpace ? TopcontainerHiefht : ''
       }"
@@ -182,8 +156,10 @@
           v-if="!menuitemSlut"
           class="left"
           :class="{ marginAuto: miniCollapsed && depth === 0 }"
-          :style="{[menuDirection]:labelMiniYofsset+'px',
-          top:labelMiniYYofsset + 'px'}"
+          :style="{
+            [menuDirection]: labelMiniYofsset + 'px',
+            top: labelMiniYYofsset + 'px'
+          }"
         >
           <MenuItemIconVue v-if="!menuitemion" :icon="item?.icon" />
           <!--slot for menuitem icon-->
@@ -252,10 +228,9 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
 import MenuItemIconVue from './MenuItemIcon.vue'
 import { inject } from 'vue'
-export default defineComponent({
+export default {
   name: 'menu-item',
   components: { MenuItemIconVue },
   data: () => ({
@@ -277,8 +252,8 @@ export default defineComponent({
     siblingsHaveIcon: false,
     MakeSpace: false,
     TopcontainerHiefht: 0,
-    labelMiniYofsset:0,
-    labelMiniYYofsset:0,
+    labelMiniYofsset: 0,
+    labelMiniYYofsset: 0
   }),
 
   props: [
@@ -289,6 +264,60 @@ export default defineComponent({
     'isParentFlat',
     'item'
   ],
+  setup() {
+    const getSlots = inject('getSlotByName')
+    const {
+      animationDuration,
+      menuType,
+      widthMiniCollapsed,
+      openAnimation,
+      removeIconSpace,
+      collapsed: menuCollapsed
+    } = inject('sidebarProps')
+    const { userAgentHeight } = inject('browserAgent')
+    const currentRoute = inject('currentRoute')
+    const isSameUrl = inject('isSameUrl')
+    const extractChildrenRoutes = inject('extractChildrenRoutes')
+    const menuMounted = inject('menuMounted')
+    const miniCollapsed = inject('miniCollapsed')
+    const MenuScroll = inject('MenuScroll')
+    const MenuHover = inject('MenuHover')
+    const getRandomUid = inject('getRandomUid')
+    const updateCurrantItemHover = inject('updateCurrantItemHover')
+    const updateCurranContainerHover = inject('updateCurranContainerHover')
+    const CurrantItemHover = inject('CurrantItemHover')
+    const menuDirection = inject('menuDirection')
+    const emitOnItemClick = inject('emitOnItemClick')
+    let iconSlut = getSlots('icons')
+    let menuitemion = getSlots('menuitemion')
+    let menuitemSlut = getSlots('menuitem')
+
+    return {
+      animationDuration,
+      currentRoute,
+      menuMounted,
+      iconSlut,
+      menuitemSlut,
+      menuitemion,
+      miniCollapsed,
+      MenuScroll,
+      MenuHover,
+      emitOnItemClick,
+      menuDirection,
+      CurrantItemHover,
+      updateCurranContainerHover,
+      updateCurrantItemHover,
+      getRandomUid,
+      extractChildrenRoutes,
+      isSameUrl,
+      menuType,
+      widthMiniCollapsed,
+      openAnimation,
+      removeIconSpace,
+      collapsed: menuCollapsed,
+      userAgentHeight
+    }
+  },
   watch: {
     currentRoute() {
       this.checkActive()
@@ -298,9 +327,9 @@ export default defineComponent({
       if (this.miniCollapsed && this.hover) {
         this.$nextTick(() => {
           this.setItemOffsetHeight()
-          const y =this.$refs['labelRef'].getBoundingClientRect()
-        this.labelMiniYofsset = y[this.menuDirection]
-        this.labelMiniYYofsset = y.top
+          const y = this.$refs['labelRef'].getBoundingClientRect()
+          this.labelMiniYofsset = y[this.menuDirection]
+          this.labelMiniYYofsset = y.top
         })
       }
 
@@ -333,9 +362,9 @@ export default defineComponent({
     },
     MenuScroll() {
       this.setItemOffsetHeight()
-      const y =this.$refs['labelRef'].getBoundingClientRect()
-         this.labelMiniYofsset = y[this.menuDirection]
-        this.labelMiniYYofsset = y.top
+      const y = this.$refs['labelRef'].getBoundingClientRect()
+      this.labelMiniYofsset = y[this.menuDirection]
+      this.labelMiniYYofsset = y.top
     },
     miniCollapsed() {
       if (this.miniCollapsed) {
@@ -457,13 +486,13 @@ export default defineComponent({
     },
     miniLabelClick() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href && !this.vueRouterDisabel)
-        this.$router.push(this.item?.href)
+      if (this.item?.href && this.$router && !this.vueRouterDisabel)
+        this.$router?.push(this.item?.href)
     },
     toggleMenu() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href && !this.vueRouterDisabel)
-        this.$router.push(this.item?.href)
+      if (this.item?.href && this.$router && !this.vueRouterDisabel)
+        this.$router?.push(this.item?.href)
       if (!this.item?.children) return
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
@@ -572,9 +601,9 @@ export default defineComponent({
       }
     }
   }
-})
+}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '../scss/menu-item.scss';
 </style>
