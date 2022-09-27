@@ -17,9 +17,9 @@
     @extend %padding-shared;
   }
   .labelMini {
-    padding-left: 22.5px;
-    padding-right: 22.5px;
+    padding: 25px;
   }
+  
 }
 
 .vas-fully {
@@ -33,18 +33,22 @@
     @extend .menu-iconS;
   }
   .labelMini {
-    &.activeClass .left::before {
+    &.activeClass::before {
       content: '';
       height: 100%;
       position: absolute;
       width: 5px;
       top: 0px;
     }
-    .rtl & .left::before {
-      right: 0px;
+    .rtl & {
+      &::before {
+        right: 0px;
+      }
     }
-    .ltr & .left::before {
-      left: 0px;
+    .ltr & {
+      &::before {
+        left: 0px;
+      }
     }
     //  border-radius: 4px;
     // font-size: 16px; //d
@@ -60,18 +64,22 @@
     // }
   }
   .label {
-    &.activeClass .left::before {
+    &.activeClass::before {
       content: '';
       height: 100%;
       position: absolute;
       width: 5px;
       top: 0px;
     }
-    .rtl & .left::before {
-      right: 0px;
+    .rtl & {
+        &::before {
+          right: 0px;
+        }
     }
-    .ltr & .left::before {
-      left: 0px;
+    .ltr & {
+      &::before {
+        left: 0px;
+      }
     }
     transition: background-color 0.3s ease, color 0.3s ease; //d
     font-size: 16px; //d

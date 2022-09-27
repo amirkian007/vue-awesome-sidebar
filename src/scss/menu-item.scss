@@ -11,6 +11,20 @@
 }
 
 .menu-item-base {
+  .label .left {
+    &.marginAuto {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .labelMini .left {
+    &.marginAuto {
+      position: fixed;
+      
+    }
+  }
   &.alignCenter {
     align-self: center;
   }
@@ -52,6 +66,7 @@
     @extend %hoverPointer;
   }
   .topContainer {
+    overflow-y: overlay;
     position: fixed;
     // transition: all 0s ease;
     width: 250px;

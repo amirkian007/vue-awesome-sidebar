@@ -1,3 +1,35 @@
+<script setup>
+
+ const getSlots = inject('getSlotByName')
+    const {
+      animationDuration,
+      menuType,
+      widthMiniCollapsed,
+      openAnimation,
+      removeIconSpace,
+      collapsed: menuCollapsed
+    } = inject('sidebarProps')
+    const { userAgentHeight } = inject('browserAgent')
+    const currentRoute = inject('currentRoute')
+    const isSameUrl = inject('isSameUrl')
+    const extractChildrenRoutes = inject('extractChildrenRoutes')
+    const menuMounted = inject('menuMounted')
+    const miniCollapsed = inject('miniCollapsed')
+    const MenuScroll = inject('MenuScroll')
+    const MenuHover = inject('MenuHover')
+    const getRandomUid = inject('getRandomUid')
+    const updateCurrantItemHover = inject('updateCurrantItemHover')
+    const updateCurranContainerHover = inject('updateCurranContainerHover')
+    const CurrantItemHover = inject('CurrantItemHover')
+    const menuDirection = inject('menuDirection')
+    const emitOnItemClick = inject('emitOnItemClick')
+    let iconSlut = getSlots('icons')
+    let menuitemion = getSlots('menuitemion')
+    let menuitemSlut = getSlots('menuitem')
+  
+</script>
+
+    
 <template>
   <div
     :class="menuItemClass"
@@ -28,7 +60,7 @@
         paddingLeft: menuType === 'fully' ? `${depth * 18}px` : ``
       }"
     >
-      <div class="left" :class="{ marginAuto: miniCollapsed && depth === 0 }">
+      <div class="left" ref="labelRef" :class="{ marginAuto: miniCollapsed && depth === 0 }">
         <template
           v-if="!removeIconSpace || (removeIconSpace && siblingsHaveIconProp)"
         >
@@ -122,7 +154,7 @@
       :class="{ topContainer: depth == 0 }"
       ref="topContainerRef"
       :style="{
-        [MakeSpace ? 'bottom' : 'top']: ContainerOffsetYConputed,
+        [MakeSpace ? 'bottom' : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
         [menuDirection]: `calc(${widthMiniCollapsed})`,
         maxHeight: MakeSpace ? TopcontainerHiefht : ''
       }"
@@ -150,6 +182,8 @@
           v-if="!menuitemSlut"
           class="left"
           :class="{ marginAuto: miniCollapsed && depth === 0 }"
+          :style="{[menuDirection]:labelMiniYofsset+'px',
+          top:labelMiniYYofsset + 'px'}"
         >
           <MenuItemIconVue v-if="!menuitemion" :icon="item?.icon" />
           <!--slot for menuitem icon-->
@@ -242,61 +276,11 @@ export default defineComponent({
     miniMenuOffsetHeight: 0,
     siblingsHaveIcon: false,
     MakeSpace: false,
-    TopcontainerHiefht: 0
+    TopcontainerHiefht: 0,
+    labelMiniYofsset:0,
+    labelMiniYYofsset:0,
   }),
-  setup() {
-    const getSlots = inject('getSlotByName')
-    const {
-      animationDuration,
-      menuType,
-      widthMiniCollapsed,
-      openAnimation,
-      removeIconSpace,
-      collapsed: menuCollapsed
-    } = inject('sidebarProps')
-    const { userAgentHeight } = inject('browserAgent')
-    const currentRoute = inject('currentRoute')
-    const isSameUrl = inject('isSameUrl')
-    const extractChildrenRoutes = inject('extractChildrenRoutes')
-    const menuMounted = inject('menuMounted')
-    const miniCollapsed = inject('miniCollapsed')
-    const MenuScroll = inject('MenuScroll')
-    const MenuHover = inject('MenuHover')
-    const getRandomUid = inject('getRandomUid')
-    const updateCurrantItemHover = inject('updateCurrantItemHover')
-    const updateCurranContainerHover = inject('updateCurranContainerHover')
-    const CurrantItemHover = inject('CurrantItemHover')
-    const menuDirection = inject('menuDirection')
-    const emitOnItemClick = inject('emitOnItemClick')
-    let iconSlut = getSlots('icons')
-    let menuitemion = getSlots('menuitemion')
-    let menuitemSlut = getSlots('menuitem')
-    return {
-      menuCollapsed,
-      iconSlut,
-      emitOnItemClick,
-      menuDirection,
-      menuitemion,
-      updateCurranContainerHover,
-      animationDuration,
-      userAgentHeight,
-      menuitemSlut,
-      isSameUrl,
-      menuType,
-      removeIconSpace,
-      widthMiniCollapsed,
-      extractChildrenRoutes,
-      menuMounted,
-      currentRoute,
-      miniCollapsed,
-      MenuScroll,
-      MenuHover,
-      getRandomUid,
-      updateCurrantItemHover,
-      CurrantItemHover,
-      openAnimation
-    }
-  },
+
   props: [
     'smallMenu',
     'header',
@@ -314,6 +298,9 @@ export default defineComponent({
       if (this.miniCollapsed && this.hover) {
         this.$nextTick(() => {
           this.setItemOffsetHeight()
+          const y =this.$refs['labelRef'].getBoundingClientRect()
+        this.labelMiniYofsset = y[this.menuDirection]
+        this.labelMiniYYofsset = y.top
         })
       }
 
@@ -346,6 +333,9 @@ export default defineComponent({
     },
     MenuScroll() {
       this.setItemOffsetHeight()
+      const y =this.$refs['labelRef'].getBoundingClientRect()
+         this.labelMiniYofsset = y[this.menuDirection]
+        this.labelMiniYYofsset = y.top
     },
     miniCollapsed() {
       if (this.miniCollapsed) {
@@ -423,7 +413,7 @@ export default defineComponent({
     miniLabelWidth() {
       const zarib = Number(this.menuType != 'fully')
       return this.expanded
-        ? `calc(${this.widthMiniCollapsed}*${zarib}/2 - ${this.$refs['menuItem'].clientWidth}*${zarib}px/2 + ${this.$refs['menuItem'].clientWidth}px + 250px)`
+        ? `calc(${this.widthMiniCollapsed}*${zarib}/2 - ${this.$refs['menuItem'].clientWidth}*${zarib}px/2 + ${this.$refs['menuItem'].clientWidth}px + 250px - 1.5px)`
         : `${this.$refs['menuItem']?.clientWidth || 35}px`
     },
     miniLabelDirection() {
