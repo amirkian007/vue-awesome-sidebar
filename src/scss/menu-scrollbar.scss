@@ -1,29 +1,32 @@
 $scrollBarWidth: 13px;
 
-.vas-menu::-webkit-scrollbar {
-  //   transition: 2s;
-  width: $scrollBarWidth;
-}
-.vas-menu {
+.vas-menu,
+.topContainer {
+  &::-webkit-scrollbar {
+    //   transition: 2s;
+    width: $scrollBarWidth;
+  }
   &.compelete-coolapse-menu::-webkit-scrollbar {
     width: $scrollBarWidth;
   }
   &.mini-coolapse-menu::-webkit-scrollbar {
     width: 0px;
   }
-}
-
-.vas-menu::-webkit-scrollbar-thumb {
-  background-clip: content-box;
-  border: 4px solid transparent;
-  border-radius: 7px;
-  box-shadow: inset 0 0 0 10px;
-}
-.vas-menu::-webkit-scrollbar-button {
-  width: 0;
-  height: 0;
-  display: none;
-}
-.vas-menu::-webkit-scrollbar-corner {
-  background-color: transparent;
+  &::-webkit-scrollbar-thumb {
+    background-clip: content-box;
+    border: 4px solid transparent;
+    border-radius: 7px;
+    box-shadow: inset 0 0 0 10px;
+  }
+  &::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+  .topContainer::-webkit-scrollbar {
+    width: $scrollBarWidth;
+  }
 }

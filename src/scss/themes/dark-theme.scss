@@ -20,6 +20,9 @@ $borderColor: rgba(170, 170, 170, 0.329);
     &::-webkit-scrollbar-thumb {
       color: #686868;
     }
+    ::-webkit-scrollbar-thumb {
+      color: #686868;
+    }
     .vsss-header {
       color: #ffffffde;
     }
@@ -72,7 +75,8 @@ $borderColor: rgba(170, 170, 170, 0.329);
         background-color: $textActiveColor;
       }
       overflow: hidden;
-      background: $hoverBackGround;
+      //background: rgb(54, 54, 54);
+      background: rgb(54, 54, 54);
       // width: 30px;
       color: $textColorNoneHover;
       &.activeClass {

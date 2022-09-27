@@ -1,5 +1,5 @@
 $textActiveColor: #2c7ae0;
-$hoverBackGround: rgba(0, 0, 0, 0.05);
+$hoverBackGround: rgb(242, 242, 242);
 $textColorNoneHover: rgb(28, 30, 33);
 $top: rgba(170, 170, 170, 0.329);
 $backGroundColor: white;
@@ -18,6 +18,9 @@ $backGroundColor: white;
     background-color: $backGroundColor;
 
     &::-webkit-scrollbar-thumb {
+      color: rgb(184, 184, 184);
+    }
+    .topContainer::-webkit-scrollbar-thumb {
       color: rgb(184, 184, 184);
     }
     .vsss-header {
@@ -56,6 +59,7 @@ $backGroundColor: white;
       }
       overflow: hidden;
       background-color: $hoverBackGround;
+      
       //width: 30px;
       &.activeClass {
         background: $hoverBackGround;
