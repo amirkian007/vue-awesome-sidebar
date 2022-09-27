@@ -19,7 +19,6 @@
   .labelMini {
     padding: 25px;
   }
-  
 }
 
 .vas-fully {
@@ -72,9 +71,9 @@
       top: 0px;
     }
     .rtl & {
-        &::before {
-          right: 0px;
-        }
+      &::before {
+        right: 0px;
+      }
     }
     .ltr & {
       &::before {
