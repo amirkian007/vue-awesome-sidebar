@@ -47,7 +47,7 @@ $borderColor: rgba(170, 170, 170, 0.329);
       background: $hoverBackGround;
     }
     .label {
-      &.activeClass .left::before {
+      &.activeClass::before {
         background-color: $textActiveColor;
       }
       &.activeClass {
@@ -71,7 +71,7 @@ $borderColor: rgba(170, 170, 170, 0.329);
       }
     }
     .labelMini {
-      &.activeClass .left::before {
+      &.activeClass::before {
         background-color: $textActiveColor;
       }
       overflow: hidden;
