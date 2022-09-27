@@ -120,9 +120,11 @@
       v-if="miniCollapsed"
       v-show="showChildren || depth != 0"
       :class="{ topContainer: depth == 0 }"
+      ref="topContainerRef"
       :style="{
-        top: ContainerOffsetYConputed,
-        [menuDirection]: `calc(${widthMiniCollapsed})`
+        [MakeSpace ? 'bottom' : 'top']: ContainerOffsetYConputed,
+        [menuDirection]: `calc(${widthMiniCollapsed})`,
+        maxHeight: MakeSpace ? TopcontainerHiefht : ''
       }"
     >
       <div
@@ -140,7 +142,7 @@
           [menuDirection]: menuType === 'fully' ? '0px' : miniLabelDirection,
           height: miniMenuOffsetHeight + 'px',
           width: miniLabelWidth,
-          top: ContainerOffsetYConputed
+          [MakeSpace ? 'bottom' : 'top']: ContainerOffsetYConputed
         }"
       >
         <!--main menu btn-->
@@ -182,7 +184,7 @@
         </div>
       </div>
       <div
-        v-if="depth == 0 && showChildren"
+        v-if="depth == 0 && !MakeSpace && showChildren"
         :style="`height: ${miniMenuOffsetHeight}px`"
       ></div>
       <div
@@ -207,6 +209,10 @@
           />
         </template>
       </div>
+      <div
+        v-if="depth == 0 && MakeSpace && showChildren"
+        :style="`height: ${miniMenuOffsetHeight}px`"
+      ></div>
     </div>
   </div>
 </template>
@@ -234,7 +240,9 @@ export default defineComponent({
     miniMenuOffsetXLeft: 50,
     miniMenuOffsetXRight: 50,
     miniMenuOffsetHeight: 0,
-    siblingsHaveIcon: false
+    siblingsHaveIcon: false,
+    MakeSpace: false,
+    TopcontainerHiefht: 0
   }),
   setup() {
     const getSlots = inject('getSlotByName')
@@ -304,7 +312,9 @@ export default defineComponent({
     hover() {
       //TODO :MAKE THIS MORE EFFICEANT
       if (this.miniCollapsed && this.hover) {
-        this.setItemOffsetHeight()
+        this.$nextTick(() => {
+          this.setItemOffsetHeight()
+        })
       }
 
       if (!this.id) {
@@ -555,7 +565,16 @@ export default defineComponent({
     setItemOffsetHeight() {
       if (this.depth == 0) {
         const x = this.$refs['menuItem'].getBoundingClientRect()
-        this.ContainerOffsetY = x.top + window.scrollY
+        const x1 = this.$refs['topContainerRef']?.clientHeight
+
+        if (x1 && x1 + x.top - 15 > innerHeight) {
+          this.ContainerOffsetY = innerHeight - x.bottom
+          this.TopcontainerHiefht = x1 + 8 + 'px'
+          this.MakeSpace = true
+        } else {
+          this.ContainerOffsetY = x.top + window.scrollY
+          this.MakeSpace = false
+        }
         // this.miniMenuOffsetXLeft = x.width + x.left
         this.miniMenuOffsetXLeft = x[this.menuDirection]
         this.miniMenuOffsetXRight = window.innerWidth - x[this.menuDirection]
