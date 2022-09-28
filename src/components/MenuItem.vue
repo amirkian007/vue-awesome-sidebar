@@ -42,6 +42,8 @@
             v-else-if="menuitemion"
             :is="menuitemion"
             :iconData="item?.icon"
+            :active="active"
+            :miniActive="miniActive"
           ></component>
         </template>
 
@@ -167,6 +169,8 @@
             v-else
             :is="menuitemion"
             :iconData="item?.icon"
+            :active="active"
+            :miniActive="miniActive"
           ></component>
 
           <span style="padding-left: 15px; padding-right: 15px">{{
@@ -591,7 +595,7 @@ export default {
           this.TopcontainerHiefht = x1 + 8 + 'px'
           this.MakeSpace = true
         } else {
-          this.ContainerOffsetY = x.top + window.scrollY
+          this.ContainerOffsetY = x.top
           this.MakeSpace = false
         }
         // this.miniMenuOffsetXLeft = x.width + x.left
@@ -603,7 +607,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-@use '../scss/menu-item.scss';
-</style>
