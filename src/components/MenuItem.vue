@@ -13,7 +13,6 @@
     <!-- ========================= -->
 
     <div
-      v-if="!menuitemSlut"
       class="label"
       @[shouldMouseEnterEvent]="this.hover = true"
       @[shouldMouseLeaveEvent]="this.hover = false"
@@ -36,63 +35,40 @@
         <template
           v-if="!removeIconSpace || (removeIconSpace && siblingsHaveIconProp)"
         >
-          <MenuItemIconVue v-if="!menuitemion" :icon="item?.icon" />
+          <MenuItemIconVue v-if="!prepandicon" :icon="item?.icon" />
           <!-- !!! slot for menuitem icon-->
           <component
-            v-else-if="menuitemion"
-            :is="menuitemion"
+            v-else-if="prepandicon"
+            :is="prepandicon"
             :iconData="item?.icon"
             :active="active"
             :miniActive="miniActive"
           ></component>
         </template>
-
-        <span v-if="labelName">{{ labelName }}</span>
+        <template v-if="labelName">
+          <span v-if="!menuitemLabel">{{ labelName }}</span>
+          <component v-else :labelName="labelName" :is="menuitemLabel" />
+        </template>
       </div>
       <template v-if="(miniCollapsed && depth != 0) || !miniCollapsed">
         <div
-          v-if="item.children && !iconSlut"
+          v-if="item.children && !apendIcon"
           class="icons"
           :class="{ opened: showChildren, postIconOpenAnima: openAnimation }"
         ></div>
         <!-- !!!  slot for menuitem prepand icon-->
-        <div v-if="item.children && iconSlut">
+        <div v-if="item.children && apendIcon">
           <component
-            v-if="iconSlut"
+            v-if="apendIcon"
             :icon="item?.icon"
             :isMenuOpen="openAnimation"
-            :is="iconSlut"
+            :is="apendIcon"
           >
           </component>
         </div>
       </template>
     </div>
 
-    <!-- ========================= -->
-    <!-- 1.5 this is the slot for menu btn  -->
-    <!-- ========================= -->
-
-    <div
-      v-else
-      @[shouldMouseEnterEvent]="this.hover = true"
-      @[shouldMouseLeaveEvent]="this.hover = false"
-      @[labelPressEvent]="toggleMenu"
-      :class="{ menuexpand: expanded }"
-      :style="{
-        opacity: miniCollapsed && depth === 0 && showChildren ? '0' : '1'
-      }"
-    >
-      <component
-        :isActive="active"
-        :isminiActive="miniActive"
-        :isChildrenExpanded="expanded"
-        :depth="depth"
-        :menuItemData="menuItemSlotData"
-        :is="menuitemSlut"
-        :isSmallMenu="miniCollapsed"
-      >
-      </component>
-    </div>
     <!-- ========================= -->
     <!--2 this container is for when menu full width -->
     <!-- ========================= -->
@@ -131,7 +107,7 @@
         [MakeSpace
           ? 'bottom'
           : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
-        [menuDirection]: `calc(${widthMiniCollapsed})`,
+        [menuDirection]: `calc(${widthMiniCollapsed} - 1px)`,
         maxHeight: MakeSpace ? TopcontainerHiefht : ''
       }"
     >
@@ -139,23 +115,21 @@
         v-if="depth === 0 && showChildren"
         @click="miniLabelClick"
         @mousewheel="mousewheelop"
+        class="labelMini"
         :class="{
-          miniActive: !menuitemSlut && miniActive,
-          activeClass: !menuitemSlut && active,
-          labelMini: !menuitemSlut
+          miniActive: miniActive,
+          activeClass: active,
         }"
         :style="{
           position: 'fixed',
           whiteSpace: 'nowrap',
           [menuDirection]: menuType === 'fully' ? '0px' : miniLabelDirection,
-          height: miniMenuOffsetHeight + 'px',
           width: miniLabelWidth,
           [MakeSpace ? 'bottom' : 'top']: ContainerOffsetYConputed
         }"
       >
         <!--main menu btn-->
         <div
-          v-if="!menuitemSlut"
           class="left"
           :class="{ marginAuto: miniCollapsed && depth === 0 }"
           :style="{
@@ -163,43 +137,27 @@
             top: labelMiniYYofsset + 'px'
           }"
         >
-          <MenuItemIconVue v-if="!menuitemion" :icon="item?.icon" />
+          <MenuItemIconVue v-if="!prepandicon" :icon="item?.icon" />
           <!--slot for menuitem icon-->
           <component
             v-else
-            :is="menuitemion"
+            :is="prepandicon"
             :iconData="item?.icon"
             :active="active"
             :miniActive="miniActive"
           ></component>
 
-          <span style="padding-left: 15px; padding-right: 15px">{{
-            item?.name
-          }}</span>
-        </div>
-
-        <!--slot fot menu item-->
-        <div
-          v-else
-          @[shouldMouseEnterEvent]="this.hover = true"
-          @[shouldMouseLeaveEvent]="this.hover = false"
-          @keypress="miniLabelClick"
-        >
-          <component
-            :isActive="active"
-            :isminiActive="miniActive"
-            :isChildrenExpanded="expanded"
-            :depth="depth"
-            :menuItemData="menuItemSlotData"
-            :is="menuitemSlut"
-            :isSmallMenu="miniCollapsed"
+          <span
+            v-if="!menuitemLabel"
+            style="padding-left: 15px; padding-right: 15px"
+            >{{ item?.name }}</span
           >
-          </component>
+          <component v-else :labelName="item?.name" :is="menuitemLabel" />
         </div>
       </div>
       <div
+        class="labelminiSub"
         v-if="depth == 0 && !MakeSpace && showChildren"
-        :style="`height: ${miniMenuOffsetHeight}px`"
       ></div>
       <div
         class="items-container"
@@ -224,8 +182,8 @@
         </template>
       </div>
       <div
+        class="labelminiSub"
         v-if="depth == 0 && MakeSpace && showChildren"
-        :style="`height: ${miniMenuOffsetHeight}px`"
       ></div>
     </div>
   </div>
@@ -252,7 +210,6 @@ export default {
     id: null,
     miniMenuOffsetXLeft: 50,
     miniMenuOffsetXRight: 50,
-    miniMenuOffsetHeight: 0,
     siblingsHaveIcon: false,
     MakeSpace: false,
     TopcontainerHiefht: 0,
@@ -292,17 +249,17 @@ export default {
     const CurrantItemHover = inject('CurrantItemHover')
     const menuDirection = inject('menuDirection')
     const emitOnItemClick = inject('emitOnItemClick')
-    let iconSlut = getSlots('icons')
-    let menuitemion = getSlots('menuitemion')
-    let menuitemSlut = getSlots('menuitem')
+    let apendIcon = getSlots('apendIcon')
+    let prepandicon = getSlots('prepandicon')
+    let menuitemLabel = getSlots('menuitemLabel')
 
     return {
       animationDuration,
+      menuitemLabel,
       currentRoute,
       menuMounted,
-      iconSlut,
-      menuitemSlut,
-      menuitemion,
+      apendIcon,
+      prepandicon,
       miniCollapsed,
       MenuScroll,
       MenuHover,
@@ -601,7 +558,6 @@ export default {
         // this.miniMenuOffsetXLeft = x.width + x.left
         this.miniMenuOffsetXLeft = x[this.menuDirection]
         this.miniMenuOffsetXRight = window.innerWidth - x[this.menuDirection]
-        this.miniMenuOffsetHeight = x.height
       }
     }
   }
