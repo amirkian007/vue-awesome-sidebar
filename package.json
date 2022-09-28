@@ -1,14 +1,19 @@
 {
   "name": "vue-awesome-sidebar",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "A Awesome Vue.js Sidebar Menu Component",
   "author": "AmirKian Adl <amircc1200@gmail.com>",
   "license": "MIT",
-  "main": "",
+  "main": "dist/vue-awesome-siderbar.js",
   "module": "",
   "unpkg": "",
+  "files": [
+    "dist",
+    "src",
+    "types"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/amirkian007/vue-awesome-sidebar.git"
@@ -41,11 +46,6 @@
     "vue menu",
     "vue.js sidebar",
     "vue.js sidenav"
-  ],
-  "files": [
-    "dist",
-    "src",
-    "types"
   ],
   "browserslist": [
     "> 1%",

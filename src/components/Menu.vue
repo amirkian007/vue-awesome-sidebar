@@ -29,7 +29,7 @@
         :siblingsHaveIconProp="siblingsHaveIcon"
       />
       <HeaderItem v-else-if="item?.header && !miniCollapsed" :data="item" />
-      <hr v-else-if="item?.line && !miniCollapsed" />
+      <hr v-else-if="item?.line" />
     </template>
 
     <!-- <div class="footer-slot">footer</div> -->
@@ -158,7 +158,7 @@ export default {
     // USAGE
   },
   watch: {
-    $route() {
+    async $route() {
       this.updateCurrentRoute(window.location)
     },
     isCollapsed() {
