@@ -1,13 +1,13 @@
-$scrollBarWidth: 13px;
+$scroll-bar-width: 13px !default;
 
 .vas-menu,
 .topContainer {
   &::-webkit-scrollbar {
     //   transition: 2s;
-    width: $scrollBarWidth;
+    width: $scroll-bar-width;
   }
   &.compelete-coolapse-menu::-webkit-scrollbar {
-    width: $scrollBarWidth;
+    width: $scroll-bar-width;
   }
   &.mini-coolapse-menu::-webkit-scrollbar {
     width: 0px;
@@ -27,6 +27,6 @@ $scrollBarWidth: 13px;
     background-color: transparent;
   }
   .topContainer::-webkit-scrollbar {
-    width: $scrollBarWidth;
+    width: $scroll-bar-width;
   }
 }

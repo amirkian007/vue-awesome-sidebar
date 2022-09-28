@@ -1,21 +1,20 @@
-$textActiveColor: rgb(44, 122, 224);
-$hoverBackGround: hsla(0, 0%, 100%, 0.05);
-$textColorNoneHover: rgb(218, 221, 225);
-$top: rgba(170, 170, 170, 0.329);
-$backGroundColor: #242526;
-$borderColor: rgba(170, 170, 170, 0.329);
+$text-active-color-dark: rgb(44, 122, 224) !default;
+$hover-back-ground-dark: hsla(0, 0%, 100%, 0.05) !default;
+$text-color-none-none-hover-dark: rgb(218, 221, 225) !default;
+$back-ground-color-dark: #242526 !default;
+$border-color-dark: rgba(170, 170, 170, 0.329) !default;
 .vas-menu {
   &.dark-theme {
     hr {
-      border-color: $hoverBackGround;
+      border-color: rgba(211, 211, 211, 0.548);
     }
     &.rtl {
-      border-left: 1px solid $borderColor;
+      border-left: 1px solid $border-color-dark;
     }
     &.ltr {
-      border-right: 1px solid $borderColor;
+      border-right: 1px solid $border-color-dark;
     }
-    background-color: $backGroundColor;
+    background-color: $back-ground-color-dark;
 
     &::-webkit-scrollbar-thumb {
       color: #686868;
@@ -28,70 +27,70 @@ $borderColor: rgba(170, 170, 170, 0.329);
     }
     &.rtl {
       .topContainer {
-        border-top: 1px solid $borderColor;
-        border-bottom: 1px solid $borderColor;
-        border-left: 1px solid $borderColor;
-        background-color: $backGroundColor;
+        border-top: 1px solid $border-color-dark;
+        border-bottom: 1px solid $border-color-dark;
+        border-left: 1px solid $border-color-dark;
+        background-color: $back-ground-color-dark;
       }
     }
     &.ltr {
       .topContainer {
-        border-top: 1px solid $borderColor;
-        border-bottom: 1px solid $borderColor;
-        border-right: 1px solid $borderColor;
-        background-color: $backGroundColor;
+        border-top: 1px solid $border-color-dark;
+        border-bottom: 1px solid $border-color-dark;
+        border-right: 1px solid $border-color-dark;
+        background-color: $back-ground-color-dark;
       }
     }
     // .vas-simple-icon {
     .hoverClass {
-      background: $hoverBackGround;
+      background: $hover-back-ground-dark;
     }
     .label {
       &.activeClass::before {
-        background-color: $textActiveColor;
+        background-color: $text-active-color-dark;
       }
       &.activeClass {
-        background: $hoverBackGround;
-        color: $textActiveColor;
+        background: $hover-back-ground-dark;
+        color: $text-active-color-dark;
       }
 
       &.miniActive {
         // .icons {
-        //   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+        //   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-active-color-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
         //     50%/2rem 2rem;
-        //   -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-        //   filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textActiveColor}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+        //   -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-active-color-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+        //   filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-active-color-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
         // }
-        color: $textActiveColor;
+        color: $text-active-color-dark;
       }
-      color: $textColorNoneHover;
+      color: $text-color-none-none-hover-dark;
       &:hover {
-        background: $hoverBackGround;
-        //color: $textActiveColor;
+        background: $hover-back-ground-dark;
+        //color: $text-active-color-dark;
       }
     }
     .labelMini {
       &.activeClass::before {
-        background-color: $textActiveColor;
+        background-color: $text-active-color-dark;
       }
       overflow: hidden;
       //background: rgb(54, 54, 54);
       background: rgb(54, 54, 54);
       // width: 30px;
-      color: $textColorNoneHover;
+      color: $text-color-none-none-hover-dark;
       &.activeClass {
-        background: $hoverBackGround;
-        color: $textActiveColor;
+        background: $hover-back-ground-dark;
+        color: $text-active-color-dark;
       }
       &.miniActive {
-        color: $textActiveColor;
+        color: $text-active-color-dark;
       }
     }
     .icons {
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
         50%/2rem 2rem;
-      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
     }
   }
 }

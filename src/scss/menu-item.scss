@@ -1,5 +1,5 @@
-@use './types/simple-icon.scss';
-@use './types/fully.scss';
+@import './types/simple-icon.scss';
+@import './types/fully.scss';
 
 %hoverPointer {
   @media (hover: hover) and (pointer: fine) {

@@ -1,4 +1,4 @@
-@use './shared';
+@import './shared';
 
 %padding-shared {
   padding: 6px 13px;
@@ -15,11 +15,8 @@
   .noIconWidthMiniMenu {
     width: calc(95% - 20px) !important;
   }
-  .label {
-    @extend %padding-shared;
-  }
-  .labelMini {
-    padding-top: 0px;
+  .label, .labelMini , .labelminiSub{
+    height: $menu-item-simple-icon-height;
   }
 }
 

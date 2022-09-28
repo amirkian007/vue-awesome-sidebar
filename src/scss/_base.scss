@@ -1,62 +1,61 @@
 .vas-menu {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    top: 0;
-    overflow-y: overlay;
-    -webkit-overflow-scrolling: touch;
-    z-index: 999;
-    .vas-simple-icon {
-      + .vsss-header {
-        align-self: center;
-        font-size: 13px;
-        white-space: nowrap;
-        text-transform: uppercase;
-        padding-top: 12px;
-        padding-left: 16px;
-        padding-right: 16px;
-        padding-bottom: 1px;
-        font-weight: 600;
-        width: 97%;
-      }
-    }
-  
-    .items-container {
-      height: fit-content;
-      overflow: hidden;
-    }
-  
-    hr {
-      display: block;
-      margin: 20px;
-      unicode-bidi: isolate;
-      margin-block-start: 0.5em;
-      margin-block-end: 0.5em;
-      margin-inline-start: auto;
-      margin-inline-end: auto;
-      overflow: hidden;
-      border-style: inset;
-      border-width: 1px;
-      width: 80%;
-    }
-  
-    * {
-      box-sizing: border-box;
-    }
-  
-    .postIconOpenAnima {
-      transition: -webkit-transform 250ms linear;
-      transition: transform 250ms linear;
-      transition: transform 250ms linear, -webkit-transform 250ms linear;
-      height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  top: 0;
+  overflow-y: overlay;
+  -webkit-overflow-scrolling: touch;
+  z-index: 999;
+  .vas-simple-icon {
+    + .vsss-header {
+      align-self: center;
+      font-size: 13px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      padding-top: 12px;
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-bottom: 1px;
+      font-weight: 600;
+      width: 97%;
     }
   }
-  .vas-over-layer {
-    width: 100%;
+
+  .items-container {
+    height: fit-content;
+    overflow: hidden;
+  }
+
+  hr {
+    display: block;
+    margin: 20px;
+    unicode-bidi: isolate;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+    width: 80%;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .postIconOpenAnima {
+    transition: -webkit-transform 250ms linear;
+    transition: transform 250ms linear;
+    transition: transform 250ms linear, -webkit-transform 250ms linear;
     height: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 998;
   }
-  
+}
+.vas-over-layer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 998;
+}

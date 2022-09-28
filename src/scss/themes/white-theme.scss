@@ -1,21 +1,21 @@
-$textActiveColor: #2c7ae0;
-$hoverBackGround: rgb(242, 242, 242);
-$textColorNoneHover: rgb(28, 30, 33);
-$top: rgba(170, 170, 170, 0.329);
-$backGroundColor: white;
+$text-active-color-White: #2c7ae0 !default;
+$hover-back-ground-white: rgb(242, 242, 242) !default;
+$text-color-none-hover-white: rgb(28, 30, 33) !default;
+$back-ground-color-white: white !default;
+$border-color-white: #ececec !default;
 
 .vas-menu {
   &.white-theme {
     hr {
-      border-color: $hoverBackGround;
+      border-color: $hover-back-ground-white;
     }
     &.rtl {
-      border-left: 1px solid #ececec;
+      border-left: 1px solid $border-color-white;
     }
     &.ltr {
-      border-right: 1px solid #ececec;
+      border-right: 1px solid $border-color-white;
     }
-    background-color: $backGroundColor;
+    background-color: $back-ground-color-white;
 
     &::-webkit-scrollbar-thumb {
       color: rgb(184, 184, 184);
@@ -28,24 +28,24 @@ $backGroundColor: white;
     }
     // .vas-simple-icon {
     .hoverClass {
-      background: $hoverBackGround;
+      background: $hover-back-ground-white;
     }
 
     .label {
       &.activeClass .left::before {
-        background-color: $textActiveColor;
+        background-color: $text-active-color-White;
       }
       &.activeClass {
-        background: $hoverBackGround;
-        color: $textActiveColor;
+        background: $hover-back-ground-white;
+        color: $text-active-color-White;
       }
       &.miniActive {
-        color: $textActiveColor;
+        color: $text-active-color-White;
       }
-      color: $textColorNoneHover;
+      color: $text-color-none-hover-white;
       &:hover {
-        background-color: $hoverBackGround;
-        //color: $textActiveColor;
+        background-color: $hover-back-ground-white;
+        //color: $text-active-color-White;
       }
 
       // &:active {
@@ -55,25 +55,25 @@ $backGroundColor: white;
     }
     .labelMini {
       &.activeClass .left::before {
-        background-color: $textActiveColor;
+        background-color: $text-active-color-White;
       }
       overflow: hidden;
-      background-color: $hoverBackGround;
-      
+      background-color: $hover-back-ground-white;
+
       //width: 30px;
       &.activeClass {
-        background: $hoverBackGround;
-        color: $textActiveColor;
+        background: $hover-back-ground-white;
+        color: $text-active-color-White;
       }
       &.miniActive {
-        color: $textActiveColor;
+        color: $text-active-color-White;
       }
     }
     .icons {
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
         50%/2rem 2rem;
-      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$textColorNoneHover}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
     }
     //}
 
@@ -82,7 +82,7 @@ $backGroundColor: white;
         border-top: 1px solid rgba(170, 170, 170, 0.329);
         border-bottom: 1px solid rgba(170, 170, 170, 0.329);
         border-left: 1px solid rgba(170, 170, 170, 0.329);
-        background-color: $backGroundColor;
+        background-color: $back-ground-color-white;
       }
     }
     &.ltr {
@@ -90,7 +90,7 @@ $backGroundColor: white;
         border-top: 1px solid rgba(170, 170, 170, 0.329);
         border-bottom: 1px solid rgba(170, 170, 170, 0.329);
         border-right: 1px solid rgba(170, 170, 170, 0.329);
-        background-color: $backGroundColor;
+        background-color: $back-ground-color-white;
       }
     }
   }
