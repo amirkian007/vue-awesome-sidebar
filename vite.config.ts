@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { terser } from 'rollup-plugin-terser'
+import typescript2 from 'rollup-plugin-typescript2'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
@@ -10,7 +12,8 @@ export default defineConfig({
       entry: './src/VueAwesomeSiderbar.ts',
       formats: ['es', 'cjs'],
       name: 'VueAwesomeSiderbar',
-      fileName: (format) => (format === 'es' ? 'index.js' : 'index.cjs')
+      fileName: (format) =>
+        `vue-awesome-siderbar.${format === 'es' ? 'js' : 'cjs'}`
     },
     rollupOptions: {
       external: ['vue'],
@@ -18,8 +21,7 @@ export default defineConfig({
         globals: {
           vue: 'Vue'
         }
-      },
-      plugins: [terser()]
+      }
     }
   }
 })
