@@ -3,7 +3,7 @@ $menu-item-fully-height: 50px !default;
 
 .menu-iconS {
   font-size: 20px;
-  width: 20px; ///ssssss dyynamiiiic
+  width: 20px; //
   overflow: hidden;
 }
 .labelMiniS {
@@ -19,12 +19,10 @@ $menu-item-fully-height: 50px !default;
 }
 
 .hoverClassS {
-  //color: #2c7ae0 !important;
   transition: all 0.3s;
 }
 .topContainerS {
-  //  border-left: 0px solid;
-  // padding: 2px;
+
   .rtl & {
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
@@ -33,9 +31,6 @@ $menu-item-fully-height: 50px !default;
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
   }
-  //float: left;
-  // left: 65px; //d
-  // top: 4px;//d
 }
 .labelS {
   width: 100%;
@@ -44,7 +39,6 @@ $menu-item-fully-height: 50px !default;
     span {
       padding-left: 6px;
       padding-right: 6px;
-      //padding-bottom: 1.3px;
     }
   }
 }
