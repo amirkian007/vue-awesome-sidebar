@@ -29,7 +29,7 @@
   }
   position: relative;
   .labelMini {
-    z-index: 1000;
+    z-index: 850;
     transition: width 0.4s ease;
     background: none;
     flex-direction: row;
@@ -44,6 +44,7 @@
     @extend %hoverPointer;
   }
   .label {
+    z-index: 851;
     position: relative;
     flex-direction: row;
     justify-content: space-between;
@@ -69,7 +70,7 @@
     position: fixed;
     // transition: all 0s ease;
     width: 250px;
-    z-index: 997;
+    z-index: 900;
   }
   &.MenuItemWidthOnMiniCollapse {
     margin-left: auto;
