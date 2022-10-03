@@ -73,7 +73,7 @@
     <!-- ========================= -->
     <!--2 this container is for when menu full width -->
     <!-- ========================= -->
-    <div v-if="!miniCollapsed">
+    <div v-if="!miniCollapsed || ((depth !=0)&&miniCollapsed)">
       <div
         class="items-container"
         :class="{ 'small-menu': smallMenu }"
@@ -99,9 +99,7 @@
     <!--3  this container is for when menu is not mini -->
     <!-- ========================= -->
 
-    <div
-      v-if="miniCollapsed"
-      v-show="showChildren || depth != 0"
+    <div v-if="miniCollapsed && (depth ===0)"
       :class="{ topContainer: depth == 0 }"
       ref="topContainerRef"
       :style="{
@@ -109,11 +107,28 @@
           ? 'bottom'
           : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
         [menuDirection]: `calc(${widthMiniCollapsed} - 1px)`,
-        maxHeight: MakeSpace ? TopcontainerHiefht : ''
+        maxHeight: MakeSpace ? TopcontainerHiefht : '',
+        width: (depth === 0 && showChildren) || depth !=0  ? '250px' : '0px',
+          opacity: (depth === 0 && showChildren) ? '1' : '0'
+       
       }"
-    >
+    > 
+     <!-- <div
+      v-if="miniCollapsed"
+      :class="{ topContainer: depth == 0 }"
+      ref="topContainerRef"
+      :style="{
+        [MakeSpace
+          ? 'bottom'
+          : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
+        [menuDirection]: `calc(${widthMiniCollapsed} - 1px)`,
+        maxHeight: MakeSpace ? TopcontainerHiefht : '',
+        width: depth === 0 && showChildren ? '250px' : '0px',
+        opacity: (depth === 0 && showChildren) || depth != 0 ? '1' : '0'
+      }"
+    > -->
       <div
-        v-if="depth === 0 && showChildren"
+       
         @click="miniLabelClick"
         @mousewheel="mousewheelop"
         class="labelMini"
@@ -127,11 +142,13 @@
           [menuDirection]: menuType === 'fully' ? '0px' : miniLabelDirection,
           width: miniLabelWidth,
           [MakeSpace ? 'bottom' : 'top']: ContainerOffsetYConputed,
+          opacity: (depth === 0 && showChildren) ? '1' : '0'
           
         }"
       >
         <!--main menu btn-->
         <div
+        v-if="showChildren"
           class="left"
           :class="{ marginAuto: miniCollapsed && depth === 0 }"
           :style="{
@@ -405,6 +422,7 @@ export default {
         : `${this.$refs['menuItem']?.clientWidth || 35}px`
     },
     miniLabelDirection() {
+      return `calc((${this.widthMiniCollapsed} - ${this.miniMenuOffsetXRight}px) / 2)`
       return this.menuDirection === 'left'
         ? this.miniMenuOffsetXLeft + 'px'
         : this.miniMenuOffsetXRight + 'px'
@@ -562,7 +580,7 @@ export default {
           this.MakeSpace = false
         // this.miniMenuOffsetXLeft = x.width + x.left
         this.miniMenuOffsetXLeft = x[this.menuDirection]
-        this.miniMenuOffsetXRight = window.innerWidth - x[this.menuDirection]
+        this.miniMenuOffsetXRight = x.width
       }
     }
   }
