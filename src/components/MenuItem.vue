@@ -19,12 +19,13 @@
       :class="{
         menuexpand: showChildren,
         activeClass: active,
-        miniActive: miniActive
+        miniActive: miniActive,
+        labelHoverClass: (depth != 0 && miniCollapsed) || !miniCollapsed
       }"
-      @[labelPressEvent]="toggleMenu"
+      @click="labelClick"
       :style="{
-        opacity: miniCollapsed && depth === 0 && showChildren ? '0' : '1',
-        paddingLeft: menuType === 'fully' ? `${depth * 18}px` : ``
+        paddingLeft: menuType === 'fully' ? `${depth * 18}px` : ``,
+        background: depth == 0 && active && miniCollapsed ? 'none' : '',
       }"
     >
       <div
@@ -118,14 +119,15 @@
         class="labelMini"
         :class="{
           miniActive: miniActive,
-          activeClass: active,
+          activeClass: active
         }"
         :style="{
           position: 'fixed',
           whiteSpace: 'nowrap',
           [menuDirection]: menuType === 'fully' ? '0px' : miniLabelDirection,
           width: miniLabelWidth,
-          [MakeSpace ? 'bottom' : 'top']: ContainerOffsetYConputed
+          [MakeSpace ? 'bottom' : 'top']: ContainerOffsetYConputed,
+          
         }"
       >
         <!--main menu btn-->
@@ -133,25 +135,11 @@
           class="left"
           :class="{ marginAuto: miniCollapsed && depth === 0 }"
           :style="{
-            [menuDirection]: labelMiniYofsset + 'px',
+            [menuDirection]: widthMiniCollapsed,
             top: labelMiniYYofsset + 'px'
           }"
         >
-          <MenuItemIconVue v-if="!prepandicon" :icon="item?.icon" />
-          <!--slot for menuitem icon-->
-          <component
-            v-else
-            :is="prepandicon"
-            :iconData="item?.icon"
-            :active="active"
-            :miniActive="miniActive"
-          ></component>
-
-          <span
-            v-if="!menuitemLabel"
-            style="padding-left: 15px; padding-right: 15px"
-            >{{ item?.name }}</span
-          >
+          <span v-if="!menuitemLabel">{{ item?.name }}</span>
           <component v-else :labelName="item?.name" :is="menuitemLabel" />
         </div>
       </div>
@@ -322,10 +310,14 @@ export default {
       }
     },
     MenuScroll() {
-      this.setItemOffsetHeight()
-      const y = this.$refs['labelRef'].getBoundingClientRect()
-      this.labelMiniYofsset = y[this.menuDirection]
-      this.labelMiniYYofsset = y.top
+      if ('ontouchstart' in document.documentElement) {
+        this.closeItemChildren()
+      } else {
+        this.setItemOffsetHeight()
+        const y = this.$refs['labelRef'].getBoundingClientRect()
+        this.labelMiniYofsset = y[this.menuDirection]
+        this.labelMiniYYofsset = y.top
+      }
     },
     miniCollapsed() {
       if (this.miniCollapsed) {
@@ -370,6 +362,9 @@ export default {
       return this.miniCollapsed && this.depth == 0 ? 'mouseenter' : null
     },
     labelPressEvent() {
+      if (this.hover) {
+        return 'click'
+      }
       return this.miniCollapsed && this.depth == 0 ? 'keypress' : 'click'
     },
     shouldMouseLeaveEvent() {
@@ -384,7 +379,10 @@ export default {
       return {
         miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
         MenuItemWidthOnMiniCollapse: this.miniCollapsed && this.depth != 0,
-
+        menuExpanded:
+          this.menuType === 'fully' &&
+          ((!this.miniCollapsed && this.expanded && this.depth == 0) ||
+            (this.miniCollapsed && this.depth == 1 && this.expanded)),
         noIconWidth:
           this.removeIconSpace &&
           !this.miniCollapsed &&
@@ -443,6 +441,13 @@ export default {
         }
         //console.log("hasFound")
         this.miniActive = hasFound
+      }
+    },
+    labelClick() {
+      if (this.hover) {
+        this.miniLabelClick()
+      } else {
+        this.toggleMenu()
       }
     },
     miniLabelClick() {
@@ -545,16 +550,16 @@ export default {
     setItemOffsetHeight() {
       if (this.depth == 0) {
         const x = this.$refs['menuItem'].getBoundingClientRect()
-        const x1 = this.$refs['topContainerRef']?.clientHeight
+        //const x1 = this.$refs['topContainerRef']?.clientHeight
 
-        if (x1 && x1 + x.top - 15 > innerHeight) {
-          this.ContainerOffsetY = innerHeight - x.bottom
-          this.TopcontainerHiefht = x1 + 8 + 'px'
-          this.MakeSpace = true
-        } else {
+        // if (x1 && x1 + x.top - 15 > innerHeight) {
+        //   this.ContainerOffsetY = innerHeight - x.bottom
+        //   this.TopcontainerHiefht = x1 + 8 + 'px'
+        //   this.MakeSpace = true
+        // } else {
+        //   }
           this.ContainerOffsetY = x.top
           this.MakeSpace = false
-        }
         // this.miniMenuOffsetXLeft = x.width + x.left
         this.miniMenuOffsetXLeft = x[this.menuDirection]
         this.miniMenuOffsetXRight = window.innerWidth - x[this.menuDirection]
