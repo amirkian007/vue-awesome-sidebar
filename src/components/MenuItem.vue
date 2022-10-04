@@ -24,7 +24,7 @@
       }"
       @click="labelClick"
       :style="{
-        paddingLeft: menuType === 'fully' ? `${depth * 18}px` : ``,
+        [menuDirection=='left' ? 'paddingLeft':'paddingRight']: menuType === 'fully' ? `${depth * 18}px` : ``,
         background: depth == 0 && active && miniCollapsed ? 'none' : '',
       }"
     >
@@ -113,20 +113,6 @@
        
       }"
     > 
-     <!-- <div
-      v-if="miniCollapsed"
-      :class="{ topContainer: depth == 0 }"
-      ref="topContainerRef"
-      :style="{
-        [MakeSpace
-          ? 'bottom'
-          : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
-        [menuDirection]: `calc(${widthMiniCollapsed} - 1px)`,
-        maxHeight: MakeSpace ? TopcontainerHiefht : '',
-        width: depth === 0 && showChildren ? '250px' : '0px',
-        opacity: (depth === 0 && showChildren) || depth != 0 ? '1' : '0'
-      }"
-    > -->
       <div
        
         @click="miniLabelClick"
@@ -213,13 +199,12 @@ export default {
     hover: false,
     ContainerOffsetY: 0,
     id: null,
-    miniMenuOffsetXLeft: 50,
-    miniMenuOffsetXRight: 50,
     siblingsHaveIcon: false,
     MakeSpace: false,
     TopcontainerHiefht: 0,
     labelMiniYofsset: 0,
-    labelMiniYYofsset: 0
+    labelMiniYYofsset: 0,
+    miniMenuOffset:50
   }),
 
   props: [
@@ -422,10 +407,7 @@ export default {
         : `${this.$refs['menuItem']?.clientWidth || 35}px`
     },
     miniLabelDirection() {
-      return `calc((${this.widthMiniCollapsed} - ${this.miniMenuOffsetXRight}px) / 2)`
-      return this.menuDirection === 'left'
-        ? this.miniMenuOffsetXLeft + 'px'
-        : this.miniMenuOffsetXRight + 'px'
+      return `calc((${this.widthMiniCollapsed} - ${this.miniMenuOffset}px) / 2)`
     }
   },
 
@@ -457,7 +439,6 @@ export default {
             break
           }
         }
-        //console.log("hasFound")
         this.miniActive = hasFound
       }
     },
@@ -568,19 +549,17 @@ export default {
     setItemOffsetHeight() {
       if (this.depth == 0) {
         const x = this.$refs['menuItem'].getBoundingClientRect()
-        //const x1 = this.$refs['topContainerRef']?.clientHeight
+        const x1 = this.$refs['topContainerRef']?.clientHeight
 
-        // if (x1 && x1 + x.top - 15 > innerHeight) {
-        //   this.ContainerOffsetY = innerHeight - x.bottom
-        //   this.TopcontainerHiefht = x1 + 8 + 'px'
-        //   this.MakeSpace = true
-        // } else {
-        //   }
-          this.ContainerOffsetY = x.top
-          this.MakeSpace = false
-        // this.miniMenuOffsetXLeft = x.width + x.left
-        this.miniMenuOffsetXLeft = x[this.menuDirection]
-        this.miniMenuOffsetXRight = x.width
+         if (x1 && x1 + x.top - 15 > innerHeight) {
+           this.ContainerOffsetY = innerHeight - x.bottom
+           this.TopcontainerHiefht = x1 + 8 + 'px'
+           this.MakeSpace = true
+         } else {
+           this.ContainerOffsetY = x.top
+           this.MakeSpace = false
+           }
+        this.miniMenuOffset = x.width
       }
     }
   }
