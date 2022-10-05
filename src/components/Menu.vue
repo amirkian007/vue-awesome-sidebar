@@ -9,13 +9,14 @@
       [menuDirection]: isCollapsed
         ? `calc(-1*(${sidebarMenuWidth} + 2px))`
         : '0px',
-      transition: `${transition} 0.3s ease-in-out`,
+      transition: `all 0.3s ease-in-out,right 0.3s ease-in-out`,
       direction: direction
     }"
     @[menuScrollEvent]="onMenuScroll"
     @[mouseEnterEvent]="onEnter"
     @[mouseLeaveEvent]="onLeave"
   >
+   
     <!-- <div class="menu" :class="{ 'small-menu': smallMenu }" > -->
     <slot name="header" />
 
@@ -34,6 +35,9 @@
 
     <!-- <div class="footer-slot">footer</div> -->
     <slot name="footer" />
+    <div class="bottomBtn" @click="toggleMiniCollapse">
+      <div class=" icons bottomBtnIcon" :class="{ssdSpin:!miniCollapsed}"></div>
+    </div>
     <!-- <i @click="smallMenu = !smallMenu" class="material-icons">
       <v-icon color="green darken-2"> mdi-menu-open </v-icon></i
     > -->
@@ -145,7 +149,6 @@ export default {
   },
   data: () => ({
     smallMenu: false,
-    transition: 'left',
     siblingsHaveIcon: false
   }),
 
@@ -160,15 +163,6 @@ export default {
   watch: {
     async $route() {
       this.updateCurrentRoute(window.location)
-    },
-    isCollapsed() {
-      if (this.miniCollapsed && this.isCollapsed) {
-        setTimeout(() => {
-          this.transition = 'none'
-        }, 300)
-      } else {
-        this.transition = this.menuDirection
-      }
     },
     miniCollapsed() {
       if (this.miniCollapsed) {
@@ -205,6 +199,9 @@ export default {
           break
         }
       }
+    },
+    toggleMiniCollapse(){
+      this.$emit('update:miniCollapsed', !this.miniCollapsed)
     }
   },
   setup(props, context) {

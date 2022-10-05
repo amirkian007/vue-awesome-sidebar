@@ -15,7 +15,6 @@
     &.marginAuto {
       position: absolute;
       top: 50%;
-      left: 50%;
       transform: translate(-50%, -50%);
     }
   }
@@ -29,7 +28,6 @@
   }
   position: relative;
   .labelMini {
-    z-index: 850;
     transition: width 0.4s ease;
     background: none;
     flex-direction: row;
@@ -41,18 +39,20 @@
     > .left {
       display: flex;
     }
+    z-index: 851;
     @extend %hoverPointer;
   }
   .label {
-    z-index: 851;
-    position: relative;
     flex-direction: row;
     justify-content: space-between;
     white-space: nowrap;
     display: flex;
     align-items: center;
     user-select: none;
+    position: relative;
     box-sizing: border-box; //r
+
+    z-index: 852;
     .left {
       display: flex;
       &.marginAuto {
@@ -70,7 +70,7 @@
     position: fixed;
     // transition: all 0s ease;
     width: 250px;
-    z-index: 900;
+    z-index: 850;
   }
   &.MenuItemWidthOnMiniCollapse {
     margin-left: auto;

@@ -1,11 +1,15 @@
-$text-active-color-White: #2c7ae0 !default;
+$text-active-color-white: #2c7ae0 !default;
 $hover-back-ground-white: rgb(242, 242, 242) !default;
 $text-color-none-hover-white: rgb(28, 30, 33) !default;
 $back-ground-color-white: white !default;
 $border-color-white: #ececec !default;
+$icon-active-color-white: #2c7ae0 !default;
 
 .vas-menu {
   &.white-theme {
+    .bottomBtn{
+      background-color: $back-ground-color-white;
+    }
     hr {
       border-color: $hover-back-ground-white;
     }
@@ -32,44 +36,52 @@ $border-color-white: #ececec !default;
     }
 
     .label {
-      &.activeClass .left::before {
-        background-color: $text-active-color-White;
+      &.activeClass::before {
+        background-color: $text-active-color-white;
       }
       &.activeClass {
         background: $hover-back-ground-white;
-        color: $text-active-color-White;
+        color: $text-active-color-white;
+        .menu-icon {
+          color: $icon-active-color-white;
+        }
       }
       &.miniActive {
-        color: $text-active-color-White;
+        color: $text-active-color-white;
+        .menu-icon {
+          color: $icon-active-color-white;
+        }
       }
       color: $text-color-none-hover-white;
-      &:hover {
+      &.labelHoverClass:hover {
         background-color: $hover-back-ground-white;
-        //color: $text-active-color-White;
+        //color: $text-active-color-white;
       }
 
-      // &:active {
-      //   background: none;
-      //   color: none;
-      // }
+      
     }
     .labelMini {
-      &.activeClass .left::before {
-        background-color: $text-active-color-White;
+      &.activeClass::before {
+        background-color: $text-active-color-white;
       }
       overflow: hidden;
       background-color: $hover-back-ground-white;
 
       //width: 30px;
       &.activeClass {
-        background: $hover-back-ground-white;
-        color: $text-active-color-White;
+        color: $text-active-color-white;
+        .menu-icon {
+          color: $icon-active-color-white;
+        }
       }
       &.miniActive {
-        color: $text-active-color-White;
+        color: $text-active-color-white;
+        .menu-icon {
+          color: $icon-active-color-white;
+        }
       }
     }
-    .icons {
+     .icons {
       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
         50%/2rem 2rem;
       -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
