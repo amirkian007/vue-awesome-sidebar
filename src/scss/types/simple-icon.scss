@@ -32,6 +32,11 @@
   .labelMini {
     border-radius: 4px;
     @extend .labelMiniS;
+    > .left {
+      margin-left: 7px;
+      margin-right: 7px;
+      align-items: center;
+    }
   }
   .label {
     transition: background-color 0.3s ease, color 0.3s ease; //d
@@ -42,6 +47,10 @@
       margin-right: 7px;
       align-items: center;
     }
+  }
+  .icons {
+    margin-left: 7px;
+    margin-right: 7px;
   }
   .hoverClass {
     @extend .hoverClassS;

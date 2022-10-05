@@ -31,7 +31,8 @@
       <div
         class="left"
         ref="labelRef"
-        :class="{ marginAuto: miniCollapsed && depth === 0 }"
+        :class="{ marginAuto: miniCollapsed && depth === 0 , collapseEnd: miniCollapsed }"
+        :style="{left : miniCollapsed?`calc(${widthMiniCollapsed} * 0.5)`:''}"
       >
         <template
           v-if="!removeIconSpace || (removeIconSpace && siblingsHaveIconProp)"
@@ -204,7 +205,7 @@ export default {
     TopcontainerHiefht: 0,
     labelMiniYofsset: 0,
     labelMiniYYofsset: 0,
-    miniMenuOffset:50
+    miniMenuOffset:50,
   }),
 
   props: [
