@@ -405,7 +405,7 @@ export default {
       const zarib = Number(this.menuType != 'fully')
       return this.expanded
         ? `calc(${this.widthMiniCollapsed}*${zarib}/2 - ${this.$refs['menuItem'].clientWidth}*${zarib}px/2 + ${this.$refs['menuItem'].clientWidth}px + 250px - 1.5px)`
-        : `${this.$refs['menuItem']?.clientWidth || 35}px`
+        : `35px`
     },
     miniLabelDirection() {
       return `calc((${this.widthMiniCollapsed} - ${this.miniMenuOffset}px) / 2)`
