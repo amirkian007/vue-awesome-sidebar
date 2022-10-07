@@ -9,7 +9,6 @@
       [menuDirection]: isCollapsed
         ? `calc(-1*(${sidebarMenuWidth} + 2px))`
         : '0px',
-      transition: `all 0.3s ease-in-out,right 0.3s ease-in-out`,
       direction: direction
     }"
     @[menuScrollEvent]="onMenuScroll"
@@ -17,10 +16,8 @@
     @[mouseLeaveEvent]="onLeave"
   >
    
-    <!-- <div class="menu" :class="{ 'small-menu': smallMenu }" > -->
     <slot name="header" />
 
-    <!-- <div v-if="!$slots.header">deafult slot</div> -->
     <template v-for="(item, index) in menu" :key="index">
       <MenuItem
         v-if="!item?.header && !item?.line"
@@ -33,14 +30,11 @@
       <hr v-else-if="item?.line" />
     </template>
 
-    <!-- <div class="footer-slot">footer</div> -->
     <slot name="footer" />
     <div class="bottomBtn" @click="toggleMiniCollapse">
       <div class=" icons bottomBtnIcon" :class="{ssdSpin:!miniMenu}"></div>
     </div>
-    <!-- <i @click="smallMenu = !smallMenu" class="material-icons">
-      <v-icon color="green darken-2"> mdi-menu-open </v-icon></i
-    > -->
+   
   </aside>
   <Transition>
     <div
@@ -82,10 +76,10 @@ export default {
       type: Number,
       default: 290
     },
-    //autoCollapse: {
-    //   type: String||Boolean,
-    //   default: true
-    // },
+    vueRouterEnabel:{
+      type: Boolean,
+      default: false
+    },
     width: {
       type: String,
       default: '290px'

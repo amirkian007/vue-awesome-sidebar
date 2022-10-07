@@ -28,6 +28,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     position,
     collapseBreakPoint,
     dark,
+    vueRouterEnabel,
     rtl
   } = toRefs(props)
   const isCollapsed = ref(collapsed.value)
@@ -99,6 +100,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     openAnimation,
     position,
     collapseBreakPoint,
+    vueRouterEnabel,
     dark,
     rtl
   })

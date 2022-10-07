@@ -224,6 +224,7 @@ export default {
       widthMiniMenu,
       openAnimation,
       removeIconSpace,
+      vueRouterEnabel,
       collapsed: menuCollapsed
     } = inject('sidebarProps')
     const { userAgentHeight } = inject('browserAgent')
@@ -260,6 +261,7 @@ export default {
       updateCurranContainerHover,
       updateCurrantItemHover,
       getRandomUid,
+      vueRouterEnabel,
       extractChildrenRoutes,
       isSameUrl,
       menuType,
@@ -452,12 +454,12 @@ export default {
     },
     miniLabelClick() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href && this.$router && !this.vueRouterDisabel)
+      if (this.item?.href && this.$router && this.vueRouterEnabel)
         this.$router?.push(this.item?.href)
     },
     toggleMenu() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href && this.$router && !this.vueRouterDisabel)
+      if (this.item?.href && this.$router && this.vueRouterEnabel)
         this.$router?.push(this.item?.href)
       if (!this.item?.children) return
       clearTimeout(this.hieghtTimeout)
