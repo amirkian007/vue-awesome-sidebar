@@ -1,7 +1,7 @@
 {
   "name": "vue-awesome-sidebar",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.5.2.beta",
   "type": "module",
   "description": "A Awesome Vue.js Sidebar Menu Component",
   "author": "AmirKian Adl <amircc1200@gmail.com>",

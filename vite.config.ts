@@ -12,15 +12,19 @@ export default defineConfig({
       entry: './src/VueAwesomeSiderbar.ts',
       formats: ['es', 'cjs'],
       name: 'VueAwesomeSiderbar',
-      fileName: (format) =>
-        `vue-awesome-siderbar.${format === 'es' ? 'js' : 'cjs'}`
+      fileName: 'vue-awesome-siderbar'
     },
     rollupOptions: {
       external: ['vue'],
       output: {
         globals: {
           vue: 'Vue'
-        }
+        },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name == 'style.css')
+            return 'vue-awesome-siderbar.css';
+          return assetInfo.name;
+        },
       }
     }
   }
