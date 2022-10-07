@@ -9,17 +9,17 @@ import {
 } from 'vue'
 
 export const initAwsomeSideBar = (props: any, context: any) => {
-  //const { collapsed, miniCollapsed, direction } = toRefs(props)
+  //const { collapsed, miniMenu, direction } = toRefs(props)
 
   const {
     menu,
     menuType,
     collapsed,
-    miniCollapsed,
+    miniMenu,
     animationDuration,
     direction,
     width,
-    widthMiniCollapsed,
+    widthMiniMenu,
     removeIconSpace,
     closeOnClickOutSide,
     overLayerOnOpen,
@@ -62,6 +62,9 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const menuDirection = computed(() => {
     return direction.value === 'rtl' ? 'right' : 'left'
   })
+  const menuDirection2 = computed(() => {
+    return rtl.value ? 'right' : 'left'
+  })
   const emitOnItemClick = (item: any) => {
     context.emit('item-click', item)
   }
@@ -84,11 +87,11 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     menu,
     menuType,
     collapsed,
-    miniCollapsed,
+    miniMenu,
     animationDuration,
     direction,
     width,
-    widthMiniCollapsed,
+    widthMiniMenu,
     removeIconSpace,
     closeOnClickOutSide,
     overLayerOnOpen,
@@ -102,7 +105,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('getSlotByName', getSlotByName)
   provide('browserAgent', userAgentHeight)
   provide('menuMounted', menuMounted)
-  provide('miniCollapsed', miniCollapsed)
+  provide('miniMenu', miniMenu)
   provide('MenuScroll', MenuScroll)
   provide('MenuHover', MenuHover)
   provide('getRandomUid', getRandomUid)
@@ -115,7 +118,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('emitOnItemClick', emitOnItemClick)
   return {
     getIsCollapsed: collapsed,
-    getIsMiniCollapsed: miniCollapsed,
+    getIsminiMenu: miniMenu,
     updateIsCollapsed,
     getSlotByName,
     menuMounted,

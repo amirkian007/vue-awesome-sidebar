@@ -29,14 +29,14 @@
         :smallMenu="smallMenu"
         :siblingsHaveIconProp="siblingsHaveIcon"
       />
-      <HeaderItem v-else-if="item?.header && !miniCollapsed" :data="item" />
+      <HeaderItem v-else-if="item?.header && !miniMenu" :data="item" />
       <hr v-else-if="item?.line" />
     </template>
 
     <!-- <div class="footer-slot">footer</div> -->
     <slot name="footer" />
     <div class="bottomBtn" @click="toggleMiniCollapse">
-      <div class=" icons bottomBtnIcon" :class="{ssdSpin:!miniCollapsed}"></div>
+      <div class=" icons bottomBtnIcon" :class="{ssdSpin:!miniMenu}"></div>
     </div>
     <!-- <i @click="smallMenu = !smallMenu" class="material-icons">
       <v-icon color="green darken-2"> mdi-menu-open </v-icon></i
@@ -74,17 +74,13 @@ export default {
       type: Boolean,
       default: false
     },
-    miniCollapsed: {
+    miniMenu: {
       type: Boolean,
       default: false
     },
     animationDuration: {
       type: Number,
       default: 290
-    },
-    direction: {
-      type: String,
-      default: 'ltr'
     },
     //autoCollapse: {
     //   type: String||Boolean,
@@ -94,7 +90,7 @@ export default {
       type: String,
       default: '290px'
     },
-    widthMiniCollapsed: {
+    widthMiniMenu: {
       type: String,
       default: '65px'
     },
@@ -132,7 +128,11 @@ export default {
     rtl: {
       type: Boolean,
       default: false
-    }
+    },
+    direction: {
+      type: String,
+      default: 'ltr'
+    },
   },
   emits: {
     'item-click'(item) {
@@ -142,7 +142,7 @@ export default {
       //return collapsed
       return !!(typeof collapsed === 'boolean')
     },
-    'update:miniCollapsed'(collapsed) {
+    'update:miniMenu'(collapsed) {
       //return collapsed
       return !!(typeof collapsed === 'boolean')
     }
@@ -164,21 +164,21 @@ export default {
     async $route() {
       this.updateCurrentRoute(window.location)
     },
-    miniCollapsed() {
-      if (this.miniCollapsed) {
+    miniMenu() {
+      if (this.miniMenu) {
         this.updateMenuHover(true)
       }
     }
   },
   computed: {
     menuScrollEvent() {
-      return this.miniCollapsed ? 'scroll' : null
+      return this.miniMenu ? 'scroll' : null
     },
     mouseEnterEvent() {
-      return this.miniCollapsed ? 'mouseenter' : null
+      return this.miniMenu ? 'mouseenter' : null
     },
     mouseLeaveEvent() {
-      return this.miniCollapsed ? 'mouseleave' : null
+      return this.miniMenu ? 'mouseleave' : null
     }
   },
   methods: {
@@ -201,13 +201,13 @@ export default {
       }
     },
     toggleMiniCollapse(){
-      this.$emit('update:miniCollapsed', !this.miniCollapsed)
+      this.$emit('update:miniMenu', !this.miniMenu)
     }
   },
   setup(props, context) {
     const {
       getIsCollapsed: isCollapsed,
-      getIsMiniCollapsed: miniCollapsed,
+      getIsminiMenu: miniMenu,
       updateMenuScroll,
       updateMenuHover,
       menuDirection
@@ -243,7 +243,7 @@ export default {
     }
 
     const sidebarMenuWidth = computed(() => {
-      return miniCollapsed.value ? props.widthMiniCollapsed : props.width
+      return miniMenu.value ? props.widthMiniMenu : props.width
     })
 
     const sidebarClass = computed(() => {
@@ -252,7 +252,7 @@ export default {
         `${theme}-theme`,
         props.direction,
         //isCollapsed.value ? 'compelete-coolapse-menu' : '',
-        miniCollapsed.value ? 'mini-coolapse-menu' : ''
+        miniMenu.value ? 'mini-coolapse-menu' : ''
       ]
     })
 

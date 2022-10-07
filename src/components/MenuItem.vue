@@ -4,12 +4,12 @@
     ref="menuItem"
     class="menu-item-base alignCenter"
     :style="{
-      float: miniCollapsed && depth === 1 ? menuDirection : menuDirectionOposite
+      float: miniMenu && depth === 1 ? menuDirection : menuDirectionOposite
     }"
   >
     <!-- ========================= -->
     <!-- 1 this is basiclly the menu btn  -->
-    <!-- menuexpand2: miniCollapsed && showChildren && depth === 0, -->
+    <!-- menuexpand2: miniMenu && showChildren && depth === 0, -->
     <!-- ========================= -->
 
     <div
@@ -20,19 +20,19 @@
         menuexpand: showChildren,
         activeClass: active,
         miniActive: miniActive,
-        labelHoverClass: (depth != 0 && miniCollapsed) || !miniCollapsed
+        labelHoverClass: (depth != 0 && miniMenu) || !miniMenu
       }"
       @click="labelClick"
       :style="{
         [menuDirection=='left' ? 'paddingLeft':'paddingRight']: menuType === 'fully' ? `${depth * 18}px` : ``,
-        background: depth == 0 && active && miniCollapsed ? 'none' : '',
+        background: depth == 0 && active && miniMenu ? 'none' : '',
       }"
     >
       <div
         class="left"
         ref="labelRef"
-        :class="{ marginAuto: miniCollapsed && depth === 0 , collapseEnd: miniCollapsed }"
-        :style="{left : miniCollapsed?`calc(${widthMiniCollapsed} * 0.5)`:''}"
+        :class="{ marginAuto: miniMenu && depth === 0 , collapseEnd: miniMenu }"
+        :style="{left : miniMenu?`calc(${widthMiniMenu} * 0.5)`:''}"
       >
         <template
           v-if="!removeIconSpace || (removeIconSpace && siblingsHaveIconProp)"
@@ -52,7 +52,7 @@
           <component v-else :labelName="labelName" :is="menuitemLabel" />
         </template>
       </div>
-      <template v-if="(miniCollapsed && depth != 0) || !miniCollapsed">
+      <template v-if="(miniMenu && depth != 0) || !miniMenu">
         <div
           v-if="item.children && !apendIcon"
           class="icons"
@@ -74,7 +74,7 @@
     <!-- ========================= -->
     <!--2 this container is for when menu full width -->
     <!-- ========================= -->
-    <div v-if="!miniCollapsed || ((depth !=0)&&miniCollapsed)">
+    <div v-if="!miniMenu || ((depth !=0)&&miniMenu)">
       <div
         class="items-container"
         :class="{ 'small-menu': smallMenu }"
@@ -100,14 +100,14 @@
     <!--3  this container is for when menu is not mini -->
     <!-- ========================= -->
 
-    <div v-if="miniCollapsed && (depth ===0)"
+    <div v-if="miniMenu && (depth ===0)"
       :class="{ topContainer: depth == 0 }"
       ref="topContainerRef"
       :style="{
         [MakeSpace
           ? 'bottom'
           : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
-        [menuDirection]: `calc(${widthMiniCollapsed} - 1px)`,
+        [menuDirection]: `calc(${widthMiniMenu} - 1px)`,
         maxHeight: MakeSpace ? TopcontainerHiefht : '',
         width: (depth === 0 && showChildren) || depth !=0  ? '250px' : '0px',
           opacity: (depth === 0 && showChildren) ? '1' : '0'
@@ -137,9 +137,9 @@
         <div
         v-if="showChildren"
           class="left"
-          :class="{ marginAuto: miniCollapsed && depth === 0 }"
+          :class="{ marginAuto: miniMenu && depth === 0 }"
           :style="{
-            [menuDirection]: widthMiniCollapsed,
+            [menuDirection]: widthMiniMenu,
             top: labelMiniYYofsset + 'px'
           }"
         >
@@ -221,7 +221,7 @@ export default {
     const {
       animationDuration,
       menuType,
-      widthMiniCollapsed,
+      widthMiniMenu,
       openAnimation,
       removeIconSpace,
       collapsed: menuCollapsed
@@ -231,7 +231,7 @@ export default {
     const isSameUrl = inject('isSameUrl')
     const extractChildrenRoutes = inject('extractChildrenRoutes')
     const menuMounted = inject('menuMounted')
-    const miniCollapsed = inject('miniCollapsed')
+    const miniMenu = inject('miniMenu')
     const MenuScroll = inject('MenuScroll')
     const MenuHover = inject('MenuHover')
     const getRandomUid = inject('getRandomUid')
@@ -251,7 +251,7 @@ export default {
       menuMounted,
       apendIcon,
       prepandicon,
-      miniCollapsed,
+      miniMenu,
       MenuScroll,
       MenuHover,
       emitOnItemClick,
@@ -263,7 +263,7 @@ export default {
       extractChildrenRoutes,
       isSameUrl,
       menuType,
-      widthMiniCollapsed,
+      widthMiniMenu,
       openAnimation,
       removeIconSpace,
       collapsed: menuCollapsed,
@@ -276,7 +276,7 @@ export default {
     },
     hover() {
       //TODO :MAKE THIS MORE EFFICEANT
-      if (this.miniCollapsed && this.hover) {
+      if (this.miniMenu && this.hover) {
         this.$nextTick(() => {
           this.setItemOffsetHeight()
           const y = this.$refs['labelRef'].getBoundingClientRect()
@@ -322,8 +322,8 @@ export default {
         this.labelMiniYYofsset = y.top
       }
     },
-    miniCollapsed() {
-      if (this.miniCollapsed) {
+    miniMenu() {
+      if (this.miniMenu) {
         this.closeItemChildren()
       }
       this.$nextTick(() => {
@@ -343,7 +343,7 @@ export default {
       return this.menuDirection === 'right' ? 'left' : 'right'
     },
     labelName() {
-      if (this.miniCollapsed) {
+      if (this.miniMenu) {
         return this.depth != 0 ? this.item?.name : false
       }
       return this.item?.name
@@ -362,16 +362,16 @@ export default {
       }
     },
     shouldMouseEnterEvent() {
-      return this.miniCollapsed && this.depth == 0 ? 'mouseenter' : null
+      return this.miniMenu && this.depth == 0 ? 'mouseenter' : null
     },
     labelPressEvent() {
       if (this.hover) {
         return 'click'
       }
-      return this.miniCollapsed && this.depth == 0 ? 'keypress' : 'click'
+      return this.miniMenu && this.depth == 0 ? 'keypress' : 'click'
     },
     shouldMouseLeaveEvent() {
-      return this.miniCollapsed && this.depth == 0 ? 'mouseleave' : null
+      return this.miniMenu && this.depth == 0 ? 'mouseleave' : null
     },
     ContainerOffsetYConputed() {
       return `${this.ContainerOffsetY}px`
@@ -380,20 +380,20 @@ export default {
       let obj = {}
       obj[`vas-${this.menuType}`] = true
       return {
-        miniCollapseIconWidth: this.miniCollapsed && this.depth == 0,
-        MenuItemWidthOnMiniCollapse: this.miniCollapsed && this.depth != 0,
+        miniCollapseIconWidth: this.miniMenu && this.depth == 0,
+        MenuItemWidthOnMiniCollapse: this.miniMenu && this.depth != 0,
         menuExpanded:
           this.menuType === 'fully' &&
-          ((!this.miniCollapsed && this.expanded && this.depth == 0) ||
-            (this.miniCollapsed && this.depth == 1 && this.expanded)),
+          ((!this.miniMenu && this.expanded && this.depth == 0) ||
+            (this.miniMenu && this.depth == 1 && this.expanded)),
         noIconWidth:
           this.removeIconSpace &&
-          !this.miniCollapsed &&
+          !this.miniMenu &&
           !this.siblingsHaveIconProp &&
           this.isParentFlat,
-        noIconWidthMiniMenu:
+        noIconwidthMiniMenu:
           this.removeIconSpace &&
-          this.miniCollapsed &&
+          this.miniMenu &&
           this.depth != 0 &&
           !this.siblingsHaveIconProp &&
           this.isParentFlat,
@@ -404,11 +404,11 @@ export default {
     miniLabelWidth() {
       const zarib = Number(this.menuType != 'fully')
       return this.expanded
-        ? `calc(${this.widthMiniCollapsed}*${zarib}/2 - ${this.$refs['menuItem'].clientWidth}*${zarib}px/2 + ${this.$refs['menuItem'].clientWidth}px + 250px - 1.5px)`
+        ? `calc(${this.widthMiniMenu}*${zarib}/2 - ${this.$refs['menuItem'].clientWidth}*${zarib}px/2 + ${this.$refs['menuItem'].clientWidth}px + 250px - 1.5px)`
         : `35px`
     },
     miniLabelDirection() {
-      return `calc((${this.widthMiniCollapsed} - ${this.miniMenuOffset}px) / 2)`
+      return `calc((${this.widthMiniMenu} - ${this.miniMenuOffset}px) / 2)`
     }
   },
 
@@ -435,7 +435,7 @@ export default {
             // clearTimeout(this.hieghtTimeout)
             // clearTimeout(this.renderTimeOut)
             this.miniActive = true
-            if (this.menuMounted || this.miniCollapsed) break
+            if (this.menuMounted || this.miniMenu) break
             this.openItemCildren()
             break
           }
@@ -488,7 +488,7 @@ export default {
       }
     },
     openItemCildren() {
-      if (this.miniCollapsed && this.depth === 0) {
+      if (this.miniMenu && this.depth === 0) {
         this.showChildren = true
 
         this.$nextTick(() => {
@@ -510,7 +510,7 @@ export default {
       this.cacheHieght = null
       //if manue is not maounted remove a
       if (!this.menuMounted) return
-      if (this.miniCollapsed && this.depth === 0) {
+      if (this.miniMenu && this.depth === 0) {
         this.containerHeight = this.userAgentHeight
       }
       //add animation
@@ -522,7 +522,7 @@ export default {
       )
     },
     closeItemChildren() {
-      if (this.miniCollapsed && this.depth === 0) {
+      if (this.miniMenu && this.depth === 0) {
         this.showChildren = false
         this.$nextTick(() => {
           this.expanded = false
