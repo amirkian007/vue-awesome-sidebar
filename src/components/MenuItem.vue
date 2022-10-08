@@ -225,6 +225,8 @@ export default {
       openAnimation,
       removeIconSpace,
       vueRouterEnabel,
+      keepChildrenOpen,
+      ChildrenOpenActiveRoute,
       collapsed: menuCollapsed
     } = inject('sidebarProps')
     const { userAgentHeight } = inject('browserAgent')
@@ -255,6 +257,8 @@ export default {
       miniMenu,
       MenuScroll,
       MenuHover,
+      keepChildrenOpen,
+      ChildrenOpenActiveRoute,
       emitOnItemClick,
       menuDirection,
       CurrantItemHover,
@@ -454,12 +458,12 @@ export default {
     },
     miniLabelClick() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href && this.$router && this.vueRouterEnabel)
+      if (this.ChildrenOpenActiveRoute && this.item?.href && this.$router)
         this.$router?.push(this.item?.href)
     },
     toggleMenu() {
       this.emitOnItemClick(this.item)
-      if (this.item?.href && this.$router && this.vueRouterEnabel)
+      if (this.ChildrenOpenActiveRoute && this.item?.href && this.$router)
         this.$router?.push(this.item?.href)
       if (!this.item?.children) return
       clearTimeout(this.hieghtTimeout)
@@ -541,6 +545,7 @@ export default {
         this.containerHeight = 0
       })
       //return if keepchildren open
+      if(this.keepChildrenOpen) return
       this.renderTimeOut = setTimeout(
         () => {
           this.renderChildren = false

@@ -122,8 +122,14 @@ export default {
       type: String,
       default: 'ltr'
     },
-    // keepChildrenOpen:{},
-    // openChildrenIfChildHasActiveRoute
+     keepChildrenOpen:{
+      type: Boolean,
+      default: false
+     },
+     ChildrenOpenActiveRoute:{
+      type: Boolean,
+      default: false
+     }
   },
   emits: {
     'item-click'(item) {

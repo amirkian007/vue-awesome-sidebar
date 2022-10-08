@@ -23,12 +23,13 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     removeIconSpace,
     closeOnClickOutSide,
     overLayerOnOpen,
-    overLayerColor,
     openAnimation,
     position,
     collapseBreakPoint,
     dark,
     vueRouterEnabel,
+    keepChildrenOpen,
+    ChildrenOpenActiveRoute,
     rtl
   } = toRefs(props)
   const isCollapsed = ref(collapsed.value)
@@ -96,11 +97,12 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     removeIconSpace,
     closeOnClickOutSide,
     overLayerOnOpen,
-    overLayerColor,
     openAnimation,
     position,
     collapseBreakPoint,
     vueRouterEnabel,
+    ChildrenOpenActiveRoute,
+    keepChildrenOpen,
     dark,
     rtl
   })
