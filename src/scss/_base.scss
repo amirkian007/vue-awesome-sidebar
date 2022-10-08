@@ -1,3 +1,5 @@
+$overlayer-bg-color:rgba(0,0,0,.6);
+
 .vas-menu {
   display: flex;
   flex-direction: column;
@@ -7,7 +9,7 @@
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   z-index: 849;
-  
+  transition: all 0.3s ease-in-out;
   .bottomBtn {
     position: -webkit-sticky;
     position: sticky;
@@ -32,10 +34,6 @@
   }
   .ssdSpin{
     transform: rotate(-90deg);
-
-  }
-  .vas-simple-icon {
-    
   }
   .vsss-header {
     align-self: center;
@@ -82,5 +80,6 @@
   position: fixed;
   left: 0;
   top: 0;
+  background-color: $overlayer-bg-color;
   z-index: 848;
 }

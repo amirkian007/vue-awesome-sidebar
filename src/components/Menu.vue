@@ -40,7 +40,6 @@
     <div
       v-if="overLayer"
       class="vas-over-layer"
-      :style="{ backgroundColor: overLayerColor }"
     ></div>
   </Transition>
 </template>
@@ -100,10 +99,6 @@ export default {
       type: Boolean,
       default: false
     },
-    overLayerColor: {
-      type: String,
-      default: 'rgba(0,0,0,.6)'
-    },
     openAnimation: {
       type: Boolean,
       default: true
@@ -127,6 +122,8 @@ export default {
       type: String,
       default: 'ltr'
     },
+    // keepChildrenOpen:{},
+    // openChildrenIfChildHasActiveRoute
   },
   emits: {
     'item-click'(item) {
