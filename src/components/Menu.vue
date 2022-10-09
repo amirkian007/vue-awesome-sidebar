@@ -36,8 +36,10 @@
       </template>
 
       <slot name="footer" />
-      <div class="bottomBtn" @click="toggleMiniCollapse">
-        <div class="icons bottomBtnIcon" :class="{ ssdSpin: !miniMenu }"></div>
+      
+      <div v-if="BottomMiniMenuBtn" class="bottomBtn" @click="toggleMiniCollapse">
+        <div v-if="!$slots?.BottomMiniMenuBtn" class="icons bottomBtnIcon" :class="{ ssdSpin: !miniMenu }"></div>
+        <slot v-else name="BottomMiniMenuBtn" :miniMenu="miniMenu" />
       </div>
     </div>
   </aside>
@@ -131,6 +133,10 @@ export default {
     ChildrenOpenActiveRoute: {
       type: Boolean,
       default: false
+    },
+    BottomMiniMenuBtn: {
+      type: Boolean,
+      default: true
     }
   },
   emits: {
