@@ -24,15 +24,15 @@
       }"
       @click="labelClick"
       :style="{
-        [menuDirection=='left' ? 'paddingLeft':'paddingRight']: menuType === 'fully' ? `${depth * 18}px` : ``,
-        background: depth == 0 && active && miniMenu ? 'none' : '',
+        [menuDirection == 'left' ? 'paddingLeft' : 'paddingRight']:
+          menuType === 'fully' ? `${depth * 18}px` : ``,
+        background: depth == 0 && active && miniMenu ? 'none' : ''
       }"
     >
       <div
         class="left"
         ref="labelRef"
-        :class="{ marginAuto: miniMenu && depth === 0 , collapseEnd: miniMenu }"
-        :style="{left : miniMenu?`calc(${widthMiniMenu} * 0.5)`:''}"
+        :class="{ marginAuto: miniMenu && depth === 0, collapseEnd: miniMenu }"
       >
         <template
           v-if="!removeIconSpace || (removeIconSpace && siblingsHaveIconProp)"
@@ -74,7 +74,7 @@
     <!-- ========================= -->
     <!--2 this container is for when menu full width -->
     <!-- ========================= -->
-    <div v-if="!miniMenu || ((depth !=0)&&miniMenu)">
+    <div v-if="!miniMenu || (depth != 0 && miniMenu)">
       <div
         class="items-container"
         :class="{ 'small-menu': smallMenu }"
@@ -100,7 +100,8 @@
     <!--3  this container is for when menu is not mini -->
     <!-- ========================= -->
 
-    <div v-if="miniMenu && (depth ===0)"
+    <div
+      v-if="miniMenu && depth === 0"
       :class="{ topContainer: depth == 0 }"
       ref="topContainerRef"
       :style="{
@@ -109,13 +110,11 @@
           : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
         [menuDirection]: `calc(${widthMiniMenu} - 1px)`,
         maxHeight: MakeSpace ? TopcontainerHiefht : '',
-        width: (depth === 0 && showChildren) || depth !=0  ? '250px' : '0px',
-          opacity: (depth === 0 && showChildren) ? '1' : '0'
-       
+        width: showChildren || depth != 0 ? '250px' : '0px',
+        opacity: showChildren ? '1' : '0'
       }"
-    > 
+    >
       <div
-       
         @click="miniLabelClick"
         @mousewheel="mousewheelop"
         class="labelMini"
@@ -129,13 +128,12 @@
           [menuDirection]: menuType === 'fully' ? '0px' : miniLabelDirection,
           width: miniLabelWidth,
           [MakeSpace ? 'bottom' : 'top']: ContainerOffsetYConputed,
-          opacity: (depth === 0 && showChildren) ? '1' : '0'
-          
+          opacity: depth === 0 && showChildren ? '1' : '0'
         }"
       >
         <!--main menu btn-->
         <div
-        v-if="showChildren"
+          v-if="showChildren"
           class="left"
           :class="{ marginAuto: miniMenu && depth === 0 }"
           :style="{
@@ -205,7 +203,7 @@ export default {
     TopcontainerHiefht: 0,
     labelMiniYofsset: 0,
     labelMiniYYofsset: 0,
-    miniMenuOffset:50,
+    miniMenuOffset: 50
   }),
 
   props: [
@@ -545,7 +543,7 @@ export default {
         this.containerHeight = 0
       })
       //return if keepchildren open
-      if(this.keepChildrenOpen) return
+      if (this.keepChildrenOpen) return
       this.renderTimeOut = setTimeout(
         () => {
           this.renderChildren = false
@@ -559,14 +557,14 @@ export default {
         const x = this.$refs['menuItem'].getBoundingClientRect()
         const x1 = this.$refs['topContainerRef']?.clientHeight
 
-         if (x1 && x1 + x.top - 15 > innerHeight) {
-           this.ContainerOffsetY = innerHeight - x.bottom
-           this.TopcontainerHiefht = x1 + 8 + 'px'
-           this.MakeSpace = true
-         } else {
-           this.ContainerOffsetY = x.top
-           this.MakeSpace = false
-           }
+        if (x1 && x1 + x.top - 15 > innerHeight) {
+          this.ContainerOffsetY = innerHeight - x.bottom
+          this.TopcontainerHiefht = x1 + 8 + 'px'
+          this.MakeSpace = true
+        } else {
+          this.ContainerOffsetY = x.top
+          this.MakeSpace = false
+        }
         this.miniMenuOffset = x.width
       }
     }

@@ -1,8 +1,6 @@
-$overlayer-bg-color:rgba(0,0,0,.6);
+$overlayer-bg-color: rgba(0, 0, 0, 0.6);
 
 .vas-menu {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
   top: 0;
   overflow-y: overlay;
@@ -10,6 +8,13 @@ $overlayer-bg-color:rgba(0,0,0,.6);
   -webkit-overflow-scrolling: touch;
   z-index: 849;
   transition: all 0.3s ease-in-out;
+  .menu-wraper {
+    position: relative;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
   .bottomBtn {
     position: -webkit-sticky;
     position: sticky;
@@ -24,7 +29,7 @@ $overlayer-bg-color:rgba(0,0,0,.6);
     align-items: center;
     justify-content: center;
   }
-  .bottomBtnIcon{
+  .bottomBtnIcon {
     background-repeat: none;
     height: 50px;
     width: 20px;
@@ -32,7 +37,7 @@ $overlayer-bg-color:rgba(0,0,0,.6);
     transition: transform 0.3s;
     transform: rotate(90deg);
   }
-  .ssdSpin{
+  .ssdSpin {
     transform: rotate(-90deg);
   }
   .vsss-header {

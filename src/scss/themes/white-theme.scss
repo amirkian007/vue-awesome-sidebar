@@ -7,7 +7,7 @@ $icon-active-color-white: #2c7ae0 !default;
 
 .vas-menu {
   &.white-theme {
-    .bottomBtn{
+    .bottomBtn {
       background-color: $back-ground-color-white;
     }
     hr {
@@ -57,8 +57,6 @@ $icon-active-color-white: #2c7ae0 !default;
         background-color: $hover-back-ground-white;
         //color: $text-active-color-white;
       }
-
-      
     }
     .labelMini {
       &.activeClass::before {
@@ -81,7 +79,7 @@ $icon-active-color-white: #2c7ae0 !default;
         }
       }
     }
-     .icons {
+    .icons {
       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
         50%/2rem 2rem;
       -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');

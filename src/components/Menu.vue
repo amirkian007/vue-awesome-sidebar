@@ -15,32 +15,34 @@
     @[mouseEnterEvent]="onEnter"
     @[mouseLeaveEvent]="onLeave"
   >
-   
-    <slot name="header" />
+    <div
+      class="menu-wraper"
+      :style="{
+        width: sidebarMenuWidth
+      }"
+    >
+      <slot name="header" />
 
-    <template v-for="(item, index) in menu" :key="index">
-      <MenuItem
-        v-if="!item?.header && !item?.line"
-        :item="item"
-        :depth="0"
-        :smallMenu="smallMenu"
-        :siblingsHaveIconProp="siblingsHaveIcon"
-      />
-      <HeaderItem v-else-if="item?.header && !miniMenu" :data="item" />
-      <hr v-else-if="item?.line" />
-    </template>
+      <template v-for="(item, index) in menu" :key="index">
+        <MenuItem
+          v-if="!item?.header && !item?.line"
+          :item="item"
+          :depth="0"
+          :smallMenu="smallMenu"
+          :siblingsHaveIconProp="siblingsHaveIcon"
+        />
+        <HeaderItem v-else-if="item?.header && !miniMenu" :data="item" />
+        <hr v-else-if="item?.line" />
+      </template>
 
-    <slot name="footer" />
-    <div class="bottomBtn" @click="toggleMiniCollapse">
-      <div class=" icons bottomBtnIcon" :class="{ssdSpin:!miniMenu}"></div>
+      <slot name="footer" />
+      <div class="bottomBtn" @click="toggleMiniCollapse">
+        <div class="icons bottomBtnIcon" :class="{ ssdSpin: !miniMenu }"></div>
+      </div>
     </div>
-   
   </aside>
   <Transition>
-    <div
-      v-if="overLayer"
-      class="vas-over-layer"
-    ></div>
+    <div v-if="overLayer" class="vas-over-layer"></div>
   </Transition>
 </template>
 
@@ -75,7 +77,7 @@ export default {
       type: Number,
       default: 290
     },
-    vueRouterEnabel:{
+    vueRouterEnabel: {
       type: Boolean,
       default: false
     },
@@ -122,14 +124,14 @@ export default {
       type: String,
       default: 'ltr'
     },
-     keepChildrenOpen:{
+    keepChildrenOpen: {
       type: Boolean,
       default: false
-     },
-     ChildrenOpenActiveRoute:{
+    },
+    ChildrenOpenActiveRoute: {
       type: Boolean,
       default: false
-     }
+    }
   },
   emits: {
     'item-click'(item) {
@@ -197,7 +199,7 @@ export default {
         }
       }
     },
-    toggleMiniCollapse(){
+    toggleMiniCollapse() {
       this.$emit('update:miniMenu', !this.miniMenu)
     }
   },
