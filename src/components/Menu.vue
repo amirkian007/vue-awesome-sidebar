@@ -9,7 +9,7 @@
       [menuDirection]: isCollapsed
         ? `calc(-1*(${sidebarMenuWidth} + 2px))`
         : '0px',
-      direction: direction
+      direction: rtl ? 'rtl' : 'ltr'
     }"
     @[menuScrollEvent]="onMenuScroll"
     @[mouseEnterEvent]="onEnter"
@@ -121,10 +121,6 @@ export default {
     rtl: {
       type: Boolean,
       default: false
-    },
-    direction: {
-      type: String,
-      default: 'ltr'
     },
     keepChildrenOpen: {
       type: Boolean,
@@ -255,7 +251,7 @@ export default {
       const theme = props.dark ? 'dark' : 'white'
       return [
         `${theme}-theme`,
-        props.direction,
+        props.rtl ? 'rtl' : 'ltr',
         //isCollapsed.value ? 'compelete-coolapse-menu' : '',
         miniMenu.value ? 'mini-coolapse-menu' : ''
       ]

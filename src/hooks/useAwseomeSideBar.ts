@@ -9,7 +9,6 @@ import {
 } from 'vue'
 
 export const initAwsomeSideBar = (props: any, context: any) => {
-  //const { collapsed, miniMenu, direction } = toRefs(props)
 
   const {
     menu,
@@ -17,7 +16,6 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     collapsed,
     miniMenu,
     animationDuration,
-    direction,
     width,
     widthMiniMenu,
     removeIconSpace,
@@ -62,9 +60,6 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     CurranContainerHover.value = id
   }
   const menuDirection = computed(() => {
-    return direction.value === 'rtl' ? 'right' : 'left'
-  })
-  const menuDirection2 = computed(() => {
     return rtl.value ? 'right' : 'left'
   })
   const emitOnItemClick = (item: any) => {
@@ -91,7 +86,6 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     collapsed,
     miniMenu,
     animationDuration,
-    direction,
     width,
     widthMiniMenu,
     removeIconSpace,
