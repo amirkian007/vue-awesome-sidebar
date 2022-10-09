@@ -21,10 +21,9 @@ export default defineConfig({
           vue: 'Vue'
         },
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name == 'style.css')
-            return 'vue-awesome-siderbar.css';
-          return assetInfo.name;
-        },
+          if (assetInfo.name == 'style.css') return 'vue-awesome-siderbar.css'
+          return assetInfo.name
+        }
       }
     }
   }
