@@ -42,9 +42,10 @@
           <component
             v-else-if="prepandicon"
             :is="prepandicon"
-            :iconData="item?.icon"
+            :icon="item?.icon"
             :active="active"
             :miniActive="miniActive"
+            :isMenuOpen="showChildren"
           ></component>
         </template>
         <template v-if="labelName">
@@ -56,15 +57,17 @@
         <div
           v-if="item.children && !apendIcon"
           class="icons"
-          :class="{ opened: showChildren, postIconOpenAnima: openAnimation }"
+          :class="{ opened: showChildren, postIconOpenAnima: showChildren }"
         ></div>
         <!-- !!!  slot for menuitem prepand icon-->
         <div v-if="item.children && apendIcon">
           <component
             v-if="apendIcon"
             :icon="item?.icon"
-            :isMenuOpen="openAnimation"
+            :isMenuOpen="showChildren"
             :is="apendIcon"
+            :active="active"
+            :miniActive="miniActive"
           >
           </component>
         </div>
