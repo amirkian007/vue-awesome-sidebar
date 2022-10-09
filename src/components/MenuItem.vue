@@ -56,8 +56,8 @@
       <template v-if="(miniMenu && depth != 0) || !miniMenu">
         <div
           v-if="item.children && !apendIcon"
-          class="icons"
-          :class="{ opened: showChildren, postIconOpenAnima: showChildren }"
+          class="icons postIconOpenAnima"
+          :class="{ opened: showChildren }"
         ></div>
         <!-- !!!  slot for menuitem prepand icon-->
         <div v-if="item.children && apendIcon">
