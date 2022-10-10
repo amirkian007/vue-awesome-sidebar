@@ -9,7 +9,6 @@ import {
 } from 'vue'
 
 export const initAwsomeSideBar = (props: any, context: any) => {
-
   const {
     menu,
     menuType,
@@ -27,6 +26,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     dark,
     vueRouterEnabel,
     keepChildrenOpen,
+    checkButtonActive,
     ChildrenOpenActiveRoute,
     rtl
   } = toRefs(props)
@@ -95,6 +95,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     position,
     collapseBreakPoint,
     vueRouterEnabel,
+    checkButtonActive,
     ChildrenOpenActiveRoute,
     keepChildrenOpen,
     dark,

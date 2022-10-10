@@ -227,6 +227,7 @@ export default {
       removeIconSpace,
       vueRouterEnabel,
       keepChildrenOpen,
+      checkButtonActive,
       ChildrenOpenActiveRoute,
       collapsed: menuCollapsed
     } = inject('sidebarProps')
@@ -262,6 +263,7 @@ export default {
       ChildrenOpenActiveRoute,
       emitOnItemClick,
       menuDirection,
+      checkButtonActive,
       CurrantItemHover,
       updateCurranContainerHover,
       updateCurrantItemHover,
@@ -429,6 +431,8 @@ export default {
       }, 0)
     },
     checkActive() {
+      if (!this.checkButtonActive) return
+
       if (this.item?.href && this.isSameUrl(this.item?.href)) {
         this.active = true
       } else {
@@ -443,7 +447,9 @@ export default {
             // clearTimeout(this.renderTimeOut)
             this.miniActive = true
             if (this.menuMounted || this.miniMenu) break
-            this.openItemCildren()
+            if (this.ChildrenOpenActiveRoute) {
+              this.openItemCildren()
+            }
             break
           }
         }
@@ -459,12 +465,12 @@ export default {
     },
     miniLabelClick() {
       this.emitOnItemClick(this.item)
-      if (this.ChildrenOpenActiveRoute && this.item?.href && this.$router)
+      if (this.vueRouterEnabel && this.item?.href && this.$router)
         this.$router?.push(this.item?.href)
     },
     toggleMenu() {
       this.emitOnItemClick(this.item)
-      if (this.ChildrenOpenActiveRoute && this.item?.href && this.$router)
+      if (this.vueRouterEnabel && this.item?.href && this.$router)
         this.$router?.push(this.item?.href)
       if (!this.item?.children) return
       clearTimeout(this.hieghtTimeout)

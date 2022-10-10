@@ -36,9 +36,17 @@
       </template>
 
       <slot name="footer" />
-      
-      <div v-if="BottomMiniMenuBtn" class="bottomBtn" @click="toggleMiniCollapse">
-        <div v-if="!$slots?.BottomMiniMenuBtn" class="icons bottomBtnIcon" :class="{ ssdSpin: !miniMenu }"></div>
+
+      <div
+        v-if="BottomMiniMenuBtn"
+        class="bottomBtn"
+        @click="toggleMiniCollapse"
+      >
+        <div
+          v-if="!$slots?.BottomMiniMenuBtn"
+          class="icons bottomBtnIcon"
+          :class="{ ssdSpin: !miniMenu }"
+        ></div>
         <slot v-else name="BottomMiniMenuBtn" :miniMenu="miniMenu" />
       </div>
     </div>
@@ -77,11 +85,7 @@ export default {
     },
     animationDuration: {
       type: Number,
-      default: 290
-    },
-    vueRouterEnabel: {
-      type: Boolean,
-      default: false
+      default: 300
     },
     width: {
       type: String,
@@ -115,24 +119,32 @@ export default {
       type: String,
       default: '65px'
     },
-    dark: {
-      type: Boolean
-    },
-    rtl: {
-      type: Boolean,
-      default: false
-    },
     keepChildrenOpen: {
       type: Boolean,
       default: false
     },
     ChildrenOpenActiveRoute: {
       type: Boolean,
+      default: true
+    },
+    checkButtonActive: {
+      type: Boolean,
+      default: true
+    },
+    vueRouterEnabel: {
+      type: Boolean,
       default: false
     },
     BottomMiniMenuBtn: {
       type: Boolean,
       default: true
+    },
+    dark: {
+      type: Boolean
+    },
+    rtl: {
+      type: Boolean,
+      default: false
     }
   },
   emits: {
