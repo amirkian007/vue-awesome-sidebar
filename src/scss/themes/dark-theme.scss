@@ -5,6 +5,8 @@ $text-color-none-hover-dark: rgb(218, 221, 225) !default;
 $menu-back-ground-color-dark: #242526 !default;
 $border-color-dark: rgba(170, 170, 170, 0.329) !default;
 $label-bg-color-dark: none !default;
+$active-label-bg-color-dark: hsla(0, 0%, 100%, 0.05) !default;
+$mini-active-label-bg-color-dark: none !default;
 .vas-menu {
   &.dark-theme {
     .bottomBtn {
@@ -56,7 +58,7 @@ $label-bg-color-dark: none !default;
         background-color: $text-active-color-dark;
       }
       &.activeClass {
-        background: $hover-back-ground-dark;
+        background: $active-label-bg-color-dark;
         color: $text-active-color-dark;
         .menu-icon {
           color: $icon-active-color-dark;
@@ -64,6 +66,7 @@ $label-bg-color-dark: none !default;
       }
 
       &.miniActive {
+        background:$mini-active-label-bg-color-dark;
         color: $text-active-color-dark;
         .menu-icon {
           color: $icon-active-color-dark;
@@ -85,13 +88,14 @@ $label-bg-color-dark: none !default;
       // width: 30px;
       color: $text-color-none-hover-dark;
       &.activeClass {
-        background-color: $hover-back-ground-dark;
+        background-color: $active-label-bg-color-dark;
         color: $text-active-color-dark;
         .menu-icon {
           color: $icon-active-color-dark;
         }
       }
       &.miniActive {
+        background:$mini-active-label-bg-color-dark;
         color: $text-active-color-dark;
         .menu-icon {
           color: $icon-active-color-dark;
