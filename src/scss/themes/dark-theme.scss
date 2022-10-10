@@ -4,6 +4,7 @@ $hover-back-ground-dark: hsla(0, 0%, 100%, 0.05) !default;
 $text-color-none-hover-dark: rgb(218, 221, 225) !default;
 $menu-back-ground-color-dark: #242526 !default;
 $border-color-dark: rgba(170, 170, 170, 0.329) !default;
+$label-bg-color-dark: none !default;
 .vas-menu {
   &.dark-theme {
     .hoverColor{
@@ -53,6 +54,7 @@ $border-color-dark: rgba(170, 170, 170, 0.329) !default;
       background: $hover-back-ground-dark;
     }
     .label {
+      background-color:$label-bg-color-dark ;
       &.activeClass::before {
         background-color: $text-active-color-dark;
       }

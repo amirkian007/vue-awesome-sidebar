@@ -4,6 +4,7 @@ $hover-back-ground-white: rgb(242, 242, 242) !default;
 $text-color-none-hover-white: rgb(28, 30, 33) !default;
 $menu-back-ground-color-white: white !default;
 $border-color-white: #ececec !default;
+$label-bg-color-white: none !default;
 
 .vas-menu {
   &.white-theme {
@@ -39,6 +40,7 @@ $border-color-white: #ececec !default;
     }
 
     .label {
+      background-color:$label-bg-color-white ;
       &.activeClass::before {
         background-color: $text-active-color-white;
       }
