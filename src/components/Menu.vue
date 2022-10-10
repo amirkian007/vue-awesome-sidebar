@@ -31,7 +31,7 @@
           :smallMenu="smallMenu"
           :siblingsHaveIconProp="siblingsHaveIcon"
         />
-        <HeaderItem v-else-if="item?.header && !miniMenu" :data="item" />
+        <HeaderItem v-else-if="item?.header && !miniMenuRef" :data="item" />
         <hr v-else-if="item?.line" />
       </template>
 
@@ -45,9 +45,9 @@
         <div
           v-if="!$slots?.BottomMiniMenuBtn"
           class="icons bottomBtnIcon"
-          :class="{ ssdSpin: !miniMenu }"
+          :class="{ ssdSpin: !miniMenuRef }"
         ></div>
-        <slot v-else name="BottomMiniMenuBtn" :miniMenu="miniMenu" />
+        <slot v-else name="BottomMiniMenuBtn" :miniMenu="miniMenuRef" />
       </div>
     </div>
   </aside>
@@ -177,21 +177,21 @@ export default {
     async $route() {
       this.updateCurrentRoute(window.location)
     },
-    miniMenu() {
-      if (this.miniMenu) {
+    miniMenuRef() {
+      if (this.miniMenuRef) {
         this.updateMenuHover(true)
       }
     }
   },
   computed: {
     menuScrollEvent() {
-      return this.miniMenu ? 'scroll' : null
+      return this.miniMenuRef ? 'scroll' : null
     },
     mouseEnterEvent() {
-      return this.miniMenu ? 'mouseenter' : null
+      return this.miniMenuRef ? 'mouseenter' : null
     },
     mouseLeaveEvent() {
-      return this.miniMenu ? 'mouseleave' : null
+      return this.miniMenuRef ? 'mouseleave' : null
     }
   },
   methods: {
@@ -214,15 +214,18 @@ export default {
       }
     },
     toggleMiniCollapse() {
-      this.$emit('update:miniMenu', !this.miniMenu)
+      const x = !this.miniMenuRef
+      this.updateminiMenu(x)
+      this.$emit('update:miniMenu', x)
     }
   },
   setup(props, context) {
     const {
       getIsCollapsed: isCollapsed,
-      getIsminiMenu: miniMenu,
+      getIsminiMenu: miniMenuRef,
       updateMenuScroll,
       updateMenuHover,
+      updateminiMenu,
       menuDirection
     } = initAwsomeSideBar(props, context)
     const { updateCurrentRoute } = initAwsomeRouter(props, context)
@@ -254,9 +257,15 @@ export default {
         }
       )
     }
+    watch(
+      () => props.miniMenu,
+      (val) => {
+        updateminiMenu(val)
+      }
+    )
 
     const sidebarMenuWidth = computed(() => {
-      return miniMenu.value ? props.widthMiniMenu : props.width
+      return miniMenuRef.value ? props.widthMiniMenu : props.width
     })
 
     const sidebarClass = computed(() => {
@@ -265,7 +274,7 @@ export default {
         `${theme}-theme`,
         props.rtl ? 'rtl' : 'ltr',
         //isCollapsed.value ? 'compelete-coolapse-menu' : '',
-        miniMenu.value ? 'mini-coolapse-menu' : ''
+        miniMenuRef.value ? 'mini-coolapse-menu' : ''
       ]
     })
 
@@ -278,6 +287,8 @@ export default {
       updateMenuHover,
       overLayer,
       isCollapsed,
+      updateminiMenu,
+      miniMenuRef,
       menuDirection
     }
   }

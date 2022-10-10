@@ -12,8 +12,8 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const {
     menu,
     menuType,
+    miniMenu: miniMenuRef,
     collapsed,
-    miniMenu,
     animationDuration,
     width,
     widthMiniMenu,
@@ -34,6 +34,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const slots = ref(context.slots)
   const menuMounted = ref(false)
   const MenuScroll = ref(false)
+  const miniMenu = ref(miniMenuRef.value)
   const MenuHover = ref(false)
   const CurrantItemHover = ref(null)
   const CurranContainerHover = ref(null)
@@ -64,6 +65,9 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   })
   const emitOnItemClick = (item: any) => {
     context.emit('item-click', item)
+  }
+  const updateminiMenu = (val: boolean) => {
+    miniMenu.value = val
   }
   let userAgentHeight =
     navigator.userAgent.indexOf('Firefox') != -1
@@ -120,6 +124,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     getIsminiMenu: miniMenu,
     updateIsCollapsed,
     getSlotByName,
+    updateminiMenu,
     menuMounted,
     updateMenuScroll,
     updateMenuHover,
