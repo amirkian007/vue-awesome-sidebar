@@ -22,7 +22,6 @@
         activeClass: active,
         miniActive: miniActive,
         labelHoverClass: (depth != 0 && miniMenu) || !miniMenu,
-        hoverColor :showChildren && (depth == 0) && !miniMenu
       }"
       @click="labelClick"
       :style="{

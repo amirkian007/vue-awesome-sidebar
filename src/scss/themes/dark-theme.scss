@@ -7,9 +7,6 @@ $border-color-dark: rgba(170, 170, 170, 0.329) !default;
 $label-bg-color-dark: none !default;
 .vas-menu {
   &.dark-theme {
-    .hoverColor{
-      background-color: $hover-back-ground-dark;
-    }
     .bottomBtn {
       background-color: $menu-back-ground-color-dark;
     }

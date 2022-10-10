@@ -5,12 +5,9 @@ $text-color-none-hover-white: rgb(28, 30, 33) !default;
 $menu-back-ground-color-white: white !default;
 $border-color-white: #ececec !default;
 $label-bg-color-white: none !default;
-
 .vas-menu {
   &.white-theme {
-    .hoverColor{
-      background-color: $hover-back-ground-white;
-    }
+    
     .bottomBtn {
       background-color: $menu-back-ground-color-white;
     }
