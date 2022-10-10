@@ -5,13 +5,13 @@ $text-color-none-hover-dark: rgb(218, 221, 225) !default;
 $menu-back-ground-color-dark: #242526 !default;
 $border-color-dark: rgba(170, 170, 170, 0.329) !default;
 .vas-menu {
-  .hoverColor{
-    background-color: $hover-back-ground-dark;
-  }
-  .bottomBtn {
-    background-color: $menu-back-ground-color-dark;
-  }
   &.dark-theme {
+    .hoverColor{
+      background-color: $hover-back-ground-dark;
+    }
+    .bottomBtn {
+      background-color: $menu-back-ground-color-dark;
+    }
     background-color: $menu-back-ground-color-dark;
     hr {
       border-color: rgba(211, 211, 211, 0.548);
