@@ -1,14 +1,17 @@
 $text-active-color-white: #2c7ae0 !default;
+$icon-active-color-white: #2c7ae0 !default;
 $hover-back-ground-white: rgb(242, 242, 242) !default;
 $text-color-none-hover-white: rgb(28, 30, 33) !default;
-$back-ground-color-white: white !default;
+$menu-back-ground-color-white: white !default;
 $border-color-white: #ececec !default;
-$icon-active-color-white: #2c7ae0 !default;
 
 .vas-menu {
   &.white-theme {
+    .hoverColor{
+      background-color: $hover-back-ground-white;
+    }
     .bottomBtn {
-      background-color: $back-ground-color-white;
+      background-color: $menu-back-ground-color-white;
     }
     hr {
       border-color: $hover-back-ground-white;
@@ -19,7 +22,7 @@ $icon-active-color-white: #2c7ae0 !default;
     &.ltr {
       border-right: 1px solid $border-color-white;
     }
-    background-color: $back-ground-color-white;
+    background-color: $menu-back-ground-color-white;
 
     &::-webkit-scrollbar-thumb {
       color: rgb(184, 184, 184);
@@ -92,7 +95,7 @@ $icon-active-color-white: #2c7ae0 !default;
         border-top: 1px solid rgba(170, 170, 170, 0.329);
         border-bottom: 1px solid rgba(170, 170, 170, 0.329);
         border-left: 1px solid rgba(170, 170, 170, 0.329);
-        background-color: $back-ground-color-white;
+        background-color: $menu-back-ground-color-white;
       }
     }
     &.ltr {
@@ -100,7 +103,7 @@ $icon-active-color-white: #2c7ae0 !default;
         border-top: 1px solid rgba(170, 170, 170, 0.329);
         border-bottom: 1px solid rgba(170, 170, 170, 0.329);
         border-right: 1px solid rgba(170, 170, 170, 0.329);
-        background-color: $back-ground-color-white;
+        background-color: $menu-back-ground-color-white;
       }
     }
   }

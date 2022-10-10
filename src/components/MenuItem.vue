@@ -8,19 +8,21 @@
     }"
   >
     <!-- ========================= -->
-    <!-- 1 this is basiclly the menu btn  -->
-    <!-- menuexpand2: miniMenu && showChildren && depth === 0, -->
+    <!-- ========================= -->
+    <!-- 1 this is the menu label  -->
+    <!-- ========================= -->
     <!-- ========================= -->
 
     <div
-      class="label"
+      class="label "
       @[shouldMouseEnterEvent]="this.hover = true"
       @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
         menuexpand: showChildren,
         activeClass: active,
         miniActive: miniActive,
-        labelHoverClass: (depth != 0 && miniMenu) || !miniMenu
+        labelHoverClass: (depth != 0 && miniMenu) || !miniMenu,
+        hoverColor :showChildren && (depth == 0) && !miniMenu
       }"
       @click="labelClick"
       :style="{
@@ -75,7 +77,9 @@
     </div>
 
     <!-- ========================= -->
-    <!--2 this container is for when menu full width -->
+    <!-- ========================= -->
+    <!--2 this container is for when menu Children when full width -->
+    <!-- ========================= -->
     <!-- ========================= -->
     <div v-if="!miniMenu || (depth != 0 && miniMenu)">
       <div
@@ -100,7 +104,9 @@
     </div>
 
     <!-- ========================= -->
-    <!--3  this container is for when menu is not mini -->
+    <!-- ========================= -->
+    <!--3  this container is for mini Menu Children -->
+    <!-- ========================= -->
     <!-- ========================= -->
 
     <div

@@ -62,7 +62,7 @@
       }
     }
     transition: background-color 0.3s ease, color 0.3s ease; //d
-    font-size: 16px; //d
+    font-size: $label-font-size; //d
 
     > .left {
       margin-right: 7px;

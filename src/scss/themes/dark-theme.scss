@@ -1,15 +1,18 @@
 $text-active-color-dark: rgb(44, 122, 224) !default;
-$hover-back-ground-dark: hsla(0, 0%, 100%, 0.05) !default;
-$text-color-none-none-hover-dark: rgb(218, 221, 225) !default;
-$back-ground-color-dark: #242526 !default;
-$border-color-dark: rgba(170, 170, 170, 0.329) !default;
 $icon-active-color-dark: rgb(44, 122, 224) !default;
+$hover-back-ground-dark: hsla(0, 0%, 100%, 0.05) !default;
+$text-color-none-hover-dark: rgb(218, 221, 225) !default;
+$menu-back-ground-color-dark: #242526 !default;
+$border-color-dark: rgba(170, 170, 170, 0.329) !default;
 .vas-menu {
+  .hoverColor{
+    background-color: $hover-back-ground-dark;
+  }
   .bottomBtn {
-    background-color: $back-ground-color-dark;
+    background-color: $menu-back-ground-color-dark;
   }
   &.dark-theme {
-    background-color: $back-ground-color-dark;
+    background-color: $menu-back-ground-color-dark;
     hr {
       border-color: rgba(211, 211, 211, 0.548);
     }
@@ -34,7 +37,7 @@ $icon-active-color-dark: rgb(44, 122, 224) !default;
         border-top: 1px solid $border-color-dark;
         border-bottom: 1px solid $border-color-dark;
         border-left: 1px solid $border-color-dark;
-        background-color: $back-ground-color-dark;
+        background-color: $menu-back-ground-color-dark;
       }
     }
     &.ltr {
@@ -42,7 +45,7 @@ $icon-active-color-dark: rgb(44, 122, 224) !default;
         border-top: 1px solid $border-color-dark;
         border-bottom: 1px solid $border-color-dark;
         border-right: 1px solid $border-color-dark;
-        background-color: $back-ground-color-dark;
+        background-color: $menu-back-ground-color-dark;
       }
     }
     // .vas-simple-icon {
@@ -67,7 +70,7 @@ $icon-active-color-dark: rgb(44, 122, 224) !default;
           color: $icon-active-color-dark;
         }
       }
-      color: $text-color-none-none-hover-dark;
+      color: $text-color-none-hover-dark;
       &.labelHoverClass:hover {
         background-color: $hover-back-ground-dark;
         //color: $text-active-color-dark;
@@ -81,7 +84,7 @@ $icon-active-color-dark: rgb(44, 122, 224) !default;
       background-color: $hover-back-ground-dark;
       //background: rgb(54, 54, 54);
       // width: 30px;
-      color: $text-color-none-none-hover-dark;
+      color: $text-color-none-hover-dark;
       &.activeClass {
         background-color: $hover-back-ground-dark;
         color: $text-active-color-dark;
@@ -97,10 +100,10 @@ $icon-active-color-dark: rgb(44, 122, 224) !default;
       }
     }
     .icons {
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
         50%/2rem 2rem;
-      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
     }
   }
 }
