@@ -66,6 +66,7 @@
     width: 95%;
   }
   .label {
+    height: $menu-item-simple-icon-height;
     border-radius: 4px;
     @extend .labelS;
   }
