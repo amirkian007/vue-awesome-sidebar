@@ -95,7 +95,6 @@ $mini-active-label-bg-color-dark: none !default;
         }
       }
       &.miniActive {
-        background:$mini-active-label-bg-color-dark;
         color: $text-active-color-dark;
         .menu-icon {
           color: $icon-active-color-dark;

@@ -79,7 +79,6 @@ $mini-active-label-bg-color-white: none !default;
         }
       }
       &.miniActive {
-        background:$mini-active-label-bg-color-white;
         color: $text-active-color-white;
         .menu-icon {
           color: $icon-active-color-white;
