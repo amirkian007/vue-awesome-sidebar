@@ -1,20 +1,37 @@
-$text-active-color-white: #2c7ae0 !default;
-$icon-active-color-white: #2c7ae0 !default;
-$hover-back-ground-white: rgb(242, 242, 242) !default;
-$text-color-none-hover-white: rgb(28, 30, 33) !default;
-$menu-back-ground-color-white: white !default;
-$border-color-white: #ececec !default;
-$label-bg-color-white: none !default;
-$active-label-bg-color-white: hsla(0, 0%, 100%, 0.05) !default;
-$mini-active-label-bg-color-white: none !default;
+//menu
+$menu-back-ground-color-white: white !default;//s
+$border-color-white: #cfcfcf !default;//s
+
+//menu item prepend icon
+$icon-color-white:rgb(28, 30, 33) !default;//s
+$icon-active-color-white: #2c7ae0 !default;//s
+$icon-mini-active-color-white: #2c7ae0 !default;//s
+$icon-hover-color-white: '' !default;//s
+
+//menu item
+$menu-item-bg-color-white: none !default;//s
+$menu-item-hover-bg-white: rgb(242, 242, 242) !default;//s
+$menu-item-active-bg-color-white: rgb(242, 242, 242)  !default;//s
+$mini-active-item-bg-color-white: none !default;//s
+
+//menu item label
+$text-color-none-hover-white: rgb(28, 30, 33) !default;//c
+$text-active-color-white: #2c7ae0 !default;//c
+$text-mini-active-color-white: #2c7ae0 !default;//c
+$text-hover-color-white: none !default;//c
+
+//menu item append icon
+$append-icon-color-white : rgb(28, 30, 33) !default;//c
+$append-active-icon-color-white : rgb(28, 30, 33) !default;//c
+
 .vas-menu {
   &.white-theme {
-    
+    background-color: $menu-back-ground-color-white;
     .bottomBtn {
       background-color: $menu-back-ground-color-white;
     }
     hr {
-      border-color: $hover-back-ground-white;
+      border-color: rgba(211, 211, 211, 0.548);
     }
     &.rtl {
       border-left: 1px solid $border-color-white;
@@ -22,8 +39,6 @@ $mini-active-label-bg-color-white: none !default;
     &.ltr {
       border-right: 1px solid $border-color-white;
     }
-    background-color: $menu-back-ground-color-white;
-
     &::-webkit-scrollbar-thumb {
       color: rgb(184, 184, 184);
     }
@@ -33,81 +48,101 @@ $mini-active-label-bg-color-white: none !default;
     .vsss-header {
       color: #213547;
     }
-    // .vas-simple-icon {
-    .hoverClass {
-      background: $hover-back-ground-white;
-    }
-
-    .label {
-      background-color:$label-bg-color-white ;
-      &.activeClass::before {
-        background-color: $text-active-color-white;
-      }
-      &.activeClass {
-        background: $active-label-bg-color-white;
-        color: $text-active-color-white;
-        .menu-icon {
-          color: $icon-active-color-white;
-        }
-      }
-      &.miniActive {
-        background:$mini-active-label-bg-color-white;
-        color: $text-active-color-white;
-        .menu-icon {
-          color: $icon-active-color-white;
-        }
-      }
-      color: $text-color-none-hover-white;
-      &.labelHoverClass:hover {
-        background-color: $hover-back-ground-white;
-        //color: $text-active-color-white;
-      }
-    }
-    .labelMini {
-      &.activeClass::before {
-        background-color: $text-active-color-white;
-      }
-      overflow: hidden;
-      background-color: $hover-back-ground-white;
-
-      //width: 30px;
-      &.activeClass {
-        background: $active-label-bg-color-white;
-        color: $text-active-color-white;
-        .menu-icon {
-          color: $icon-active-color-white;
-        }
-      }
-      &.miniActive {
-        color: $text-active-color-white;
-        .menu-icon {
-          color: $icon-active-color-white;
-        }
-      }
-    }
-    .icons {
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
-        50%/2rem 2rem;
-      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-    }
-    //}
-
     &.rtl {
       .topContainer {
-        border-top: 1px solid rgba(170, 170, 170, 0.329);
-        border-bottom: 1px solid rgba(170, 170, 170, 0.329);
-        border-left: 1px solid rgba(170, 170, 170, 0.329);
+        border-top: 1px solid $border-color-white;
+        border-bottom: 1px solid $border-color-white;
+        border-left: 1px solid $border-color-white;
         background-color: $menu-back-ground-color-white;
       }
     }
     &.ltr {
       .topContainer {
-        border-top: 1px solid rgba(170, 170, 170, 0.329);
-        border-bottom: 1px solid rgba(170, 170, 170, 0.329);
-        border-right: 1px solid rgba(170, 170, 170, 0.329);
+        border-top: 1px solid $border-color-white;
+        border-bottom: 1px solid $border-color-white;
+        border-right: 1px solid $border-color-white;
         background-color: $menu-back-ground-color-white;
       }
+    }
+    // .vas-simple-icon {
+    .hoverClass {
+      background: $menu-item-hover-bg-white;
+    }
+    .label {
+      background-color:$menu-item-bg-color-white ;
+      &.activeClass::before {
+        background-color: $text-active-color-white;
+      }
+      &.activeClass {
+        background: $menu-item-active-bg-color-white;
+        color: $text-active-color-white;
+        .menu-icon {
+          color: $icon-active-color-white;
+        }
+        .icons {
+          background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-active-icon-color-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+            50%/2rem 2rem;
+          -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-active-icon-color-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+          filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-active-icon-color-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+        }
+      }
+      .menu-icon {
+        color: $icon-color-white;
+      }
+ 
+      &.miniActive {
+        background:$mini-active-item-bg-color-white;
+        .labelName{
+          color: $text-mini-active-color-white;
+        }
+        .menu-icon {
+          color: $icon-mini-active-color-white;
+        }
+        
+      }
+      color: $text-color-none-hover-white;
+      &.labelHoverClass:hover {
+        background-color: $menu-item-hover-bg-white;
+        .labelName{
+          color: $text-hover-color-white;
+        }
+        .menu-icon{
+          color: $icon-hover-color-white;
+        }
+        //color: $text-active-color-white;
+      }
+    }
+    .labelMini {
+      background-color: $menu-item-hover-bg-white;
+      &.activeClass::before {
+        background-color: $text-active-color-white;
+      }
+      overflow: hidden;
+      //background: rgb(54, 54, 54);
+      // width: 30px;
+      color: $text-color-none-hover-white;
+      &.activeClass {
+        background-color: $menu-item-active-bg-color-white;
+        color: $text-active-color-white;
+        .menu-icon {
+          color: $icon-active-color-white;
+        }
+      }
+      &.miniActive {
+        background:$menu-item-hover-bg-white;
+        .labelName{
+          color: $text-mini-active-color-white;
+        }
+        .menu-icon {
+          color: $icon-mini-active-color-white;
+        }
+      }
+    }
+    .icons {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-icon-color-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+        50%/2rem 2rem;
+      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-icon-color-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-icon-color-white}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
     }
   }
 }

@@ -50,7 +50,7 @@
           ></component>
         </template>
         <template v-if="labelName">
-          <span v-if="!menuitemLabel">{{ labelName }}</span>
+          <span v-if="!menuitemLabel" class="labelName">{{ labelName }}</span>
           <component v-else :labelName="labelName" :is="menuitemLabel" />
         </template>
       </div>
@@ -149,7 +149,7 @@
             top: labelMiniYYofsset + 'px'
           }"
         >
-          <span v-if="!menuitemLabel">{{ item?.name }}</span>
+          <span v-if="!menuitemLabel" class="labelName">{{ item?.name }}</span>
           <component v-else :labelName="item?.name" :is="menuitemLabel" />
         </div>
       </div>

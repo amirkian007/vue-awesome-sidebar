@@ -1,18 +1,35 @@
-$text-active-color-dark: rgb(44, 122, 224) !default;
-$icon-active-color-dark: rgb(44, 122, 224) !default;
-$hover-back-ground-dark: hsla(0, 0%, 100%, 0.05) !default;
-$text-color-none-hover-dark: rgb(218, 221, 225) !default;
-$menu-back-ground-color-dark: #242526 !default;
-$border-color-dark: rgba(170, 170, 170, 0.329) !default;
-$label-bg-color-dark: none !default;
-$active-label-bg-color-dark: hsla(0, 0%, 100%, 0.05) !default;
-$mini-active-label-bg-color-dark: none !default;
+//menu
+$menu-back-ground-color-dark: #242526 !default;//c
+$border-color-dark: rgba(170, 170, 170, 0.329) !default;//c
+
+//menu item prepend icon
+$icon-color-dark:rgb(218, 221, 225) !default;//c
+$icon-active-color-dark: rgb(44, 122, 224) !default;//c
+$icon-mini-active-color-dark: rgb(44, 122, 224) !default;//c
+$icon-hover-color-dark: '' !default;//c
+
+//menu item
+$menu-item-bg-color-dark: none !default;//c
+$menu-item-hover-bg-dark: hsla(0, 0%, 100%, 0.05) !default;//c
+$menu-item-active-bg-color-dark: hsla(0, 0%, 100%, 0.05)  !default;//c
+$mini-active-item-bg-color-dark: none !default;//c
+
+//menu item label
+$text-color-none-hover-dark: rgb(218, 221, 225) !default;//c
+$text-active-color-dark: rgb(44, 122, 224) !default;//c
+$text-mini-active-color-dark: rgb(44, 122, 224) !default;//c
+$text-hover-color-dark: none !default;//c
+
+//menu item append icon
+$append-icon-color-dark : rgb(218, 221, 225) !default;//c
+$append-active-icon-color-dark : rgb(218, 221, 225) !default;//c
+
 .vas-menu {
   &.dark-theme {
+    background-color: $menu-back-ground-color-dark;
     .bottomBtn {
       background-color: $menu-back-ground-color-dark;
     }
-    background-color: $menu-back-ground-color-dark;
     hr {
       border-color: rgba(211, 211, 211, 0.548);
     }
@@ -50,31 +67,49 @@ $mini-active-label-bg-color-dark: none !default;
     }
     // .vas-simple-icon {
     .hoverClass {
-      background: $hover-back-ground-dark;
+      background: $menu-item-hover-bg-dark;
     }
     .label {
-      background-color:$label-bg-color-dark ;
+      background-color:$menu-item-bg-color-dark ;
       &.activeClass::before {
         background-color: $text-active-color-dark;
       }
       &.activeClass {
-        background: $active-label-bg-color-dark;
+        background: $menu-item-active-bg-color-dark;
         color: $text-active-color-dark;
         .menu-icon {
           color: $icon-active-color-dark;
+        }
+        .icons {
+          background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-active-icon-color-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+            50%/2rem 2rem;
+          -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-active-icon-color-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+          filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-active-icon-color-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
         }
       }
-
+      .menu-icon {
+        color: $icon-color-dark;
+      }
+ 
       &.miniActive {
-        background:$mini-active-label-bg-color-dark;
-        color: $text-active-color-dark;
-        .menu-icon {
-          color: $icon-active-color-dark;
+        background:$menu-item-hover-bg-dark;
+        .labelName{
+          color: $text-mini-active-color-dark;
         }
+        .menu-icon {
+          color: $icon-mini-active-color-dark;
+        }
+        
       }
       color: $text-color-none-hover-dark;
       &.labelHoverClass:hover {
-        background-color: $hover-back-ground-dark;
+        background-color: $menu-item-hover-bg-dark;
+        .labelName{
+          color: $text-hover-color-dark;
+        }
+        .menu-icon{
+          color: $icon-hover-color-dark;
+        }
         //color: $text-active-color-dark;
       }
     }
@@ -83,29 +118,32 @@ $mini-active-label-bg-color-dark: none !default;
         background-color: $text-active-color-dark;
       }
       overflow: hidden;
-      background-color: $hover-back-ground-dark;
+      background-color: $menu-item-hover-bg-dark;
       //background: rgb(54, 54, 54);
       // width: 30px;
       color: $text-color-none-hover-dark;
       &.activeClass {
-        background-color: $active-label-bg-color-dark;
+        background-color: $menu-item-active-bg-color-dark;
         color: $text-active-color-dark;
         .menu-icon {
           color: $icon-active-color-dark;
         }
       }
       &.miniActive {
-        color: $text-active-color-dark;
+        background:$mini-active-item-bg-color-dark;
+        .labelName{
+          color: $text-mini-active-color-dark;
+        }
         .menu-icon {
-          color: $icon-active-color-dark;
+          color: $icon-mini-active-color-dark;
         }
       }
     }
     .icons {
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-icon-color-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
         50%/2rem 2rem;
-      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
-      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$text-color-none-hover-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      -webkit-filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-icon-color-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+      filter: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="#{$append-icon-color-dark}" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
     }
   }
 }

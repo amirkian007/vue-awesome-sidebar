@@ -1,9 +1,5 @@
 @import './shared';
 
-%padding-shared {
-  padding: 6px 13px;
-}
-
 .vsss-header,
 .vas-simple-icon {
   width: 97%;
@@ -19,6 +15,10 @@
   .labelMini,
   .labelminiSub {
     height: $menu-item-simple-icon-height;
+  }
+  .label{
+    padding: 6px 8px;
+
   }
 }
 
