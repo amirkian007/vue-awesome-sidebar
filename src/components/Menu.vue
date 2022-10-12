@@ -9,7 +9,8 @@
       [menuDirection]: isCollapsed
         ? `calc(-1*(${sidebarMenuWidth} + 2px))`
         : '0px',
-      direction: rtl ? 'rtl' : 'ltr'
+      direction: rtl ? 'rtl' : 'ltr',
+      paddingTop: paddingTop
     }"
     @[menuScrollEvent]="onMenuScroll"
     @[mouseEnterEvent]="onEnter"
@@ -51,7 +52,7 @@
       </div>
     </div>
   </aside>
-  <Transition>
+  <Transition name="vas-fade">
     <div v-if="overLayer" class="vas-over-layer"></div>
   </Transition>
 </template>
@@ -138,6 +139,10 @@ export default {
     BottomMiniMenuBtn: {
       type: Boolean,
       default: true
+    },
+    paddingTop: {
+      type: String,
+      default: '0px'
     },
     dark: {
       type: Boolean
@@ -297,14 +302,4 @@ export default {
 
 <style lang="scss">
 @use '../scss/vue-awesome-sidebar.scss';
-
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 300ms ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
 </style>
