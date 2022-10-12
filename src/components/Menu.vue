@@ -23,7 +23,6 @@
       }"
     >
       <slot name="header" />
-
       <template v-for="(item, index) in menu" :key="index">
         <MenuItem
           v-if="!item?.header && !item?.line"
@@ -35,21 +34,17 @@
         <HeaderItem v-else-if="item?.header && !miniMenuRef" :data="item" />
         <hr v-else-if="item?.line" />
       </template>
-
+    </div>
+    <div class="vas-footer">
       <slot name="footer" />
-
+    </div>
+    <div v-if="BottomMiniMenuBtn" class="bottomBtn" @click="toggleMiniCollapse">
       <div
-        v-if="BottomMiniMenuBtn"
-        class="bottomBtn"
-        @click="toggleMiniCollapse"
-      >
-        <div
-          v-if="!$slots?.BottomMiniMenuBtn"
-          class="icons bottomBtnIcon"
-          :class="{ ssdSpin: !miniMenuRef }"
-        ></div>
-        <slot v-else name="BottomMiniMenuBtn" :miniMenu="miniMenuRef" />
-      </div>
+        v-if="!$slots?.BottomMiniMenuBtn"
+        class="icons bottomBtnIcon"
+        :class="{ ssdSpin: !miniMenuRef }"
+      ></div>
+      <slot v-else name="BottomMiniMenuBtn" :miniMenu="miniMenuRef" />
     </div>
   </aside>
   <Transition name="vas-fade">
