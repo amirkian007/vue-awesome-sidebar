@@ -100,7 +100,7 @@ $bottomBtn-bg-color-dark: #242526 !default;
       }
 
       &.miniActive {
-        background: $menu-item-hover-bg-dark;
+        background: $mini-active-item-bg-color-dark;
         .labelName {
           color: $text-mini-active-color-dark;
         }

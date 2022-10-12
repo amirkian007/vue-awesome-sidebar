@@ -19,8 +19,8 @@
       @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
         menuexpand: showChildren,
-        activeClass: active,
-        miniActive: miniActive,
+        [activeClass]: active,
+        [miniActiveClass]: miniActive,
         labelHoverClass: (depth != 0 && miniMenu) || !miniMenu
       }"
       @click="labelClick"
@@ -127,8 +127,8 @@
         @mousewheel="mousewheelop"
         class="labelMini"
         :class="{
-          miniActive: miniActive,
-          activeClass: active
+          [miniActiveClass]: miniActive,
+          [activeClass]: active
         }"
         :style="{
           position: 'fixed',
@@ -353,6 +353,12 @@ export default {
     this.setItemOffsetHeight()
   },
   computed: {
+    miniActiveClass(){
+      return this.item?.miniActiveClass ? this.item?.miniActiveClass :'miniActive'
+    },
+    activeClass(){
+      return this.item?.activeClass ? this.item?.activeClass :'activeClass'
+    },
     menuDirectionOposite() {
       return this.menuDirection === 'right' ? 'left' : 'right'
     },
@@ -393,6 +399,7 @@ export default {
     menuItemClass() {
       let obj = {}
       obj[`vas-${this.menuType}`] = true
+      obj[this.item?.class || ''] = this.item?.class
       return {
         miniCollapseIconWidth: this.miniMenu && this.depth == 0,
         MenuItemWidthOnMiniCollapse: this.miniMenu && this.depth != 0,
