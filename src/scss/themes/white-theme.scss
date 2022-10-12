@@ -5,7 +5,7 @@ $scroll-bar-color-white: rgb(184, 184, 184) !default;
 $header-color-white: #213547 !default;
 
 //menu item prepend icon
-$icon-color-white:rgb(28, 30, 33) !default;
+$icon-color-white: rgb(28, 30, 33) !default;
 $icon-active-color-white: #2c7ae0 !default;
 $icon-mini-active-color-white: #2c7ae0 !default;
 $icon-hover-color-white: '' !default;
@@ -13,7 +13,7 @@ $icon-hover-color-white: '' !default;
 //menu item
 $menu-item-bg-color-white: none !default;
 $menu-item-hover-bg-white: rgb(242, 242, 242) !default;
-$menu-item-active-bg-color-white: rgb(242, 242, 242)  !default;
+$menu-item-active-bg-color-white: rgb(242, 242, 242) !default;
 $mini-active-item-bg-color-white: none !default;
 
 //menu item label
@@ -23,11 +23,11 @@ $text-mini-active-color-white: #2c7ae0 !default;
 $text-hover-color-white: none !default;
 
 //menu item append icon
-$append-icon-color-white : rgb(28, 30, 33) !default;
-$append-active-icon-color-white : rgb(28, 30, 33) !default;
+$append-icon-color-white: rgb(28, 30, 33) !default;
+$append-active-icon-color-white: rgb(28, 30, 33) !default;
 
 //horizental line
-$hr-line-color-white : rgba(211, 211, 211, 0.548) !default;
+$hr-line-color-white: rgba(211, 211, 211, 0.548) !default;
 
 //bottomBtn for miniMenu
 $bottomBtn-bg-color-white: white !default;
@@ -77,7 +77,7 @@ $bottomBtn-bg-color-white: white !default;
       background: $menu-item-hover-bg-white;
     }
     .label {
-      background-color:$menu-item-bg-color-white ;
+      background-color: $menu-item-bg-color-white;
       &.activeClass::before {
         background-color: $text-active-color-white;
       }
@@ -97,24 +97,23 @@ $bottomBtn-bg-color-white: white !default;
       .menu-icon {
         color: $icon-color-white;
       }
- 
+
       &.miniActive {
-        background:$mini-active-item-bg-color-white;
-        .labelName{
+        background: $mini-active-item-bg-color-white;
+        .labelName {
           color: $text-mini-active-color-white;
         }
         .menu-icon {
           color: $icon-mini-active-color-white;
         }
-        
       }
       color: $text-color-none-hover-white;
       &.labelHoverClass:hover {
         background-color: $menu-item-hover-bg-white;
-        .labelName{
+        .labelName {
           color: $text-hover-color-white;
         }
-        .menu-icon{
+        .menu-icon {
           color: $icon-hover-color-white;
         }
         //color: $text-active-color-white;
@@ -137,8 +136,8 @@ $bottomBtn-bg-color-white: white !default;
         }
       }
       &.miniActive {
-        background:$menu-item-hover-bg-white;
-        .labelName{
+        background: $menu-item-hover-bg-white;
+        .labelName {
           color: $text-mini-active-color-white;
         }
         .menu-icon {

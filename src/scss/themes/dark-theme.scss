@@ -5,7 +5,7 @@ $scroll-bar-color-dark: #686868 !default;
 $header-color-dark: #ffffffde !default;
 
 //menu item prepend icon
-$icon-color-dark:rgb(218, 221, 225) !default;
+$icon-color-dark: rgb(218, 221, 225) !default;
 $icon-active-color-dark: rgb(44, 122, 224) !default;
 $icon-mini-active-color-dark: rgb(44, 122, 224) !default;
 $icon-hover-color-dark: '' !default;
@@ -13,7 +13,7 @@ $icon-hover-color-dark: '' !default;
 //menu item
 $menu-item-bg-color-dark: none !default;
 $menu-item-hover-bg-dark: hsla(0, 0%, 100%, 0.05) !default;
-$menu-item-active-bg-color-dark: hsla(0, 0%, 100%, 0.05)  !default;
+$menu-item-active-bg-color-dark: hsla(0, 0%, 100%, 0.05) !default;
 $mini-active-item-bg-color-dark: none !default;
 
 //menu item label
@@ -23,11 +23,11 @@ $text-mini-active-color-dark: rgb(44, 122, 224) !default;
 $text-hover-color-dark: none !default;
 
 //menu item append icon
-$append-icon-color-dark : rgb(218, 221, 225) !default;
-$append-active-icon-color-dark : rgb(218, 221, 225) !default;
+$append-icon-color-dark: rgb(218, 221, 225) !default;
+$append-active-icon-color-dark: rgb(218, 221, 225) !default;
 
 //horizental line
-$hr-line-color-dark:rgba(211, 211, 211, 0.548) !default;
+$hr-line-color-dark: rgba(211, 211, 211, 0.548) !default;
 
 //bottomBtn for miniMenu
 $bottomBtn-bg-color-dark: #242526 !default;
@@ -49,8 +49,7 @@ $bottomBtn-bg-color-dark: #242526 !default;
     }
 
     &::-webkit-scrollbar-thumb {
-      color:$scroll-bar-color-dark ;
-      
+      color: $scroll-bar-color-dark;
     }
     ::-webkit-scrollbar-thumb {
       color: $scroll-bar-color-dark;
@@ -79,7 +78,7 @@ $bottomBtn-bg-color-dark: #242526 !default;
       background: $menu-item-hover-bg-dark;
     }
     .label {
-      background-color:$menu-item-bg-color-dark ;
+      background-color: $menu-item-bg-color-dark;
       &.activeClass::before {
         background-color: $text-active-color-dark;
       }
@@ -99,24 +98,23 @@ $bottomBtn-bg-color-dark: #242526 !default;
       .menu-icon {
         color: $icon-color-dark;
       }
- 
+
       &.miniActive {
-        background:$menu-item-hover-bg-dark;
-        .labelName{
+        background: $menu-item-hover-bg-dark;
+        .labelName {
           color: $text-mini-active-color-dark;
         }
         .menu-icon {
           color: $icon-mini-active-color-dark;
         }
-        
       }
       color: $text-color-none-hover-dark;
       &.labelHoverClass:hover {
         background-color: $menu-item-hover-bg-dark;
-        .labelName{
+        .labelName {
           color: $text-hover-color-dark;
         }
-        .menu-icon{
+        .menu-icon {
           color: $icon-hover-color-dark;
         }
         //color: $text-active-color-dark;
@@ -139,8 +137,8 @@ $bottomBtn-bg-color-dark: #242526 !default;
         }
       }
       &.miniActive {
-        background:$mini-active-item-bg-color-dark;
-        .labelName{
+        background: $mini-active-item-bg-color-dark;
+        .labelName {
           color: $text-mini-active-color-dark;
         }
         .menu-icon {
