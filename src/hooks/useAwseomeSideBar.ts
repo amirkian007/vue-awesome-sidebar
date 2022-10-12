@@ -63,8 +63,8 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const menuDirection = computed(() => {
     return rtl.value ? 'right' : 'left'
   })
-  const emitOnItemClick = (item: any) => {
-    context.emit('item-click', item)
+  const emitOut = (event, item: any) => {
+    context.emit(event, item)
   }
   const updateminiMenu = (val: boolean) => {
     miniMenu.value = val
@@ -118,7 +118,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('CurranContainerHover', CurranContainerHover)
   provide('getIsCollapsed', collapsed)
   provide('menuDirection', menuDirection)
-  provide('emitOnItemClick', emitOnItemClick)
+  provide('emitOut', emitOut)
   return {
     getIsCollapsed: collapsed,
     getIsminiMenu: miniMenu,

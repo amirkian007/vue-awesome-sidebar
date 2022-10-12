@@ -231,7 +231,7 @@ export default {
     const { updateCurrentRoute } = initAwsomeRouter(props, context)
 
     const sidebarmen = ref(null)
-    const overLayer = ref(false)
+    const overLayer = ref(props.overLayerOnOpen)
     if (props.closeOnClickOutSide) {
       if (props.overLayerOnOpen) {
         overLayer.value = !props.collapsed

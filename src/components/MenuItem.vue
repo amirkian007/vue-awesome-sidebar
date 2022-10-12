@@ -14,14 +14,14 @@
     <!-- ========================= -->
 
     <div
-      class="label "
+      class="label"
       @[shouldMouseEnterEvent]="this.hover = true"
       @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
         menuexpand: showChildren,
         activeClass: active,
         miniActive: miniActive,
-        labelHoverClass: (depth != 0 && miniMenu) || !miniMenu,
+        labelHoverClass: (depth != 0 && miniMenu) || !miniMenu
       }"
       @click="labelClick"
       :style="{
@@ -109,7 +109,7 @@
     <!-- ========================= -->
 
     <div
-      v-if="miniMenu && depth === 0"
+      v-if="miniMenu && depth === 0 && !collapsed"
       :class="{ topContainer: depth == 0 }"
       ref="topContainerRef"
       :style="{
@@ -249,7 +249,7 @@ export default {
     const updateCurranContainerHover = inject('updateCurranContainerHover')
     const CurrantItemHover = inject('CurrantItemHover')
     const menuDirection = inject('menuDirection')
-    const emitOnItemClick = inject('emitOnItemClick')
+    const emitOut = inject('emitOut')
     let apendIcon = getSlots('apendIcon')
     let prepandicon = getSlots('prepandicon')
     let menuitemLabel = getSlots('menuitemLabel')
@@ -266,7 +266,7 @@ export default {
       MenuHover,
       keepChildrenOpen,
       ChildrenOpenActiveRoute,
-      emitOnItemClick,
+      emitOut,
       menuDirection,
       checkButtonActive,
       CurrantItemHover,
@@ -468,15 +468,19 @@ export default {
         this.toggleMenu()
       }
     },
-    miniLabelClick() {
-      this.emitOnItemClick(this.item)
+    clickCompose() {
+      if (this.item?.collapseOnClick) {
+        this.emitOut('update:collapsed', true)
+      }
+      this.emitOut('item-click', this.item)
       if (this.vueRouterEnabel && this.item?.href && this.$router)
         this.$router?.push(this.item?.href)
     },
+    miniLabelClick() {
+      this.clickCompose()
+    },
     toggleMenu() {
-      this.emitOnItemClick(this.item)
-      if (this.vueRouterEnabel && this.item?.href && this.$router)
-        this.$router?.push(this.item?.href)
+      this.clickCompose()
       if (!this.item?.children) return
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
