@@ -12,7 +12,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const {
     menu,
     menuType,
-    miniMenu: miniMenuRef,
+    miniMenu: miniMenuProp,
     collapsed,
     animationDuration,
     width,
@@ -34,7 +34,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const slots = ref(context.slots)
   const menuMounted = ref(false)
   const MenuScroll = ref(false)
-  const miniMenu = ref(miniMenuRef.value)
+  const miniMenu = ref(miniMenuProp.value)
   const MenuHover = ref(false)
   const CurrantItemHover = ref(null)
   const CurranContainerHover = ref(null)
