@@ -3,7 +3,6 @@ $menu-back-ground-color-white: white !default;
 $border-color-white: #cfcfcf !default;
 $scroll-bar-color-white: rgb(184, 184, 184) !default;
 $header-color-white: #213547 !default;
-$hr-line-color-white : rgba(211, 211, 211, 0.548) !default;
 
 //menu item prepend icon
 $icon-color-white:rgb(28, 30, 33) !default;
@@ -27,13 +26,17 @@ $text-hover-color-white: none !default;
 $append-icon-color-white : rgb(28, 30, 33) !default;
 $append-active-icon-color-white : rgb(28, 30, 33) !default;
 
+//horizental line
+$hr-line-color-white : rgba(211, 211, 211, 0.548) !default;
 
+//bottomBtn for miniMenu
+$bottomBtn-bg-color-white: white !default;
 
 .vas-menu {
   &.white-theme {
     background-color: $menu-back-ground-color-white;
     .bottomBtn {
-      background-color: $menu-back-ground-color-white;
+      background-color: $bottomBtn-bg-color-white;
     }
     hr {
       border-color: $hr-line-color-white;
