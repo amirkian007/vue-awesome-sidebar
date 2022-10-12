@@ -63,7 +63,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   const menuDirection = computed(() => {
     return rtl.value ? 'right' : 'left'
   })
-  const emitOut = (event, item: any) => {
+  const emitOut = (event: any, item: any) => {
     context.emit(event, item)
   }
   const updateminiMenu = (val: boolean) => {
