@@ -25,14 +25,14 @@
       <slot name="header" />
       <template v-for="(item, index) in menu" :key="index">
         <MenuItem
-          v-if="!item?.header && !item?.line"
+          v-if="!item?.header && !item?.LineShow"
           :item="item"
           :depth="0"
           :smallMenu="smallMenu"
           :siblingsHaveIconProp="siblingsHaveIcon"
         />
         <HeaderItem v-else-if="item?.header && !miniMenuRef" :data="item" />
-        <hr v-else-if="item?.line" />
+        <Menuline v-else-if="item?.LineShow" :data="item" />
       </template>
     </div>
     <div class="vas-footer">
@@ -55,6 +55,7 @@
 <script>
 import HeaderItem from './HeaderItem.vue'
 import MenuItem from './MenuItem.vue'
+import Menuline from './Menuline.vue'
 import { initAwsomeSideBar } from '../hooks/useAwseomeSideBar'
 import { useClickOutSide } from '../hooks/useClickOutSide'
 import { initAwsomeRouter } from '../hooks/useAwsomeRouter'
@@ -111,10 +112,7 @@ export default {
       type: String,
       default: 'fixed'
     },
-    collapseBreakPoint: {
-      type: String,
-      default: '65px'
-    },
+    
     keepChildrenOpen: {
       type: Boolean,
       default: false
@@ -167,7 +165,8 @@ export default {
 
   components: {
     MenuItem,
-    HeaderItem
+    HeaderItem,
+    Menuline
   },
   mounted() {
     this.checkSiblingsForIcon()
