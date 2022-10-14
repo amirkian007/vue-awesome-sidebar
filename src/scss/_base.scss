@@ -4,11 +4,10 @@ $toggle-mini-btn-height: 50px;
 .vas-menu {
   height: 100vh;
   top: 0;
-  overflow-y: overlay;
-  overflow-x: hidden;
+ 
   -webkit-overflow-scrolling: touch;
   z-index: 849;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s;
   display: flex;
   flex-flow: column;
   .menu-wraper {
@@ -17,6 +16,8 @@ $toggle-mini-btn-height: 50px;
     display: flex;
     flex-flow: column;
     left: 0px;
+    overflow-y: overlay;
+    overflow-x: hidden;
   }
   .vas-footer {
     flex: 0 1 auto;
