@@ -95,9 +95,9 @@ $toggle-mini-btn-height: 50px;
   }
 
   .postIconOpenAnima {
-    transition: -webkit-transform 250ms linear;
-    transition: transform 250ms linear;
-    transition: transform 250ms linear, -webkit-transform 250ms linear;
+    transition: -webkit-transform 300ms linear;
+    transition: transform 300ms linear;
+    transition: transform 300ms linear, -webkit-transform 300ms linear;
     height: 100%;
   }
 }
