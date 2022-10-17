@@ -13,7 +13,7 @@
 .menu-item-base {
   .menu-icon,
   .labelName {
-    transition: color 0.3s;
+    transition: color 0.3s ease;
   }
   .label .left {
     &.marginAuto {
@@ -33,7 +33,7 @@
   }
   position: relative;
   .labelMini {
-    transition: width 0.4s ease;
+    transition: width 0.3s ease;
     background: none;
     flex-direction: row;
     justify-content: space-between;
@@ -48,6 +48,7 @@
     @extend %hoverPointer;
   }
   .label {
+    transform-style: preserve-3d;
     flex-direction: row;
     justify-content: space-between;
     white-space: nowrap;

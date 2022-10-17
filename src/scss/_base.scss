@@ -4,7 +4,7 @@ $toggle-mini-btn-height: 50px;
 .vas-menu {
   height: 100vh;
   top: 0;
- 
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   z-index: 849;
   transition: all 0.3s;
