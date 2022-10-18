@@ -12,6 +12,10 @@ $scroll-bar-width: 13px !default;
   &.mini-coolapse-menu::-webkit-scrollbar {
     width: 0px;
   }
+  &.mini-coolapse-menu{
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
+  }
   &::-webkit-scrollbar-thumb {
     background-clip: content-box;
     border: 4px solid transparent;

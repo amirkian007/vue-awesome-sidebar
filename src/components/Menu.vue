@@ -12,12 +12,14 @@
       direction: rtl ? 'rtl' : 'ltr',
       paddingTop: paddingTop
     }"
+    style="overflow:hidden"
     @[menuScrollEvent]="onMenuScroll"
     @[mouseEnterEvent]="onEnter"
     @[mouseLeaveEvent]="onLeave"
   >
     <div
       class="menu-wraper"
+      :class="{miniCoolapseMenu : miniMenuRef }"
       :style="{
         width: sidebarMenuWidth
       }"
