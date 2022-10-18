@@ -50,8 +50,10 @@
           ></component>
         </template>
         <template v-if="labelName">
-          <span v-if="!menuitemLabel" class="labelName">{{ labelName }}</span>
-          <component v-else :labelName="labelName" :is="menuitemLabel" />
+          <span v-if="!menuitemLabel"  class="labelName">{{ labelName }}</span>
+          <component v-else :labelName="labelName" :active="active"
+            :miniActive="miniActive"
+            :isMenuOpen="showChildren" :is="menuitemLabel" />
         </template>
       </div>
       <template v-if="(miniMenu && depth != 0) || !miniMenu">
@@ -64,9 +66,9 @@
         <div v-if="item.children && apendIcon">
           <component
             v-if="apendIcon"
+            :is="apendIcon"
             :icon="item?.icon"
             :isMenuOpen="showChildren"
-            :is="apendIcon"
             :active="active"
             :miniActive="miniActive"
           >
@@ -228,7 +230,7 @@ export default {
       animationDuration,
       menuType,
       widthMiniMenu,
-      openAnimation,
+      childrenOpenAnimation,
       removeIconSpace,
       vueRouterEnabel,
       keepChildrenOpen,
@@ -278,7 +280,7 @@ export default {
       isSameUrl,
       menuType,
       widthMiniMenu,
-      openAnimation,
+      childrenOpenAnimation,
       removeIconSpace,
       collapsed: menuCollapsed,
       userAgentHeight
@@ -547,7 +549,7 @@ export default {
         () => {
           this.containerHeight = this.userAgentHeight
         },
-        this.openAnimation ? this.animationDuration : 0
+        this.childrenOpenAnimation ? this.animationDuration : 0
       )
     },
     closeItemChildren() {
@@ -574,7 +576,7 @@ export default {
           this.renderChildren = false
           this.cacheHieght = null
         },
-        this.openAnimation ? this.animationDuration : 0
+        this.childrenOpenAnimation ? this.animationDuration : 0
       )
     },
     setItemOffsetHeight() {

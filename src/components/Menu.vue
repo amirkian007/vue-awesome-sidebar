@@ -106,7 +106,7 @@ export default {
       type: Boolean,
       default: false
     },
-    openAnimation: {
+    childrenOpenAnimation: {
       type: Boolean,
       default: true
     },
