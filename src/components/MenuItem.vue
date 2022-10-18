@@ -38,37 +38,37 @@
         <template
           v-if="!removeIconSpace || (removeIconSpace && siblingsHaveIconProp)"
         >
-          <MenuItemIconVue v-if="!prepandicon" :icon="item?.icon" />
+          <MenuItemIconVue v-if="!itemPrepandIcon" :icon="item?.icon" />
           <!-- !!! slot for menuitem icon-->
           <component
-            v-else-if="prepandicon"
-            :is="prepandicon"
+            v-else-if="itemPrepandIcon"
+            :is="itemPrepandIcon"
             :icon="item?.icon"
             :active="active"
             :miniActive="miniActive"
-            :isMenuOpen="showChildren"
+            :isChildrenMenuOpen="showChildren"
           ></component>
         </template>
         <template v-if="labelName">
-          <span v-if="!menuitemLabel"  class="labelName">{{ labelName }}</span>
+          <span v-if="!menuItemLabel"  class="labelName">{{ labelName }}</span>
           <component v-else :labelName="labelName" :active="active"
             :miniActive="miniActive"
-            :isMenuOpen="showChildren" :is="menuitemLabel" />
+            :isChildrenMenuOpen="showChildren" :is="menuItemLabel" />
         </template>
       </div>
       <template v-if="(miniMenu && depth != 0) || !miniMenu">
         <div
-          v-if="item.children && !apendIcon"
+          v-if="item.children && !itemApendIcon"
           class="icons postIconOpenAnima"
           :class="{ opened: showChildren }"
         ></div>
         <!-- !!!  slot for menuitem prepand icon-->
-        <div v-if="item.children && apendIcon">
+        <div v-if="item.children && itemApendIcon">
           <component
-            v-if="apendIcon"
-            :is="apendIcon"
+            v-if="itemApendIcon"
+            :is="itemApendIcon"
             :icon="item?.icon"
-            :isMenuOpen="showChildren"
+            :isChildrenMenuOpen="showChildren"
             :active="active"
             :miniActive="miniActive"
           >
@@ -151,8 +151,8 @@
             top: labelMiniYYofsset + 'px'
           }"
         >
-          <span v-if="!menuitemLabel" class="labelName">{{ item?.name }}</span>
-          <component v-else :labelName="item?.name" :is="menuitemLabel" />
+          <span v-if="!menuItemLabel" class="labelName">{{ item?.name }}</span>
+          <component v-else :labelName="item?.name" :is="menuItemLabel" />
         </div>
       </div>
       <div
@@ -252,17 +252,17 @@ export default {
     const CurrantItemHover = inject('CurrantItemHover')
     const menuDirection = inject('menuDirection')
     const emitOut = inject('emitOut')
-    let apendIcon = getSlots('apendIcon')
-    let prepandicon = getSlots('prepandicon')
-    let menuitemLabel = getSlots('menuitemLabel')
+    let itemApendIcon = getSlots('itemApendIcon')
+    let itemPrepandIcon = getSlots('itemPrepandIcon')
+    let menuItemLabel = getSlots('menuItemLabel')
 
     return {
       animationDuration,
-      menuitemLabel,
+      menuItemLabel,
       currentRoute,
       menuMounted,
-      apendIcon,
-      prepandicon,
+      itemApendIcon,
+      itemPrepandIcon,
       miniMenu,
       MenuScroll,
       MenuHover,
