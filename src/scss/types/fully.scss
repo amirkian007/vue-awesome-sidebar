@@ -12,7 +12,7 @@
   .label,
   .labelMini,
   .labelminiSub {
-    height: $menu-item-fully-height;
+    height: $menu-item-fullyType-height;
   }
 }
 
@@ -82,7 +82,7 @@
     width: 100%;
   }
   .label {
-    height: $menu-item-fully-height;
+    height: $menu-item-fullyType-height;
     @extend .labelS;
   }
 }

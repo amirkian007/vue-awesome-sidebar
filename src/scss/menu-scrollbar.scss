@@ -6,13 +6,13 @@ $scroll-bar-width: 13px !default;
     //   transition: 2s;
     width: $scroll-bar-width;
   }
-  &.compelete-coolapse-menu::-webkit-scrollbar {
+  &.compeleteCoolapseMenu::-webkit-scrollbar {
     width: $scroll-bar-width;
   }
-  &.mini-coolapse-menu::-webkit-scrollbar {
+  &.miniCoolapseMenu::-webkit-scrollbar {
     width: 0px;
   }
-  &.mini-coolapse-menu{
+  &.miniCoolapseMenu{
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
   }

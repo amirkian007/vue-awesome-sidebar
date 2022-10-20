@@ -1,10 +1,11 @@
-$menu-item-simple-icon-height: 35px !default;
-$menu-item-fully-height: 44px !default;
+$menu-item-simpleType-icon-height: 35px !default;
+$menu-item-fullyType-height: 44px !default;
 $label-font-size: 16px !default;
+$label-icon-size: 20px !default;
 
 .menu-iconS {
-  font-size: 20px;
-  width: 20px; //
+  font-size: $label-icon-size;
+  width: $label-icon-size; //
   overflow: hidden;
 }
 .labelMiniS {

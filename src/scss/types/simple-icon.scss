@@ -14,7 +14,7 @@
   .label,
   .labelMini,
   .labelminiSub {
-    height: $menu-item-simple-icon-height;
+    height: $menu-item-simpleType-icon-height;
   }
   .label {
     padding: 6px 8px;
@@ -65,7 +65,7 @@
     width: 95%;
   }
   .label {
-    height: $menu-item-simple-icon-height;
+    height: $menu-item-simpleType-icon-height;
     border-radius: 4px;
     @extend .labelS;
   }
