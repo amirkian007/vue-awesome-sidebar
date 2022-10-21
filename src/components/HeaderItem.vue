@@ -11,7 +11,12 @@ const headerSlot = getSlots('headerItem')
     :is="headerSlot"
     :header="data.header"
   ></component>
-  <div class="vsss-header" :class="icon?.class ? icon?.class : ''" v-bind="data?.attributes" v-else>
+  <div
+    class="vsss-header"
+    :class="icon?.class ? icon?.class : ''"
+    v-bind="data?.attributes"
+    v-else
+  >
     {{ data.header }}
   </div>
 </template>
