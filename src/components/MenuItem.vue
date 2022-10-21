@@ -353,9 +353,7 @@ export default {
       }
     },
     miniMenu() {
-      if (this.miniMenu) {
-        this.closeItemChildren()
-      }
+      this.closeItemChildren()
       this.$nextTick(() => {
         this.setItemOffsetHeight()
       })
