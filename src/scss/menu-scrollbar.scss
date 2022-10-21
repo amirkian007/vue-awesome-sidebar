@@ -12,7 +12,7 @@ $scroll-bar-width: 13px !default;
   &.miniCoolapseMenu::-webkit-scrollbar {
     width: 0px;
   }
-  &.miniCoolapseMenu{
+  &.miniCoolapseMenu {
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
   }

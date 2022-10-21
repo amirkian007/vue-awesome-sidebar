@@ -12,14 +12,17 @@
       direction: rtl ? 'rtl' : 'ltr',
       paddingTop: paddingTop
     }"
-    style="overflow:hidden"
-    @[menuScrollEvent]="onMenuScroll"
+    style="overflow: hidden"
     @[mouseEnterEvent]="onEnter"
     @[mouseLeaveEvent]="onLeave"
   >
     <div
+      @[menuScrollEvent]="onMenuScroll"
       class="menu-wraper"
-      :class="{miniCoolapseMenu : miniMenuRef }"
+      :class="{
+        miniCoolapseMenu: miniMenuRef,
+        compeleteCoolapseMenu: isCollapsed
+      }"
       :style="{
         width: sidebarMenuWidth
       }"
@@ -114,7 +117,7 @@ export default {
       type: String,
       default: 'fixed'
     },
-    
+
     keepChildrenOpen: {
       type: Boolean,
       default: false
@@ -273,9 +276,8 @@ export default {
       const theme = props.dark ? 'dark' : 'white'
       return [
         `${theme}-theme`,
-        props.rtl ? 'rtl' : 'ltr',
+        props.rtl ? 'rtl' : 'ltr'
         //isCollapsed.value ? 'compelete-coolapse-menu' : '',
-        miniMenuRef.value ? 'mini-coolapse-menu' : ''
       ]
     })
 
