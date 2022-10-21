@@ -74,10 +74,22 @@
   .topContainer {
     overflow-y: overlay;
     position: fixed;
-    // transition: all 0s ease;
+    transition: width 0.3s ease;
     width: 250px;
-    z-index: 850;
   }
+  .vasopacitiy {
+    animation: myOpac 0s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes myOpac {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
   &.MenuItemWidthOnMiniCollapse {
     margin-left: auto;
   }

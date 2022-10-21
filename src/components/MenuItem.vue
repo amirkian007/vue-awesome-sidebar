@@ -50,10 +50,15 @@
           ></component>
         </template>
         <template v-if="labelName">
-          <span v-if="!menuItemLabel"  class="labelName">{{ labelName }}</span>
-          <component v-else :labelName="labelName" :active="active"
+          <span v-if="!menuItemLabel" class="labelName">{{ labelName }}</span>
+          <component
+            v-else
+            :labelName="labelName"
+            :active="active"
             :miniActive="miniActive"
-            :isChildrenMenuOpen="showChildren" :is="menuItemLabel" />
+            :isChildrenMenuOpen="showChildren"
+            :is="menuItemLabel"
+          />
         </template>
       </div>
       <template v-if="(miniMenu && depth != 0) || !miniMenu">
@@ -112,16 +117,17 @@
 
     <div
       v-if="miniMenu && depth === 0 && !collapsed"
-      :class="{ topContainer: depth == 0 }"
+      :class="{ topContainer: depth == 0, vasopacitiy: !expanded }"
       ref="topContainerRef"
       :style="{
         [MakeSpace
           ? 'bottom'
           : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
         [menuDirection]: `calc(${widthMiniMenu} - 1px)`,
-        maxHeight: MakeSpace ? TopcontainerHiefht : '',
-        width: showChildren || depth != 0 ? '250px' : '0px',
-        opacity: showChildren ? '1' : '0'
+        maxHeight: MakeSpace ? TopcontainerHiefht : 'fit-content',
+        width: showChildren ? '250px' : '0px',
+        zIndex: showChildren ? '850' : '849',
+        animationDelay: seTAnimationTimeOut ? '0.3s' : '0'
       }"
     >
       <div
@@ -155,10 +161,7 @@
           <component v-else :labelName="item?.name" :is="menuItemLabel" />
         </div>
       </div>
-      <div
-        class="labelminiSub"
-        v-if="depth == 0 && !MakeSpace && showChildren"
-      ></div>
+      <div class="labelminiSub" v-if="depth == 0 && !MakeSpace"></div>
       <div
         class="items-container"
         :class="{ 'small-menu': smallMenu }"
@@ -178,13 +181,12 @@
             :item="item"
             :depth="depth + 1"
             :smallMenu="smallMenu"
+            :setMaxHeightTopCProp="setMaxHeightTopC"
+            :isMakeSpace="MakeSpace"
           />
         </template>
       </div>
-      <div
-        class="labelminiSub"
-        v-if="depth == 0 && MakeSpace && showChildren"
-      ></div>
+      <div class="labelminiSub" v-if="depth == 0 && MakeSpace"></div>
     </div>
   </div>
 </template>
@@ -210,10 +212,12 @@ export default {
     id: null,
     siblingsHaveIcon: false,
     MakeSpace: false,
-    TopcontainerHiefht: 0,
+    TopcontainerHiefht: '',
     labelMiniYofsset: 0,
     labelMiniYYofsset: 0,
-    miniMenuOffset: 50
+    miniMenuOffset: 50,
+    seTAnimationTimeOut: false,
+    topConTime: null
   }),
 
   props: [
@@ -222,7 +226,9 @@ export default {
     'depth',
     'siblingsHaveIconProp',
     'isParentFlat',
-    'item'
+    'item',
+    'isMakeSpace',
+    'setMaxHeightTopCProp'
   ],
   setup() {
     const getSlots = inject('getSlotByName')
@@ -236,9 +242,9 @@ export default {
       keepChildrenOpen,
       checkButtonActive,
       ChildrenOpenActiveRoute,
-      collapsed: menuCollapsed
+      collapsed
     } = inject('sidebarProps')
-    const { userAgentHeight } = inject('browserAgent')
+    const userAgentHeight = inject('browserAgent')
     const currentRoute = inject('currentRoute')
     const isSameUrl = inject('isSameUrl')
     const extractChildrenRoutes = inject('extractChildrenRoutes')
@@ -282,7 +288,7 @@ export default {
       widthMiniMenu,
       childrenOpenAnimation,
       removeIconSpace,
-      collapsed: menuCollapsed,
+      collapsed,
       userAgentHeight
     }
   },
@@ -290,23 +296,31 @@ export default {
     currentRoute() {
       this.checkActive()
     },
+    collapsed(val) {
+      if (val && this.miniMenu && this.depth === 0) {
+        this.closeItemChildren()
+      }
+    },
     hover() {
       //TODO :MAKE THIS MORE EFFICEANT
       if (this.miniMenu && this.hover) {
-        this.$nextTick(() => {
-          this.setItemOffsetHeight()
-          const y = this.$refs['labelRef'].getBoundingClientRect()
-          this.labelMiniYofsset = y[this.menuDirection]
-          this.labelMiniYYofsset = y.top
-        })
       }
 
       if (!this.id) {
         this.id = this.getRandomUid()
       }
       if (this.hover) {
+        this.seTAnimationTimeOut = true
         this.updateCurrantItemHover(this.id)
         this.openItemCildren()
+        this.$nextTick(() => {
+          setTimeout(() => {
+            this.setItemOffsetHeight()
+          }, 0)
+          const y = this.$refs['labelRef'].getBoundingClientRect()
+          this.labelMiniYofsset = y[this.menuDirection]
+          this.labelMiniYYofsset = y.top
+        })
       } else {
         if (this.CurrantItemHover === this.id && this.MenuHover) {
         } else {
@@ -355,11 +369,13 @@ export default {
     this.setItemOffsetHeight()
   },
   computed: {
-    miniActiveClass(){
-      return this.item?.miniActiveClass ? this.item?.miniActiveClass :'miniActive'
+    miniActiveClass() {
+      return this.item?.miniActiveClass
+        ? this.item?.miniActiveClass
+        : 'miniActive'
     },
-    activeClass(){
-      return this.item?.activeClass ? this.item?.activeClass :'activeClass'
+    activeClass() {
+      return this.item?.activeClass ? this.item?.activeClass : 'activeClass'
     },
     menuDirectionOposite() {
       return this.menuDirection === 'right' ? 'left' : 'right'
@@ -501,6 +517,7 @@ export default {
       // this.showChildren ? this.openItemCildren() : this.closeItemChildren()
     },
     setSmallMenuDataForToggle(val) {
+      clearTimeout(this.topConTime)
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
       this.$nextTick(() => {
@@ -519,6 +536,9 @@ export default {
       }
     },
     openItemCildren() {
+      if (this.isMakeSpace && this.depth === 1) {
+        this.setMaxHeightTopCProp()
+      }
       if (this.miniMenu && this.depth === 0) {
         this.showChildren = true
 
@@ -553,14 +573,17 @@ export default {
       )
     },
     closeItemChildren() {
-      if (this.miniMenu && this.depth === 0) {
-        this.showChildren = false
-        this.$nextTick(() => {
-          this.expanded = false
-        })
+      this.seTAnimationTimeOut = false
+      if (!this.menuCollapsed && this.miniMenu && this.depth === 0) {
+        this.setSmallMenuDataForToggle(false)
+        this.topConTime = setTimeout(() => {
+          this.containerHeight = 0
+          this.topConTime = null
+        }, this.animationDuration)
+        return
       }
-      if (!this.item?.children) return
       this.setSmallMenuDataForToggle(false)
+      if (!this.item?.children) return
       if (!this.cacheHieght) {
         this.cacheHieght = this.$refs['container']?.offsetHeight
       }
@@ -579,14 +602,20 @@ export default {
         this.childrenOpenAnimation ? this.animationDuration : 0
       )
     },
+    setMaxHeightTopC() {
+      this.TopcontainerHiefht =
+        this.$refs['topContainerRef']?.getBoundingClientRect().height + 'px'
+    },
     setItemOffsetHeight() {
       if (this.depth == 0) {
         const x = this.$refs['menuItem'].getBoundingClientRect()
-        const x1 = this.$refs['topContainerRef']?.clientHeight
-
-        if (x1 && x1 + x.top - 15 > innerHeight) {
+        const x1 = this.$refs['topContainerRef']?.getBoundingClientRect().height
+        let z = 0
+        if (this.item?.children) {
+          z = x.height * this.item?.children.length + x.height
+        }
+        if (x1 && z + x.top - 15 > innerHeight) {
           this.ContainerOffsetY = innerHeight - x.bottom
-          this.TopcontainerHiefht = x1 + 8 + 'px'
           this.MakeSpace = true
         } else {
           this.ContainerOffsetY = x.top
