@@ -23,7 +23,7 @@
         [miniActiveClass]: miniActive,
         labelHoverClass: (depth != 0 && miniMenu) || !miniMenu
       }"
-      @click="labelClick"
+      @[keyOrClick]="labelClick"
       :style="{
         [menuDirection == 'left' ? 'paddingLeft' : 'paddingRight']:
           menuType === 'fully' ? `${depth * 18}px` : ``,
@@ -399,6 +399,9 @@ export default {
     },
     shouldMouseEnterEvent() {
       return this.miniMenu && this.depth == 0 ? 'mouseenter' : null
+    },
+    keyOrClick() {
+      return this.miniMenu && this.depth == 0 ? 'keypress' : 'click'
     },
     labelPressEvent() {
       if (this.hover) {
