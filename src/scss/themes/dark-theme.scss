@@ -2,7 +2,7 @@
 $menu-back-ground-color-dark: #0d1117 !default;
 $border-color-dark: rgba(170, 170, 170, 0.329) !default;
 $scroll-bar-color-dark: #686868 !default;
-$header-color-dark: #ffffffde !default;
+$header-color-dark: #ffffffb3 !default;
 
 //menu item prepend icon
 $icon-color-dark: rgb(218, 221, 225) !default;
@@ -46,10 +46,6 @@ $bottomBtn-bg-color-dark: #13161b !default;
     }
     &.ltr {
       border-right: 1px solid $border-color-dark;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      color: $scroll-bar-color-dark;
     }
     ::-webkit-scrollbar-thumb {
       color: $scroll-bar-color-dark;

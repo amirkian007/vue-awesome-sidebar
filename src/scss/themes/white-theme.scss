@@ -47,7 +47,7 @@ $bottomBtn-bg-color-white: white !default;
     &.ltr {
       border-right: 1px solid $border-color-white;
     }
-    &::-webkit-scrollbar-thumb {
+    ::-webkit-scrollbar-thumb {
       color: $scroll-bar-color-white;
     }
     .topContainer::-webkit-scrollbar-thumb {
