@@ -193,7 +193,7 @@
 
 <script>
 import MenuItemIconVue from './MenuItemIcon.vue'
-import { inject } from 'vue'
+import { inject ,onBeforeUnmount } from 'vue'
 export default {
   name: 'menu-item',
   components: { MenuItemIconVue },
@@ -242,7 +242,8 @@ export default {
       keepChildrenOpen,
       checkButtonActive,
       ChildrenOpenActiveRoute,
-      collapsed
+      collapsed,
+      position
     } = inject('sidebarProps')
     const userAgentHeight = inject('browserAgent')
     const currentRoute = inject('currentRoute')
@@ -262,6 +263,7 @@ export default {
     let itemApendIcon = getSlots('itemApendIcon')
     let itemPrepandIcon = getSlots('itemPrepandIcon')
     let menuItemLabel = getSlots('menuItemLabel')
+  
 
     return {
       animationDuration,
@@ -291,7 +293,8 @@ export default {
       childrenOpenAnimation,
       removeIconSpace,
       collapsed,
-      userAgentHeight
+      userAgentHeight,
+      position
     }
   },
   watch: {
@@ -367,6 +370,23 @@ export default {
   mounted() {
     this.checkSiblingsForIcon()
     this.setItemOffsetHeight()
+     if(this.position !='fixed'){
+      const listenr = ()=>{
+        if ('ontouchstart' in document.documentElement) {
+        this.closeItemChildren()
+        return
+      }
+      this.setItemOffsetHeight()
+         const y = this.$refs['labelRef'].getBoundingClientRect()
+        this.labelMiniYofsset = y[this.menuDirection]
+        this.labelMiniYYofsset = y.top
+    }
+     const removeSideBarListner = () => {
+       window.removeEventListener('scroll', listenr)
+     }
+    window.addEventListener('scroll',listenr)
+    onBeforeUnmount(removeSideBarListner)
+    }
   },
   computed: {
     miniActiveClass() {

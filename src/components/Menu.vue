@@ -121,7 +121,6 @@ export default {
       type: String,
       default: 'fixed'
     },
-
     keepChildrenOpen: {
       type: Boolean,
       default: false
@@ -275,13 +274,23 @@ export default {
     watch(
       () => props.closeOnClickOutSide,
       (val) => {
-        val ? removeSideBarListner() : addSideBarListner()
+        val ? addSideBarListner() : removeSideBarListner()
       }
     )
     watch(
       () => props.miniMenu,
       (val) => {
         updateminiMenu(val)
+      }
+    )
+    watch(
+      () => props.overLayerOnOpen,
+      (val) => {
+        if (val) {
+          overLayer.value = !isCollapsed.value
+        }else{
+          overLayer.value = false
+        }
       }
     )
     const sidebarMenuWidth = computed(() => {
