@@ -258,6 +258,7 @@ export default {
     const CurrantItemHover = inject('CurrantItemHover')
     const menuDirection = inject('menuDirection')
     const emitOut = inject('emitOut')
+    const updateIsCollapsed = inject('updateIsCollapsed')
     let itemApendIcon = getSlots('itemApendIcon')
     let itemPrepandIcon = getSlots('itemPrepandIcon')
     let menuItemLabel = getSlots('menuItemLabel')
@@ -265,6 +266,7 @@ export default {
     return {
       animationDuration,
       menuItemLabel,
+      updateIsCollapsed,
       currentRoute,
       menuMounted,
       itemApendIcon,
@@ -496,7 +498,7 @@ export default {
     },
     clickCompose() {
       if (this.item?.collapseOnClick) {
-        this.emitOut('update:collapsed', true)
+        this.updateIsCollapsed(true)
       }
       this.emitOut('item-click', this.item)
       if (this.vueRouterEnabel && this.item?.href && this.$router)

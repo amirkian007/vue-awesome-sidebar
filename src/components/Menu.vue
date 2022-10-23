@@ -62,7 +62,7 @@ import HeaderItem from './HeaderItem.vue'
 import MenuItem from './MenuItem.vue'
 import Menuline from './Menuline.vue'
 import { initAwsomeSideBar } from '../hooks/useAwseomeSideBar'
-import { useClickOutSide } from '../hooks/useClickOutSide'
+import { useClickOutSide, useAutoCollapse } from '../hooks/useClickOutSide'
 import { initAwsomeRouter } from '../hooks/useAwsomeRouter'
 import { ref, computed, watch } from 'vue'
 
@@ -96,6 +96,10 @@ export default {
     widthMiniMenu: {
       type: String,
       default: '65px'
+    },
+    autoCollapse: {
+      type: Number,
+      default: null
     },
     removeIconSpace: {
       type: Boolean,
@@ -235,31 +239,37 @@ export default {
 
     const sidebarmen = ref(null)
     const overLayer = ref(props.overLayerOnOpen)
-    if (props.overLayerOnOpen) {
-      overLayer.value = !props.collapsed
-    }
+
     const { removeSideBarListner, addSideBarListner } = useClickOutSide(
       sidebarmen,
       () => {
-        const x = !isCollapsed.value
-        updateIsCollapsed(x)
-        context.emit('update:collapsed', x)
+        updateIsCollapsed(!isCollapsed.value)
       },
       isCollapsed
     )
     if (props.closeOnClickOutSide) {
       addSideBarListner()
     }
+    useAutoCollapse(props.autoCollapse, updateIsCollapsed)
+    if (props.overLayerOnOpen) {
+      overLayer.value = !isCollapsed.value
+    }
     watch(
-      () => props.collapsed,
+      () => isCollapsed.value,
       (currentCollapsed) => {
+        context.emit('update:collapsed', currentCollapsed)
         if (props.overLayerOnOpen) {
           overLayer.value = !currentCollapsed
         }
         if (props.closeOnClickOutSide) {
-          currentCollapsed ? removeSideBarListner() :addSideBarListner()
+          currentCollapsed ? removeSideBarListner() : addSideBarListner()
         }
-        updateIsCollapsed(currentCollapsed)
+      }
+    )
+    watch(
+      () => props.collapsed,
+      (val) => {
+        updateIsCollapsed(val)
       }
     )
     watch(

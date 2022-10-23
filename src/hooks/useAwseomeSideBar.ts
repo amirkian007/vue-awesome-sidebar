@@ -117,6 +117,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('CurrantItemHover', CurrantItemHover)
   provide('CurranContainerHover', CurranContainerHover)
   provide('menuDirection', menuDirection)
+  provide('updateIsCollapsed', updateIsCollapsed)
   provide('emitOut', emitOut)
   return {
     getIsCollapsed: isCollapsed,

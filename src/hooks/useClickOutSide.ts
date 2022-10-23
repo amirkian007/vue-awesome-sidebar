@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, watch } from 'vue'
+import { onBeforeUnmount, onMounted, watch, ref } from 'vue'
 
 export function useClickOutSide(target: any, callBack: any, isCollapsed: any) {
   if (!target) return
@@ -30,4 +30,15 @@ export function useClickOutSide(target: any, callBack: any, isCollapsed: any) {
   onBeforeUnmount(removeSideBarListner)
 
   return { removeSideBarListner, addSideBarListner }
+}
+export function useAutoCollapse(target: number, callBack: any) {
+  if (!target) return
+  callBack(target > innerWidth)
+  const listner = () => {
+    callBack(target > innerWidth)
+  }
+  window.addEventListener('resize', listner)
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', listner)
+  })
 }
