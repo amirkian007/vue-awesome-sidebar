@@ -27,7 +27,6 @@ export function useClickOutSide(target: any, callBack: any, isCollapsed: any) {
     }, 0)
   }
 
-  onMounted(addSideBarListner)
   onBeforeUnmount(removeSideBarListner)
 
   return { removeSideBarListner, addSideBarListner }

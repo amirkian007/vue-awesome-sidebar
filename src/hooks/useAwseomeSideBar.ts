@@ -87,7 +87,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('sidebarProps', {
     menu,
     menuType,
-    collapsed,
+    collapsed: isCollapsed,
     miniMenu,
     animationDuration,
     width,
@@ -116,11 +116,10 @@ export const initAwsomeSideBar = (props: any, context: any) => {
   provide('updateCurranContainerHover', updateCurranContainerHover)
   provide('CurrantItemHover', CurrantItemHover)
   provide('CurranContainerHover', CurranContainerHover)
-  provide('getIsCollapsed', collapsed)
   provide('menuDirection', menuDirection)
   provide('emitOut', emitOut)
   return {
-    getIsCollapsed: collapsed,
+    getIsCollapsed: isCollapsed,
     getIsminiMenu: miniMenu,
     updateIsCollapsed,
     getSlotByName,

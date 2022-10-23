@@ -155,11 +155,9 @@ export default {
       return !!item
     },
     'update:collapsed'(collapsed) {
-      //return collapsed
       return !!(typeof collapsed === 'boolean')
     },
     'update:miniMenu'(collapsed) {
-      //return collapsed
       return !!(typeof collapsed === 'boolean')
     }
   },
@@ -230,44 +228,52 @@ export default {
       updateMenuScroll,
       updateMenuHover,
       updateminiMenu,
-      menuDirection
+      menuDirection,
+      updateIsCollapsed
     } = initAwsomeSideBar(props, context)
     const { updateCurrentRoute } = initAwsomeRouter(props, context)
 
     const sidebarmen = ref(null)
     const overLayer = ref(props.overLayerOnOpen)
-    if (props.closeOnClickOutSide) {
-      if (props.overLayerOnOpen) {
-        overLayer.value = !props.collapsed
-      }
-      const { removeSideBarListner, addSideBarListner } = useClickOutSide(
-        sidebarmen,
-        () => {
-          context.emit('update:collapsed', !isCollapsed.value)
-        },
-        isCollapsed
-      )
-      watch(
-        () => props.collapsed,
-        (currentCollapsed) => {
-          if (props.overLayerOnOpen) {
-            overLayer.value = !currentCollapsed
-          }
-          if (currentCollapsed) {
-            removeSideBarListner()
-          } else {
-            addSideBarListner()
-          }
-        }
-      )
+    if (props.overLayerOnOpen) {
+      overLayer.value = !props.collapsed
     }
+    const { removeSideBarListner, addSideBarListner } = useClickOutSide(
+      sidebarmen,
+      () => {
+        const x = !isCollapsed.value
+        updateIsCollapsed(x)
+        context.emit('update:collapsed', x)
+      },
+      isCollapsed
+    )
+    if (props.closeOnClickOutSide) {
+      addSideBarListner()
+    }
+    watch(
+      () => props.collapsed,
+      (currentCollapsed) => {
+        if (props.overLayerOnOpen) {
+          overLayer.value = !currentCollapsed
+        }
+        if (props.closeOnClickOutSide) {
+          currentCollapsed ? removeSideBarListner() :addSideBarListner()
+        }
+        updateIsCollapsed(currentCollapsed)
+      }
+    )
+    watch(
+      () => props.closeOnClickOutSide,
+      (val) => {
+        val ? removeSideBarListner() : addSideBarListner()
+      }
+    )
     watch(
       () => props.miniMenu,
       (val) => {
         updateminiMenu(val)
       }
     )
-
     const sidebarMenuWidth = computed(() => {
       return miniMenuRef.value ? props.widthMiniMenu : props.width
     })
