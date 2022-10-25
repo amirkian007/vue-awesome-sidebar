@@ -423,7 +423,7 @@ export default {
       return this.miniMenu && this.depth == 0 ? 'mouseenter' : null
     },
     keyOrClick() {
-      return this.miniMenu && this.depth == 0 ? 'keypress' : 'click'
+      return this.miniMenu && this.depth == 0 && !this.hover ? 'keypress' : 'click'
     },
     labelPressEvent() {
       if (this.hover) {
@@ -483,10 +483,16 @@ export default {
         cb()
       }, 0)
     },
+    resloveHref(href){
+      if(typeof href==='object'){
+        const x =  this.$router.resolve(href)
+        return x.href
+      }
+      return href
+    },
     checkActive() {
       if (!this.checkButtonActive) return
-
-      if (this.item?.href && this.isSameUrl(this.item?.href)) {
+      if (this.item?.href && this.isSameUrl(this.resloveHref(this.item?.href))) {
         this.active = true
       } else {
         this.active = false
@@ -494,7 +500,7 @@ export default {
         let hasFound = false
         let x = this.extractChildrenRoutes(this.item?.children, 'href') || []
         for (var i = 0; i < x.length; i++) {
-          if (this.isSameUrl(x[i])) {
+          if (this.isSameUrl(this.resloveHref(x[i]))) {
             hasFound = true
             // clearTimeout(this.hieghtTimeout)
             // clearTimeout(this.renderTimeOut)
