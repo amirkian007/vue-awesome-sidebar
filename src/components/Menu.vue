@@ -177,9 +177,13 @@ export default {
   mounted() {
     this.checkSiblingsForIcon()
     // USAGE
-    window.addEventListener("hashchange", ()=>{
-      this.updateCurrentRoute(window.location)
-    }, false);
+    window.addEventListener(
+      'hashchange',
+      () => {
+        this.updateCurrentRoute(window.location)
+      },
+      false
+    )
   },
   watch: {
     async $route() {
@@ -291,7 +295,7 @@ export default {
       (val) => {
         if (val) {
           overLayer.value = !isCollapsed.value
-        }else{
+        } else {
           overLayer.value = false
         }
       }
