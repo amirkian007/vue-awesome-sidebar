@@ -177,6 +177,9 @@ export default {
   mounted() {
     this.checkSiblingsForIcon()
     // USAGE
+    window.addEventListener("hashchange", ()=>{
+      this.updateCurrentRoute(window.location)
+    }, false);
   },
   watch: {
     async $route() {
