@@ -76,6 +76,9 @@ $bottomBtn-bg-color-white: rgba(228, 228, 228, 0.753) !default;
     .hoverClass {
       background: $menu-item-hover-bg-white;
     }
+    .BlockBack {
+      background-color: $menu-item-bg-color-white;
+    }
     .label {
       background-color: $menu-item-bg-color-white;
       &.activeClass::before {

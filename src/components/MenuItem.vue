@@ -7,6 +7,7 @@
       float: miniMenu && depth === 1 ? menuDirection : menuDirectionOposite
     }"
   >
+    <div v-if="active" class="BlockBack"></div>
     <!-- ========================= -->
     <!-- ========================= -->
     <!-- 1 this is the menu label  -->
@@ -18,6 +19,7 @@
       @[shouldMouseEnterEvent]="this.hover = true"
       @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
+        TransitionC: !miniMenu,
         menuexpand: showChildren,
         [activeClass]: active,
         [miniActiveClass]: miniActive,
@@ -27,7 +29,7 @@
       :style="{
         [menuDirection == 'left' ? 'paddingLeft' : 'paddingRight']:
           menuType === 'fully' ? `${depth * 18}px` : ``,
-        background: depth == 0 && active && miniMenu ? 'none' : ''
+        background: depth == 0 && !active && miniMenu ? 'none' : ''
       }"
     >
       <div
@@ -193,7 +195,7 @@
 
 <script>
 import MenuItemIconVue from './MenuItemIcon.vue'
-import { inject ,onBeforeUnmount } from 'vue'
+import { inject, onBeforeUnmount } from 'vue'
 export default {
   name: 'menu-item',
   components: { MenuItemIconVue },
@@ -263,7 +265,6 @@ export default {
     let itemApendIcon = getSlots('itemApendIcon')
     let itemPrepandIcon = getSlots('itemPrepandIcon')
     let menuItemLabel = getSlots('menuItemLabel')
-  
 
     return {
       animationDuration,
@@ -370,22 +371,22 @@ export default {
   mounted() {
     this.checkSiblingsForIcon()
     this.setItemOffsetHeight()
-     if(this.position !='fixed'){
-      const listenr = ()=>{
+    if (this.position != 'fixed') {
+      const listenr = () => {
         if ('ontouchstart' in document.documentElement) {
-        this.closeItemChildren()
-        return
-      }
-      this.setItemOffsetHeight()
-         const y = this.$refs['labelRef'].getBoundingClientRect()
+          this.closeItemChildren()
+          return
+        }
+        this.setItemOffsetHeight()
+        const y = this.$refs['labelRef'].getBoundingClientRect()
         this.labelMiniYofsset = y[this.menuDirection]
         this.labelMiniYYofsset = y.top
-    }
-     const removeSideBarListner = () => {
-       window.removeEventListener('scroll', listenr)
-     }
-    window.addEventListener('scroll',listenr)
-    onBeforeUnmount(removeSideBarListner)
+      }
+      const removeSideBarListner = () => {
+        window.removeEventListener('scroll', listenr)
+      }
+      window.addEventListener('scroll', listenr)
+      onBeforeUnmount(removeSideBarListner)
     }
   },
   computed: {
@@ -423,7 +424,9 @@ export default {
       return this.miniMenu && this.depth == 0 ? 'mouseenter' : null
     },
     keyOrClick() {
-      return this.miniMenu && this.depth == 0 && !this.hover ? 'keypress' : 'click'
+      return this.miniMenu && this.depth == 0 && !this.hover
+        ? 'keypress'
+        : 'click'
     },
     labelPressEvent() {
       if (this.hover) {
@@ -483,17 +486,21 @@ export default {
         cb()
       }, 0)
     },
-    resloveHref(href){
-      if(typeof href==='object'){
-        const x =  this.$router.resolve(href)
+    resloveHref(href) {
+      if (typeof href === 'object') {
+        const x = this.$router.resolve(href)
         return x.href
       }
       return href
     },
     checkActive() {
       if (!this.checkButtonActive) return
-      if (this.item?.href && this.isSameUrl(this.resloveHref(this.item?.href))) {
+      if (
+        this.item?.href &&
+        this.isSameUrl(this.resloveHref(this.item?.href))
+      ) {
         this.active = true
+        this.miniActive = false
       } else {
         this.active = false
         if (!this.item?.children) return

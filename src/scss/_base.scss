@@ -10,6 +10,12 @@ $toggle-mini-btn-height: 50px;
   transition: all 0.3s;
   display: flex;
   flex-flow: column;
+  .BlockBack {
+    position: absolute;
+    z-index: 852;
+    height: 100%;
+    width: 100%;
+  }
   .menu-wraper {
     flex: 1 1 auto;
     position: relative;

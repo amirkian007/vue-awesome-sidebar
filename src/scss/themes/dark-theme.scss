@@ -73,6 +73,9 @@ $bottomBtn-bg-color-dark: #13161b !default;
     .hoverClass {
       background: $menu-item-hover-bg-dark;
     }
+    .BlockBack {
+      background-color: $menu-back-ground-color-dark;
+    }
     .label {
       background-color: $menu-item-bg-color-dark;
       &.activeClass::before {

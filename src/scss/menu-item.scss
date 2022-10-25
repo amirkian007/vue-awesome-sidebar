@@ -33,7 +33,7 @@
   }
   position: relative;
   .labelMini {
-    transition: width 0.3s ease;
+    transition: all 0.35s;
     background: none;
     flex-direction: row;
     justify-content: space-between;
@@ -58,7 +58,7 @@
     position: relative;
     box-sizing: border-box; //r
 
-    z-index: 852;
+    z-index: 853;
     .left {
       display: flex;
       &.marginAuto {

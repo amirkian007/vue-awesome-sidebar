@@ -37,10 +37,11 @@
       align-items: center;
     }
   }
+  .TransitionC {
+    transition: background-color 0.3s; //d
+  }
   .label {
-    transition: background-color 0.3s ease; //d
     font-size: $label-font-size; //d
-
     > .left {
       margin-left: 7px;
       margin-right: 7px;
