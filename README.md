@@ -1,8 +1,9 @@
 
 # Vue Awesome Sidebar
 
-<img src="https://github.com/amirkian007/vue-awesome-sidebar/blob/main/assets/demo.gif" alt="vue-wesome-sidebar">
+<img src="https://github.com/amirkian007/vue-awesome-sidebar/tree/main/files/demo.gif" alt="vue-wesome-sidebar">
 
+## About
 Vue Awesome Sidbar is a powerfull and fast vue js(3x) sidbar navigation library with a set of components and slots that are flexible, very lightweight and customizable with sass and css which is very easy to use.
 
 ## Features
@@ -30,10 +31,7 @@ Vue Awesome Sidbar is a powerfull and fast vue js(3x) sidbar navigation library 
 - [**_Author_**](#author)
 - [**_License_**](#license)
 
-&nbsp;
-
 ## Demo
-
 Check out Live demo at [**_vasmenu.github.io_**]()
 
 # Installation
@@ -229,7 +227,7 @@ interface MenuLine {
 
 ## Styling
 
-## Sass varibles
+### Sass varibles
 
 ```scss
 //z-index of the menu components rage form 848-854
@@ -283,7 +281,7 @@ $hr-line-color-white: rgba(211, 211, 211, 0.548); -dark: rgba(211, 211, 211, 0.5
 $bottomBtn-bg-color-white: white; -dark: #13161b;
 ```
 
-## Css
+### Css
 
 ```scss
 //menu
