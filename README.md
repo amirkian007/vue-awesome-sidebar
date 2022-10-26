@@ -1,6 +1,8 @@
 
 # Vue Awesome Sidebar
 
+<img src="https://github.com/amirkian007/vue-awesome-sidebar/tree/main/files/demo.gif" alt="vue-wesome-sidebar">
+
 Vue Awesome Sidbar is a powerfull and fast vue js(3x) sidbar navigation library with a set of components and slots that are flexible, very lightweight and customizable with sass and css which is very easy to use.
 
 ## Features
@@ -17,15 +19,15 @@ Vue Awesome Sidbar is a powerfull and fast vue js(3x) sidbar navigation library 
 
 - [**_Demo_**](#demo)
 - [**_Installation_**](#installation)
-- [**_Basic Usage_**](#usage)
+- [**_Basic Usage_**](#basic-usage)
 - [**_Api_**](#Api)
   - [**_Props_**](#props)
   - [**_Events_**](#events)
   - [**_Slots_**](#slots)
-- [**_Styling_**](#styles)
-  - [**_Sass varibales_**](#sass)
+- [**_Styling_**](#styling)
+  - [**_Sass varibales_**](#sass-varibles)
   - [**_Css_**](#css)
-- [**_Author_**](#authors)
+- [**_Author_**](#author)
 - [**_License_**](#license)
 
 &nbsp;
