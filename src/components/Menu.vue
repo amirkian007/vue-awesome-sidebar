@@ -257,10 +257,6 @@ export default {
     if (props.closeOnClickOutSide) {
       addSideBarListner()
     }
-    useAutoCollapse(props.autoCollapse, updateIsCollapsed)
-    if (props.overLayerOnOpen) {
-      overLayer.value = !isCollapsed.value
-    }
     watch(
       () => isCollapsed.value,
       (currentCollapsed) => {
@@ -313,7 +309,10 @@ export default {
         //isCollapsed.value ? 'compelete-coolapse-menu' : '',
       ]
     })
-
+    useAutoCollapse(props.autoCollapse, updateIsCollapsed)
+    if (props.overLayerOnOpen) {
+      overLayer.value = !isCollapsed.value
+    }
     return {
       sidebarMenuWidth,
       updateMenuScroll,
