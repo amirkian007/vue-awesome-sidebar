@@ -15,6 +15,7 @@ $toggle-mini-btn-height: 50px;
     z-index: 852;
     height: 100%;
     width: 100%;
+    border-radius: 4px;
   }
   .menu-wraper {
     flex: 1 1 auto;
@@ -26,7 +27,13 @@ $toggle-mini-btn-height: 50px;
     overflow-x: hidden;
   }
   .vas-footer {
+    height: 100%;
+    flex-flow: column;
+    display: flex;
     flex: 0 1 auto;
+  }
+  .footer-wrapper {
+    flex: 1 1 auto;
   }
   .bottomBtn {
     flex: 0 1 $toggle-mini-btn-height;

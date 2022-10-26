@@ -39,9 +39,10 @@
         <HeaderItem v-else-if="item?.header && !miniMenuRef" :data="item" />
         <Menuline v-else-if="item?.LineShow" :data="item" />
       </template>
-    </div>
-    <div class="vas-footer">
-      <slot name="footer" />
+      <div class="vas-footer">
+        <div class="footer-wrapper"></div>
+        <slot name="footer" />
+      </div>
     </div>
     <div v-if="BottomMiniMenuBtn" class="bottomBtn" @click="toggleMiniCollapse">
       <div
