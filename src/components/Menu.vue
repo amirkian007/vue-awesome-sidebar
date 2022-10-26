@@ -76,7 +76,7 @@ export default {
     },
     menuType: {
       type: String,
-      default: 'simple-icon'
+      default: 'simple'
     },
     collapsed: {
       type: Boolean,

@@ -1,10 +1,10 @@
 @import './shared';
 
 .vsss-header,
-.vas-simple-icon {
+.vas-simple {
   width: 95%;
 }
-.vas-simple-icon {
+.vas-simple {
   .noIconWidth {
     width: calc(97% - 20px) !important;
   }
@@ -21,7 +21,7 @@
   }
 }
 
-.vas-simple-icon {
+.vas-simple {
   margin-top: 1.5px;
   margin-bottom: 1.5px;
   border-radius: 4px;
