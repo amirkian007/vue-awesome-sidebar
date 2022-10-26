@@ -1,66 +1,27 @@
+# Vue Awesome Sidebar
 
-# Basic Usage
+Vue Awesome Sidbar is a powerfull and fast vue js(version 3) sidbar navigation library with a set of components and slots that are flexible, very lightweight and customizable with sass and css which is very easy to use.
 
-a simple example would be like this : 
-check out [**_props_**](#props) for properites
-```html
+# Features
 
-<template>
-  <VueAwesomeSideBar
-      v-model:miniMenu="miniMenu"
-      v-model:collapsed="collapsed"
-      :menu="testMenu"
-      vueRouterEnabel
-    ></VueAwesomeSideBar>
-</template>
+# Table of Contents
 
-<script setup>
-import { ref } from 'vue'
+- [**_Demo_**](#demo)
+- [**_Installation_**](#installation)
+  - [**_Vue.js_**](#Vue.js)
+  - [**_Nuxt.js_**](#Nuxt.js)
+- [**_Basic Usage_**](#usage)
+- [**_Api_**](#api)
+  - [**_Props_**](#api)
+  - [**_Events_**](#api)
+  - [**_Slots_**](#Slot-Names)
+- [**_Styling_**](#api)
+  - [**_Sass varibales_**](#Component-Attributes)
+  - [**_Css_**](#Class-Name-Attributes)
+- [**_Author_**](#authors-&&-Contributors)
+- [**_License_**](#license)
 
-const collapsed = ref(false)
-const miniMenu = ref(false)
-
-const testMenu = [
-  {
-    name: 'Getting Started',
-    icon: { text: 'home' , class: 'material-icons-outlined' },
-    children: [
-      {
-        name: 'level 1.1',
-        href: '/a',
-        icon: { text: 'home' , class: 'material-icons-outlined'},
-        children: [
-          {
-            href: '/b',
-            name: 'level 1.1.1',
-          },
-        ]
-      },
-      {
-        name: 'level 1.2'
-      }
-    ],
-  },
-  {
-    header: 'Settings'
-  },
-  {
-    name: 'Dashboard',
-    icon: { class: 'material-icons-outlined', text: 'dashboard' },
-    children: [
-      {
-        href: '/c',
-        name: 'level 2.1',
-      },
-    ]
-  },
-  {
-    name: 'close menu',
-    icon: { text: 'settings', class: 'material-icons-outlined' },
-  },
-]
-</script>
-```
+&nbsp;
 
 # Installation
 
@@ -103,47 +64,111 @@ export default {
   }
 }
 ```
+# Basic Usage
+
+a simple example would be like this : 
+```html
+
+<template>
+  <VueAwesomeSideBar
+      v-model:miniMenu="miniMenu"
+      v-model:collapsed="collapsed"
+      :menu="testmENU"
+      dark
+      vueRouterEnabel
+    ></VueAwesomeSideBar>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const collapsed = ref(false)
+const miniMenu = ref(false)
+
+const testmENU = [
+  {
+    name: 'Getting Started',
+    href: '/a',
+    icon: { text: 'home' , class: 'material-icons-outlined' },
+    children: [
+      {
+        name: 'level 1.1',
+        icon: { text: 'home' , class: 'material-icons-outlined'},
+        children: [
+          {
+            name: 'level 1.1.1',
+          },
+        ]
+      },
+      {
+        name: 'level 1.2'
+      }
+    ],
+  },
+  {
+    header: 'Settings'
+  },
+  {
+    name: 'Dashboard',
+    icon: { class: 'material-icons-outlined', text: 'dashboard' },
+    children: [
+      {
+        href: '/level12/#w',
+        name: 'level 2.1'
+      },
+    ]
+  },
+  {
+    name: 'close menu',
+    icon: { text: 'settings', class: 'material-icons-outlined' },
+    collapseOnClick: true
+  },
+]
+</script>
+```
+
+# API
+
 ### Props
 
 | Prop                  |  Type   |Default|                             Description                                                                 |
 |-----------------------|:-------:|:-----:|:--------------------------------------------------------------------------------------------------------|
-| menu(required)        | Array   |  null | Array list of [**_item properties_**](#menu-properties)                                                 |
-| menuType(required)    | string  | simple| style of the menu can be either "fully" or "simple"                                                     |
-| collapsed             | Boolean | false | sets menus collapsed state should be used with v-model                                                  |
-| miniMenu              | boolean | false | makes manu mini - should be used with v-model                                                           |
-| width                 | string  | 290px | sets width for menu                                                                                     |
-| widthMiniMenu         | string  | 65px  | sets width for miniMenu                                                                                 |
-| autoCollapse          | number  | null  | adds event listner to collapse menu when the given value((in px) is lower than the viewport width       |
-| closeOnClickOutSide   | Boolean | false | Adds event listner to collapse Menu when clicked outside the menu                                       |
-| overLayerOnOpen       | Boolean | false | Adds overlayer under the Menu with the menu is open                                                     |
-| childrenOpenAnimation | Boolean | true  | opens menu item children with animation                                                                 |
+| menu                  | Array   |  null | required - Array list of [**_item properties_**](#menu-properties)                                      |
+| menuType              | string  | simple| required - style of the menu can be either "fully" or "simple"                                          |
+| collapsed             | Boolean | false | optional - sets menus collapsed state should be used with v-model                                       |
+| miniMenu              | boolean | false | optional - makes manu mini  should be used with v-model                                                 |
+| width                 | string  | 290px | optional - sets width for menu                                                                          |
+| widthMiniMenu         | string  | 65px  | optional - sets width for miniMenu                                                                      |
+| closeOnClickOutSide   | Boolean | false | optional - Adds event listner to close Menu when clicked outside the menu                               |
+| overLayerOnMenuOpen   | Boolean | false | optional - Adds overlayer under the Menu with the menu is open (should be used with closeOnClickOutSide)|
+| childrenOpenAnimation | Boolean | true  |  optional - opens menu item children with animation                                                     |
 | keepChildrenOpen      | Boolean | flase | keeps opened children items opened when parent item is closed                                           |
-| position              | string  | fixed | sets menu positiong - by default menu is fixed on viewport                                              |
-|ChildrenOpenActiveRoute| Boolean | true  |opens meneitem children on page load if an item with active "href" inside and miniActive class is apllyed|
-| checkButtonActive     | Boolean | true  | checks if menuitems href is active, if so activeClass is  added to it and miniActive class to the parent|
+| position              | string  | fixed | sets menu positiong- by default menu is fixed on viewport                                               |
+|ChildrenOpenActiveRoute| Boolean | true  | opens meneitem children if there is an menuitem with active "href" inside                               |
+| checkButtonActive     | Boolean | true  | check if menuitemS href is active, if so activeClass is  added to it and miniActive class to the parent |
 | vueRouterEnabel       | Boolean | true  | when a meueitem is clicked vue-router will bue pushed to the items "href" property                      |
 | BottomMiniMenuBtn     | Boolean | true  | Adds mini menu toggle bottom to bottom of menu                                                          |
-| paddingTop            | String  | 0px   | Adds padding to top of menu - usefull when using with app bar with higher z-index                       |
+| paddingTop            | String  | 0px   | Adds padding to top of menu - usefull when using with appbar                                            |
 | dark                  | Boolean | false | makes the theme of menu dark - color can be custimuzed with sass vars                                   |
+| paddingTop            | String  | 0px   | Adds padding to top of menu - usefull when using with appbar                                            |
 | rtl                   | Boolean | false | Makes the entire menu right to left align                                                               |
 
-## menu-properties
+# menu properties
 
 ```ts
 interface MenuItemIcon {
-  text: string
+  text?: string
   class?: string
-  element?: string //defualt is <i>
+  element?: string
   attributes?: object
 }
 
 interface MenuItem {
-  href: string | object // vue-router Object
+  href: string | object
   name: string
   icon?: ItemIcon
-  children?: Array< MenuItem | SidebarHeaderItem >
+  children?: Array<MenuItem | SidebarHeaderItem>
   class?: string
-  collapseOnClick?: boolean //collapses menu when clicked
   activeClass?: boolean
   miniActiveClass?: boolean
 }
@@ -161,13 +186,14 @@ interface MenuLine {
   element?: string
 }
 ```
+
 ### Events
 
-| Event Name                     | Description                                                     |
-|--------------------------------|:----------------------------------------------------------------|
-| `@item-click(MenuItem)`        | fired when a menu item is clicked                               |
-|`@update:collapsed(isCollapsed)`| fired when menu is collapsed - should be used with "v-model"    |
-| `@update:miniMenu(isMiniMenu)` | fired when menu is in mini state - should be used with "v-model"|
+| Event Name                    | Description                             |
+|-------------------------------|:----------------------------------------|
+| `@item-click(itemObject)`        | fired when a menu item is clicked    |
+| `@update:collapsed(isCollapsed)` | fired when menu is collapsed         |
+| `@update:miniMenu(isMiniMenu)`  | fired when menu is in mini state      |
 
 ### Slots
 
@@ -188,11 +214,11 @@ interface MenuLine {
 <template #BottomMiniMenuBtn></template>
 ```
 
+## Styling
+
 ### Sass varibles
 
 ```scss
-//z-index of the menu components rage form 848-854
-
 //<--BASE-->
 $overlayer-bg-color: rgba(0, 0, 0, 0.6);
 $toggle-mini-btn-height: 50px;
@@ -200,7 +226,6 @@ $menu-item-simpleType-icon-height: 35px;
 $menu-item-fullyType-height: 44px;
 $label-font-size: 16px;//may not work with slots
 $label-icon-size: 20px;//may not work with slots
-$scroll-bar-width: 13px;
 
 //<--COLORS-->
 //NOTE : the "-white" at the end of each var defines the theme, you can change it to "-dark" to set it for dark mode theme
