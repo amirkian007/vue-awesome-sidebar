@@ -19,7 +19,7 @@
       @[shouldMouseEnterEvent]="this.hover = true"
       @[shouldMouseLeaveEvent]="this.hover = false"
       :class="{
-        TransitionC: !miniMenu,
+        TransitionC: !miniMenu || (miniMenu && !showChildren),
         menuexpand: showChildren,
         [activeClass]: active,
         [miniActiveClass]: miniActive,
@@ -126,7 +126,7 @@
           ? 'bottom'
           : 'top']: `calc(${ContainerOffsetYConputed} - 1px)`,
         [menuDirection]: `calc(${widthMiniMenu} - 1px)`,
-        maxHeight: MakeSpace ? TopcontainerHiefht : 'fit-content',
+        maxHeight: TopcontainerHiefht,
         width: showChildren ? '250px' : '0px',
         zIndex: showChildren ? '850' : '849',
         animationDelay: seTAnimationTimeOut ? '0.3s' : '0'
@@ -214,7 +214,7 @@ export default {
     id: null,
     siblingsHaveIcon: false,
     MakeSpace: false,
-    TopcontainerHiefht: '',
+    TopcontainerHiefht: 'fit-content',
     labelMiniYofsset: 0,
     labelMiniYYofsset: 0,
     miniMenuOffset: 50,
@@ -572,7 +572,7 @@ export default {
       }
     },
     openItemCildren() {
-      if (this.isMakeSpace && this.depth === 1) {
+      if (this.depth === 1 && this.miniMenu) {
         this.setMaxHeightTopCProp()
       }
       if (this.miniMenu && this.depth === 0) {
@@ -639,8 +639,13 @@ export default {
       )
     },
     setMaxHeightTopC() {
-      this.TopcontainerHiefht =
-        this.$refs['topContainerRef']?.getBoundingClientRect().height + 'px'
+      const x = this.$refs['topContainerRef']?.getBoundingClientRect()
+      if (this.MakeSpace) {
+        this.TopcontainerHiefht = x.height + 'px'
+      } else {
+        this.TopcontainerHiefht =
+          x.height + innerHeight - (x.top + x.height) - 2 + 'px'
+      }
     },
     setItemOffsetHeight() {
       if (this.depth == 0) {
