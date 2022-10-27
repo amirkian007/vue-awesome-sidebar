@@ -9,12 +9,12 @@ Vue Awesome Sidbar is a powerfull and fast vue js(3x) sidbar navigation library 
 ## Features
 - Built with typescript and vite with 0 dependants.
 - Support for vue.js (3x) and nuxt.js (3x).
-- Customization support for every component using CSS and SASS.
-- Capable with Vue-router support.
+- Customization support for every component slots , CSS and SASS.
+- Capable with Vue-router.
 - Multiple Menu types(more will be added in the future).
 - Complete RTL support.
 - Dark and White mode support.
-- Responsive design
+- Responsive design.
 
 # Table of Contents
 
@@ -34,47 +34,6 @@ Vue Awesome Sidbar is a powerfull and fast vue js(3x) sidbar navigation library 
 ## Demo
 Check out Live demo at [**_vasmenu.github.io_**]()
 
-# Installation
-
-```
-npm i vue-sidebar-menu --save
-//or
-yarn i vue-sidebar-menu --save
-```
-
-Install the component globally.
-
-Vue js 3:
-```js
-//main.js
-import { createApp } from 'vue'
-import App from './App.vue'
-import vueAwesomeSidebar from 'vue-awesome-sidebar'
-import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
-
-const app = createApp(App)
-app.use(vueAwesomeSidebar)
-app.mount("#app")
-```
-Nuxt js 3:
-```js
-import vueAwesomeSidebar from "vue-awesome-sidebar";
-import "vue-awesome-sidebar/dist/vue-awesome-sidebar.css";
-export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(vueAwesomeSidebar);
-});
-```
-or Install the component loacally : 
-```js
-//App.vue
-import vueAwesomeSidebar from 'vue-awesome-sidebar'
-import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
-export default {
-  components: {
-    vueAwesomeSidebar
-  }
-}
-```
 # Basic Usage
 
 a simple example would be like this : 
@@ -138,14 +97,63 @@ const testMenu = [
 </script>
 ```
 
+### Events
+
+| Event Name                     | Description                                                     |
+|--------------------------------|:----------------------------------------------------------------|
+| `@item-click(MenuItem)`        | fired when a menu item is clicked                               |
+|`@update:collapsed(isCollapsed)`| fired when menu is collapsed - should be used with "v-model"    |
+| `@update:miniMenu(isMiniMenu)` | fired when menu is in mini state - should be used with "v-model"|
+
+# Installation
+
+```
+npm i vue-awesome-sidebar --save
+//or
+yarn i vue-awesome-sidebar --save
+```
+
+Install the component globally.
+
+Vue js 3:
+```js
+//main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import vueAwesomeSidebar from 'vue-awesome-sidebar'
+import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
+
+const app = createApp(App)
+app.use(vueAwesomeSidebar)
+app.mount("#app")
+```
+Nuxt js 3:
+```js
+import vueAwesomeSidebar from "vue-awesome-sidebar";
+import "vue-awesome-sidebar/dist/vue-awesome-sidebar.css";
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.use(vueAwesomeSidebar);
+});
+```
+or Install the component loacally : 
+```js
+//App.vue
+import vueAwesomeSidebar from 'vue-awesome-sidebar'
+import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
+export default {
+  components: {
+    vueAwesomeSidebar
+  }
+}
+```
 ## Api
 
 ### Props
 
 | Prop                  |  Type   |Default|                             Description                                                                 |
 |-----------------------|:-------:|:-----:|:--------------------------------------------------------------------------------------------------------|
-| menu(required)        | Array   |  null | Array list of [**_item properties_**](#menu-properties)                                                 |
-| menuType(required)    | string  | simple| style of the menu can be either "fully" or "simple"                                                     |
+| menu                  | Array   |  null | required - Array list of [**_item properties_**](#menu-properties)                                      |
+| menuType              | string  | simple| style of the menu can be either "fully" or "simple"                                                     |
 | collapsed             | Boolean | false | sets menus collapsed state should be used with v-model                                                  |
 | miniMenu              | boolean | false | makes manu mini - should be used with v-model                                                           |
 | width                 | string  | 290px | sets width for menu                                                                                     |
@@ -198,14 +206,6 @@ interface MenuLine {
   element?: string
 }
 ```
-### Events
-
-| Event Name                     | Description                                                     |
-|--------------------------------|:----------------------------------------------------------------|
-| `@item-click(MenuItem)`        | fired when a menu item is clicked                               |
-|`@update:collapsed(isCollapsed)`| fired when menu is collapsed - should be used with "v-model"    |
-| `@update:miniMenu(isMiniMenu)` | fired when menu is in mini state - should be used with "v-model"|
-
 ### Slots
 
 ```html
