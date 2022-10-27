@@ -6,6 +6,9 @@
 ## About
 Vue Awesome Sidbar is a powerfull and fast vue js(3x) sidbar navigation library with a set of components and slots that are flexible, very lightweight and customizable with sass and css which is very easy to use.
 
+## Demo
+Check out Live demo at [**_vasmenu.github.io_**]()
+
 ## Features
 - Built with typescript and vite with 0 dependants.
 - Support for vue.js (3x) and nuxt.js (3x).
@@ -31,9 +34,48 @@ Vue Awesome Sidbar is a powerfull and fast vue js(3x) sidbar navigation library 
 - [**_Author_**](#author)
 - [**_License_**](#license)
 
-## Demo
-Check out Live demo at [**_vasmenu.github.io_**]()
 
+# Installation
+
+```
+npm i vue-awesome-sidebar --save
+//or
+yarn i vue-awesome-sidebar --save
+```
+
+Install the component globally.
+
+Vue js 3:
+```js
+//main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import vueAwesomeSidebar from 'vue-awesome-sidebar'
+import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
+
+const app = createApp(App)
+app.use(vueAwesomeSidebar)
+app.mount("#app")
+```
+Nuxt js 3:
+```js
+import vueAwesomeSidebar from "vue-awesome-sidebar";
+import "vue-awesome-sidebar/dist/vue-awesome-sidebar.css";
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.use(vueAwesomeSidebar);
+});
+```
+or Install the component loacally : 
+```js
+//App.vue
+import vueAwesomeSidebar from 'vue-awesome-sidebar'
+import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
+export default {
+  components: {
+    vueAwesomeSidebar
+  }
+}
+```
 # Basic Usage
 
 a simple example would be like this : 
@@ -97,55 +139,6 @@ const testMenu = [
 </script>
 ```
 
-### Events
-
-| Event Name                     | Description                                                     |
-|--------------------------------|:----------------------------------------------------------------|
-| `@item-click(MenuItem)`        | fired when a menu item is clicked                               |
-|`@update:collapsed(isCollapsed)`| fired when menu is collapsed - should be used with "v-model"    |
-| `@update:miniMenu(isMiniMenu)` | fired when menu is in mini state - should be used with "v-model"|
-
-# Installation
-
-```
-npm i vue-awesome-sidebar --save
-//or
-yarn i vue-awesome-sidebar --save
-```
-
-Install the component globally.
-
-Vue js 3:
-```js
-//main.js
-import { createApp } from 'vue'
-import App from './App.vue'
-import vueAwesomeSidebar from 'vue-awesome-sidebar'
-import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
-
-const app = createApp(App)
-app.use(vueAwesomeSidebar)
-app.mount("#app")
-```
-Nuxt js 3:
-```js
-import vueAwesomeSidebar from "vue-awesome-sidebar";
-import "vue-awesome-sidebar/dist/vue-awesome-sidebar.css";
-export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(vueAwesomeSidebar);
-});
-```
-or Install the component loacally : 
-```js
-//App.vue
-import vueAwesomeSidebar from 'vue-awesome-sidebar'
-import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
-export default {
-  components: {
-    vueAwesomeSidebar
-  }
-}
-```
 ## Api
 
 ### Props
@@ -206,6 +199,14 @@ interface MenuLine {
   element?: string
 }
 ```
+### Events
+
+| Event Name                     | Description                                                     |
+|--------------------------------|:----------------------------------------------------------------|
+| `@item-click(MenuItem)`        | fired when a menu item is clicked                               |
+|`@update:collapsed(isCollapsed)`| fired when menu is collapsed - should be used with "v-model"    |
+| `@update:miniMenu(isMiniMenu)` | fired when menu is in mini state - should be used with "v-model"|
+
 ### Slots
 
 ```html
@@ -228,7 +229,19 @@ interface MenuLine {
 ## Styling
 
 ### Sass varibles
-
+to use sass varibles import the sass file insted of css, then import custom varibles.
+example:
+```scss
+//style.scss
+@import "custom-var.scss";
+@import "vue-awesome-sidebar/src/scss/vue-awesome-sidebar.scss";
+```
+```js
+//main.js
+import vueAwesomeSidebar from 'vue-awesome-sidebar'
+//import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
+import './style.scss'
+```
 ```scss
 //z-index of the menu components rage form 848-854
 
