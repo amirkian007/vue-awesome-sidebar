@@ -34,8 +34,12 @@ export function useClickOutSide(target: any, callBack: any, isCollapsed: any) {
 export function useAutoCollapse(target: number, callBack: any) {
   if (!target) return
   callBack(target > innerWidth)
+  let initialWidth = window.innerWidth
   const listner = () => {
-    callBack(target > innerWidth)
+    if (initialWidth != window.innerWidth) {
+      callBack(target > innerWidth)
+      initialWidth = window.innerWidth
+    }
   }
   window.addEventListener('resize', listner)
   onBeforeUnmount(() => {

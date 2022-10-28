@@ -160,7 +160,14 @@
           }"
         >
           <span v-if="!menuItemLabel" class="labelName">{{ item?.name }}</span>
-          <component v-else :labelName="item?.name" :is="menuItemLabel" />
+          <component
+            v-else
+            :labelName="item?.name"
+            :active="active"
+            :miniActive="miniActive"
+            :isChildrenMenuOpen="showChildren"
+            :is="menuItemLabel"
+          />
         </div>
       </div>
       <div class="labelminiSub" v-if="depth == 0 && !MakeSpace"></div>
@@ -487,7 +494,7 @@ export default {
       }, 0)
     },
     resloveHref(href) {
-      if (typeof href === 'object') {
+      if (this?.$router) {
         const x = this.$router.resolve(href)
         return x.href
       }
