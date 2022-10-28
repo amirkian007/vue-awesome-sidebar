@@ -30,7 +30,7 @@ Check out Live demo at [**_amirkian007.github.io/vasmenu_**](https://amirkian007
   - [**_Slots_**](#slots)
 - [**_Styling_**](#styling)
   - [**_Sass varibales_**](#sass-varibles)
-  - [**_Css_**](#css)
+  - [**_Css_**](#css-class)
 - [**_Author_**](#author)
 - [**_License_**](#license)
 
@@ -42,7 +42,7 @@ npm i vue-awesome-sidebar --save
 ```
 or
 ```
-yarn i vue-awesome-sidebar --save
+yarn add vue-awesome-sidebar --save
 ```
 
 Install the component globally.
