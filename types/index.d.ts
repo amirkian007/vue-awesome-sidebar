@@ -45,16 +45,9 @@ export interface MenuLine {
 }
 
 export class Menu {
-  /**
-   * List of Items in the menu
-   * Follow https://github.com/yaminncco/vue-sidebar-menu#item-properties
-   */
+ 
   menu: Array<MenuItem | SidebarHeaderItem | MenuLine>
 
-  /**
-   * Sidebar Collapse state (v-model:collapsed to enable two-way data binding).
-   * by default false
-   */
   menuType?: boolean
 
   collapsed?: boolean
