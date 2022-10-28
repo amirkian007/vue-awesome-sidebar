@@ -64,17 +64,9 @@ export class Menu {
 
   overLayerOnOpen?: boolean
 
-  /**
-   * Position sidebar right to left.
-   * by default false
-   */
   childrenOpenAnimation?: boolean
 
   postion?: boolean
-  /**
-   * Make sidebar relative to the parent (by default the sidebar is relative to the viewport).
-   * by default false
-   */
 
   keepChildrenOpen?: boolean
 
