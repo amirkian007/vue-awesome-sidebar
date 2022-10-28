@@ -4,10 +4,10 @@
 <img src="https://github.com/amirkian007/vue-awesome-sidebar/blob/main/assets/demo.gif" alt="vue-wesome-sidebar">
 
 ## About
-Vue Awesome Sidbar is a powerfull and fast vue js(3x) sidbar navigation library with a set of components and slots that are flexible, very lightweight and customizable with sass and css which is very easy to use.
+Vue Awesome Sidbar is a powerfull, fast and light vue js(3x) sidbar navigation library with a set of components and slots that are flexible, very lightweight and customizable with sass and css which is very easy to use.
 
 ## Demo
-Check out Live demo at [**_vasmenu.github.io_**]()
+Check out Live demo at [**_amirkian007.github.io/vasmenu_**](https://amirkian007.github.io/vasmenu/)
 
 ## Features
 - Built with typescript and vite with 0 dependants.
@@ -39,7 +39,9 @@ Check out Live demo at [**_vasmenu.github.io_**]()
 
 ```
 npm i vue-awesome-sidebar --save
-//or
+```
+or
+```
 yarn i vue-awesome-sidebar --save
 ```
 
@@ -147,25 +149,25 @@ const testMenu = [
 |-----------------------|:-------:|:-----:|:--------------------------------------------------------------------------------------------------------|
 | menu                  | Array   |  null | required - Array list of [**_item properties_**](#menu-properties)                                      |
 | menuType              | string  | simple| style of the menu can be either "fully" or "simple"                                                     |
-| collapsed             | Boolean | false | sets menus collapsed state should be used with v-model                                                  |
-| miniMenu              | boolean | false | makes manu mini - should be used with v-model                                                           |
+| collapsed             | Boolean | false | sets menus collapsed state - should be used with v-model                                                |
+| miniMenu              | boolean | false | sets mini menus state - should be used with v-model                                                     |
 | width                 | string  | 290px | sets width for menu                                                                                     |
 | widthMiniMenu         | string  | 65px  | sets width for miniMenu                                                                                 |
-| autoCollapse          | number  | null  | adds event listner to collapse menu when the given value((in px) is lower than the viewport width       |
-| closeOnClickOutSide   | Boolean | false | Adds event listner to collapse Menu when clicked outside the menu                                       |
-| overLayerOnOpen       | Boolean | false | Adds overlayer under the Menu with the menu is open                                                     |
-| childrenOpenAnimation | Boolean | true  | opens menu item children with animation                                                                 |
-| keepChildrenOpen      | Boolean | flase | keeps opened children items opened when parent item is closed                                           |
+| autoCollapse          | number  | null  | adds event listner to collapse menu when the given value(in px) is lower than the viewport width        |
+| closeOnClickOutSide   | Boolean | false | Adds event listner to collapse Menu when outside is clicked                                             |
+| overLayerOnOpen       | Boolean | false | Adds overlayer under the Menu when the menu is open - usefull on mobile                                 |
+| childrenOpenAnimation | Boolean | true  | opens menu items children with animation                                                                |
+| keepChildrenOpen      | Boolean | flase | keeps children items opened when parent item is closed                                                  |
 | position              | string  | fixed | sets menu positiong - by default menu is fixed on viewport                                              |
-|ChildrenOpenActiveRoute| Boolean | true  |opens meneitem children on page load if an item with active "href" inside and miniActive class is apllyed|
-| checkButtonActive     | Boolean | true  | checks if menuitems href is active, if so activeClass is  added to it and miniActive class to the parent|
-| vueRouterEnabel       | Boolean | true  | when a meueitem is clicked vue-router will bue pushed to the items "href" property                      |
+|ChildrenOpenActiveRoute| Boolean | true  |opens meneitem children on page-load if an item with active "href" inside and miniActive class is applied|
+| checkButtonActive     | Boolean | true  | checks if menuitems href is active, if so activeClass is added to it and miniActive class to the parent |
+| vueRouterEnabel       | Boolean | true  | when a meueitem is clicked vue-router will pushe the route to the items "href" property                 |
 | BottomMiniMenuBtn     | Boolean | true  | Adds mini menu toggle bottom to bottom of menu                                                          |
 | paddingTop            | String  | 0px   | Adds padding to top of menu - usefull when using with app bar with higher z-index                       |
-| dark                  | Boolean | false | makes the theme of menu dark - color can be custimuzed with sass vars                                   |
+| dark                  | Boolean | false | makes the theme of menu dark - color can be customized with sass vars                                   |
 | rtl                   | Boolean | false | Makes the entire menu right to left align                                                               |
 
-### menu-properties
+### menu properties
 
 ```ts
 interface MenuItemIcon {
@@ -181,7 +183,7 @@ interface MenuItem {
   icon?: ItemIcon
   children?: Array< MenuItem | SidebarHeaderItem >
   class?: string
-  collapseOnClick?: boolean //collapses menu when clicked
+  collapseOnClick?: boolean //collapses menu when clicked - this behavior can also be achieved with Events
   activeClass?: boolean
   miniActiveClass?: boolean
 }
@@ -201,11 +203,11 @@ interface MenuLine {
 ```
 ### Events
 
-| Event Name                     | Description                                                     |
-|--------------------------------|:----------------------------------------------------------------|
-| `@item-click(MenuItem)`        | fired when a menu item is clicked                               |
-|`@update:collapsed(isCollapsed)`| fired when menu is collapsed - should be used with "v-model"    |
-| `@update:miniMenu(isMiniMenu)` | fired when menu is in mini state - should be used with "v-model"|
+| Event Name                     | Description                                                            |
+|--------------------------------|:-----------------------------------------------------------------------|
+| `@item-click(MenuItem)`        | fired when a menu item is clicked                                      |
+|`@update:collapsed(isCollapsed)`| fired when menu collapse state changes - should be used with "v-model" |
+| `@update:miniMenu(isMiniMenu)` | fired when mini menu state changes - should be used with "v-model"     |
 
 ### Slots
 
@@ -229,7 +231,7 @@ interface MenuLine {
 ## Styling
 
 ### Sass varibles
-to use sass varibles import the sass file insted of css, then import custom varibles.
+to use sass varibles import the SCSS file insted of Css, then import custom varibles,
 example:
 ```scss
 //style.scss
@@ -242,6 +244,7 @@ import vueAwesomeSidebar from 'vue-awesome-sidebar'
 //import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
 import './style.scss'
 ```
+Sass varibles:
 ```scss
 //z-index of the menu components rage form 848-854
 
@@ -294,7 +297,8 @@ $hr-line-color-white: rgba(211, 211, 211, 0.548); -dark: rgba(211, 211, 211, 0.5
 $bottomBtn-bg-color-white: white; -dark: #13161b;
 ```
 
-### Css
+
+### Css class
 
 ```scss
 //menu
@@ -313,7 +317,7 @@ $bottomBtn-bg-color-white: white; -dark: #13161b;
 }//apllayed to all menuitem
 .menuExpanded{}
 .label{
-  .menu-icondd{}
+  .menu-icond{}
   .labelName{}
   .icons{}
   .postIconOpenAnima{}
