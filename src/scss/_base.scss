@@ -48,13 +48,12 @@ $toggle-mini-btn-height: 50px !default;
     display: flex;
     align-items: center;
     justify-content: center;
-    :first-child{
-      height: $toggle-mini-btn-height !important;;
-      }
+    :first-child {
+      height: $toggle-mini-btn-height !important;
+    }
   }
- 
+
   .bottomBtnIcon {
-    
     width: 20px;
     margin-left: 7px;
     transition: transform 0.3s;
