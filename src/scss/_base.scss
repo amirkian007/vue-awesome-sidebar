@@ -35,6 +35,9 @@ $toggle-mini-btn-height: 50px !default;
   .footer-wrapper {
     flex: 1 1 auto;
   }
+  .TransitionC {
+    transition: background-color 0.3s; 
+  }
   .bottomBtn {
     flex: 0 1 $toggle-mini-btn-height;
     position: -webkit-sticky;

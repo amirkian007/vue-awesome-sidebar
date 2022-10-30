@@ -41,6 +41,7 @@
     @extend .labelMiniS;
   }
   .label {
+    font-size: $label-font-size; //d
     &.activeClass::before {
       content: '';
       height: 100%;
@@ -58,8 +59,6 @@
         left: 0px;
       }
     }
-    transition: background-color 0.3s ease; //d
-    font-size: $label-font-size; //d
 
     > .left {
       margin-right: 7px;
