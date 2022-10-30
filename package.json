@@ -1,6 +1,6 @@
 {
   "name": "vue-awesome-sidebar",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "private": false,
   "main": "dist/vue-awesome-siderbar.cjs",
   "module": "dist/vue-awesome-siderbar.js",
