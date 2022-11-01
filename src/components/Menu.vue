@@ -68,7 +68,7 @@ import { initAwsomeRouter } from '../hooks/useAwsomeRouter'
 import { ref, computed, watch } from 'vue'
 
 export default {
-  name: 'menu',
+  name: 'vas-menu',
   props: {
     menu: {
       type: Array,
