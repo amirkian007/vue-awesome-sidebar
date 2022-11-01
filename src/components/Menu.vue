@@ -1,5 +1,5 @@
 <template>
-  <aside
+  <nav
     class="vas-menu"
     ref="sidebarmen"
     :class="sidebarClass"
@@ -52,7 +52,7 @@
       ></div>
       <slot v-else name="BottomMiniMenuBtn" :miniMenu="miniMenuRef" />
     </div>
-  </aside>
+  </nav>
   <Transition name="vas-fade">
     <div v-if="overLayer" class="vas-over-layer"></div>
   </Transition>
@@ -68,7 +68,7 @@ import { initAwsomeRouter } from '../hooks/useAwsomeRouter'
 import { ref, computed, watch } from 'vue'
 
 export default {
-  name: 'recursive-menu',
+  name: 'menu',
   props: {
     menu: {
       type: Array,
