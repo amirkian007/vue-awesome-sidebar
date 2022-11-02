@@ -332,10 +332,14 @@ $bottomBtn-bg-color-white: white; -dark: #13161b;
 .topContainer{}
 ```
 
-## Author
+## Contributing
 
-[Amir Kian Adl](https://github.com/amirkian007)
+``` bash
+$ pnpm i
+# dev server
+$ pnpm run dev
+```
 
 ## License
 
-[The MIT License](http://opensource.org/licenses/MIT)
+vue-awesome-sidebar is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
