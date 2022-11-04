@@ -45,7 +45,6 @@ export interface MenuLine {
 }
 
 export class Menu {
- 
   menu: Array<MenuItem | SidebarHeaderItem | MenuLine>
 
   menuType?: boolean

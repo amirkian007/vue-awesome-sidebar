@@ -4,3 +4,4 @@ dist
 build
 pnpm-lock.yaml
 .vscode
+README.md
