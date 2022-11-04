@@ -356,7 +356,7 @@ export default {
       }
     },
     MenuScroll() {
-      if ('ontouchstart' in document.documentElement) {
+      if (this.isMobile) {
         this.closeItemChildren()
       } else {
         this.setItemOffsetHeight()
@@ -397,6 +397,9 @@ export default {
     }
   },
   computed: {
+    isMobile() {
+      return 'ontouchstart' in document.documentElement
+    },
     miniActiveClass() {
       return this.item?.miniActiveClass
         ? this.item?.miniActiveClass
@@ -431,15 +434,14 @@ export default {
       return this.miniMenu && this.depth == 0 ? 'mouseenter' : null
     },
     keyOrClick() {
-      return this.miniMenu && this.depth == 0 && !this.hover
-        ? 'keypress'
-        : 'click'
-    },
-    labelPressEvent() {
-      if (this.hover) {
-        return 'click'
+      if(!this.miniMenu) return 'click'
+      if(this.depth == 0){
+        if(this.expanded){
+          return this.isMobile ? 'touchend' : 'click'
+        }
+        return  this.isMobile ? '' : 'click'
       }
-      return this.miniMenu && this.depth == 0 ? 'keypress' : 'click'
+      return 'click'
     },
     shouldMouseLeaveEvent() {
       return this.miniMenu && this.depth == 0 ? 'mouseleave' : null
