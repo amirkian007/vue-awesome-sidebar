@@ -173,22 +173,22 @@ const testMenu = [
 ### menu properties
 
 ```ts
+interface MenuItem {
+  href: string | object // vue-router Object
+  name: string
+  icon?: MenuItemIcon
+  children?: Array< MenuItem | MenuHeaderItem >
+  class?: string
+  collapseOnClick?: boolean //collapses menu when clicked - this behavior can also be achieved with Events
+  activeClass?: boolean
+  miniActiveClass?: boolean
+}
+
 interface MenuItemIcon {
   text: string
   class?: string
   element?: string //defualt is <i>
   attributes?: object
-}
-
-interface MenuItem {
-  href: string | object // vue-router Object
-  name: string
-  icon?: ItemIcon
-  children?: Array< MenuItem | SidebarHeaderItem >
-  class?: string
-  collapseOnClick?: boolean //collapses menu when clicked - this behavior can also be achieved with Events
-  activeClass?: boolean
-  miniActiveClass?: boolean
 }
 
 interface MenuHeaderItem {

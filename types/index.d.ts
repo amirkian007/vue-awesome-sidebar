@@ -15,9 +15,9 @@ export interface MenuItem {
 
   name: string
 
-  icon?: ItemIcon
+  icon?: MenuItemIcon
 
-  children?: Array<MenuItem | SidebarHeaderItem>
+  children?: Array<MenuItem | MenuHeaderItem>
 
   class?: string
 
@@ -45,7 +45,7 @@ export interface MenuLine {
 }
 
 export class Menu {
-  menu: Array<MenuItem | SidebarHeaderItem | MenuLine>
+  menu: Array<MenuItem | MenuHeaderItem | MenuLine>
 
   menuType?: boolean
 
