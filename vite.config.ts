@@ -9,10 +9,10 @@ export default defineConfig({
   server: {},
   build: {
     lib: {
-      entry: './src/VueAwesomeSiderbar.ts',
+      entry: './src/VueAwesomeSidebar.ts',
       formats: ['es', 'cjs'],
-      name: 'VueAwesomeSiderbar',
-      fileName: 'vue-awesome-siderbar'
+      name: 'VueAwesomeSidebar',
+      fileName: 'vue-awesome-sidebar'
     },
     rollupOptions: {
       external: ['vue'],
@@ -21,7 +21,7 @@ export default defineConfig({
           vue: 'Vue'
         },
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name == 'style.css') return 'vue-awesome-siderbar.css'
+          if (assetInfo.name == 'style.css') return 'vue-awesome-sidebar.css'
           return assetInfo.name
         }
       }
