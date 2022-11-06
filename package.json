@@ -1,9 +1,9 @@
 {
   "name": "vue-awesome-sidebar",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "private": false,
-  "main": "dist/vue-awesome-siderbar.cjs",
-  "module": "dist/vue-awesome-siderbar.js",
+  "main": "dist/vue-awesome-sidebar.cjs",
+  "module": "dist/vue-awesome-sidebar.js",
   "type": "module",
   "description": "Modern Vue 3 Sidebar Module",
   "author": "AmirKian Adl <amircc1200@gmail.com>",
