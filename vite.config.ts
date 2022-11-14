@@ -14,6 +14,7 @@ export default defineConfig({
       name: 'VueAwesomeSidebar',
       fileName: 'vue-awesome-sidebar'
     },
+    sourcemap:true,
     rollupOptions: {
       external: ['vue'],
       output: {
