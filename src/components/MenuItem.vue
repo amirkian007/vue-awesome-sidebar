@@ -635,14 +635,20 @@ export default {
       this.containerHeight = this.$refs['container']?.offsetHeight
       //this line must be pushed to top of call stack
       this.PushToTopOfCallStack(() => {
-        this.containerHeight = 0
       })
+      setTimeout(() => {
+        this.$nextTick(()=>{
+          this.containerHeight = 0
+        })
+      }, 0);
       //return if keepchildren open
       if (this.keepChildrenOpen) return
       this.renderTimeOut = setTimeout(
         () => {
-          this.renderChildren = false
-          this.cacheHieght = null
+          setTimeout(() => {
+             this.renderChildren = false
+          }, 10);
+          // this.cacheHieght = null
         },
         this.childrenOpenAnimation ? this.animationDuration : 0
       )
