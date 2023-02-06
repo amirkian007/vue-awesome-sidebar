@@ -640,15 +640,15 @@ export default {
         this.$nextTick(()=>{
           this.containerHeight = 0
         })
-      }, 0);
+      }, 10);
       //return if keepchildren open
       if (this.keepChildrenOpen) return
       this.renderTimeOut = setTimeout(
         () => {
           setTimeout(() => {
              this.renderChildren = false
-          }, 10);
-          // this.cacheHieght = null
+          }, 20);
+           this.cacheHieght = null
         },
         this.childrenOpenAnimation ? this.animationDuration : 0
       )
