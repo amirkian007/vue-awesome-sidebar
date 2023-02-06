@@ -431,7 +431,7 @@ export default {
       }
     },
     shouldMouseEnterEvent() {
-      return this.miniMenu && this.depth == 0 ? 'mouseenter' : null
+      return this.miniMenu && this.depth == 0 ? 'mouseover' : null
     },
     keyOrClick() {
       if(!this.miniMenu) return 'click'
