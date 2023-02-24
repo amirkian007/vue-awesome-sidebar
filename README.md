@@ -169,6 +169,7 @@ const testMenu = [
 | paddingTop            | String  | 0px   | Adds padding to top of menu - usefull when using with app bar with higher z-index                       |
 | dark                  | Boolean | false | makes the theme of menu dark - color can be customized with sass vars                                   |
 | rtl                   | Boolean | false | Makes the entire menu right to left align                                                               |
+|closeOpenMenuOnHrefPush| Boolean | false | close MenuItems with children that are expanded on router/herf push                                     |
 
 ### menu properties
 
