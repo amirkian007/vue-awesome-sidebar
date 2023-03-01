@@ -28,16 +28,42 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     keepChildrenOpen,
     checkButtonActive,
     ChildrenOpenActiveRoute,
+    closeOpenMenuOnHrefPush,
     rtl
   } = toRefs(props)
   const isCollapsed = ref(collapsed.value)
-  const slots = ref(context.slots)
   const menuMounted = ref(false)
   const MenuScroll = ref(false)
   const miniMenu = ref(miniMenuProp.value)
   const MenuHover = ref(false)
   const CurrantItemHover = ref(null)
   const CurranContainerHover = ref(null)
+  const routerPushBlockList: any = ref('')
+
+  const symbolId = Symbol("id")
+  let id = 3
+
+  const getRandomUid = () => {
+    return id++
+  }
+
+  function addIdToMenuItems(arr: any) {
+    let array = [...arr]
+    function backTrack(array: any) {
+      for (let i = 0; i < array.length; i++) {
+        array[i][symbolId] = getRandomUid()
+        if (array[i].children) {
+          backTrack(array[i].children)
+        }
+      }
+    }
+    backTrack(array)
+    return array
+  }
+
+  function pushToRouterPush(id: any) {
+    routerPushBlockList.value = id
+  }
 
   const getSlotByName = (slotName: any) => {
     return context.slots.hasOwnProperty(slotName)
@@ -74,12 +100,6 @@ export const initAwsomeSideBar = (props: any, context: any) => {
       ? '-moz-max-content'
       : 'fit-content'
 
-  let id = 3
-
-  const getRandomUid = () => {
-    return id++
-  }
-
   onMounted(() => {
     menuMounted.value = true
   })
@@ -101,11 +121,15 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     vueRouterEnabel,
     checkButtonActive,
     ChildrenOpenActiveRoute,
+    closeOpenMenuOnHrefPush,
     keepChildrenOpen,
     dark,
     rtl
   })
   provide('getSlotByName', getSlotByName)
+  provide('routerPushBlockList', routerPushBlockList)
+  provide('pushToRouterPush', pushToRouterPush)
+  provide('symbolId', symbolId)
   provide('browserAgent', userAgentHeight)
   provide('menuMounted', menuMounted)
   provide('miniMenu', miniMenu)
@@ -128,6 +152,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     menuMounted,
     updateMenuScroll,
     updateMenuHover,
-    menuDirection
+    menuDirection,
+    addIdToMenuItems
   }
 }
