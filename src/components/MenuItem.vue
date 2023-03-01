@@ -252,6 +252,7 @@ export default {
       checkButtonActive,
       ChildrenOpenActiveRoute,
       collapsed,
+      closeOpenMenuOnHrefPush,
       position
     } = inject('sidebarProps')
     const userAgentHeight = inject('browserAgent')
@@ -269,12 +270,18 @@ export default {
     const menuDirection = inject('menuDirection')
     const emitOut = inject('emitOut')
     const updateIsCollapsed = inject('updateIsCollapsed')
+    const routerPushBlockList = inject('routerPushBlockList')
+    const pushToRouterPush = inject('pushToRouterPush')
+    const symbolId = inject('symbolId')
     let itemApendIcon = getSlots('itemApendIcon')
     let itemPrepandIcon = getSlots('itemPrepandIcon')
     let menuItemLabel = getSlots('menuItemLabel')
 
     return {
       animationDuration,
+      pushToRouterPush,
+      symbolId,
+      routerPushBlockList,
       menuItemLabel,
       updateIsCollapsed,
       currentRoute,
@@ -286,6 +293,7 @@ export default {
       MenuHover,
       keepChildrenOpen,
       ChildrenOpenActiveRoute,
+      closeOpenMenuOnHrefPush,
       emitOut,
       menuDirection,
       checkButtonActive,
@@ -306,6 +314,29 @@ export default {
     }
   },
   watch: {
+    routerPushBlockList(valur){
+      if(!this.closeOpenMenuOnHrefPush || (this.item[this.symbolId]===valur))return
+      if(this.item.children){
+        let isFound = false
+        const self = this
+        function backTrack(arr){
+          if(isFound) return
+          for(let i=0;i<arr.length;i++){
+            if(arr[i][self.symbolId] === valur){
+              isFound = true
+              break;
+            }
+            if(arr[i].children){
+              backTrack(arr[i].children)
+            }
+          }
+        }
+        backTrack(this.item.children)
+        if(!isFound){
+          this.closeItemChildren()
+        }
+      }
+    },
     currentRoute() {
       this.checkActive()
     },
@@ -316,8 +347,6 @@ export default {
     },
     hover() {
       //TODO :MAKE THIS MORE EFFICEANT
-      if (this.miniMenu && this.hover) {
-      }
 
       if (!this.id) {
         this.id = this.getRandomUid()
@@ -543,8 +572,10 @@ export default {
         this.updateIsCollapsed(true)
       }
       this.emitOut('item-click', this.item)
-      if (this.vueRouterEnabel && this.item?.href && this.$router)
+      if (this.vueRouterEnabel && this.item?.href && this.$router){
+        this.pushToRouterPush(this.item[this.symbolId])
         this.$router?.push(this.item?.href)
+      }
     },
     miniLabelClick() {
       this.clickCompose()
@@ -555,7 +586,9 @@ export default {
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
       if (this.showChildren) {
-        this.closeItemChildren()
+        if(!(this.item?.href && this.closeOpenMenuOnHrefPush)){
+          this.closeItemChildren()
+        }
       } else {
         this.openItemCildren()
       }

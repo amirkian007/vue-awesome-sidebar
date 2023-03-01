@@ -28,7 +28,7 @@
       }"
     >
       <slot name="header" />
-      <template v-for="(item, index) in menu" :key="index">
+      <template v-for="(item, index) in computedMenuList" :key="index">
         <MenuItem
           v-if="!item?.header && !item?.LineShow"
           :item="item"
@@ -152,6 +152,10 @@ export default {
     rtl: {
       type: Boolean,
       default: false
+    },
+    closeOpenMenuOnHrefPush:{
+      type: Boolean,
+      default: false
     }
   },
   emits: {
@@ -205,6 +209,9 @@ export default {
     },
     mouseLeaveEvent() {
       return this.miniMenuRef ? 'mouseleave' : null
+    },
+    computedMenuList() {
+     return this.addIdToMenuItems(this.menu)
     }
   },
   methods: {
@@ -240,7 +247,8 @@ export default {
       updateMenuHover,
       updateminiMenu,
       menuDirection,
-      updateIsCollapsed
+      updateIsCollapsed,
+      addIdToMenuItems
     } = initAwsomeSideBar(props, context)
     const { updateCurrentRoute } = initAwsomeRouter(props, context)
 
@@ -324,7 +332,8 @@ export default {
       isCollapsed,
       updateminiMenu,
       miniMenuRef,
-      menuDirection
+      menuDirection,
+      addIdToMenuItems
     }
   }
 }
