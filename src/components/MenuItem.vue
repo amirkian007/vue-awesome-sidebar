@@ -586,7 +586,9 @@ export default {
       clearTimeout(this.hieghtTimeout)
       clearTimeout(this.renderTimeOut)
       if (this.showChildren) {
-        this.closeItemChildren()
+        if(!(this.item?.href && this.closeOpenMenuOnHrefPush)){
+          this.closeItemChildren()
+        }
       } else {
         this.openItemCildren()
       }
