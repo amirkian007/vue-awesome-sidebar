@@ -156,6 +156,10 @@ export default {
     closeOpenMenuOnHrefPush:{
       type: Boolean,
       default: false
+    },
+    keepOneMenuOpenAtAtime:{
+      type: Boolean,
+      default: false
     }
   },
   emits: {

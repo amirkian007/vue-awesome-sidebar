@@ -29,6 +29,7 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     checkButtonActive,
     ChildrenOpenActiveRoute,
     closeOpenMenuOnHrefPush,
+    keepOneMenuOpenAtAtime,
     rtl
   } = toRefs(props)
   const isCollapsed = ref(collapsed.value)
@@ -124,7 +125,8 @@ export const initAwsomeSideBar = (props: any, context: any) => {
     closeOpenMenuOnHrefPush,
     keepChildrenOpen,
     dark,
-    rtl
+    rtl,
+    keepOneMenuOpenAtAtime
   })
   provide('getSlotByName', getSlotByName)
   provide('routerPushBlockList', routerPushBlockList)
