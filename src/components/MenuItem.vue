@@ -253,7 +253,8 @@ export default {
       ChildrenOpenActiveRoute,
       collapsed,
       closeOpenMenuOnHrefPush,
-      position
+      position,
+      keepOneMenuOpenAtAtime
     } = inject('sidebarProps')
     const userAgentHeight = inject('browserAgent')
     const currentRoute = inject('currentRoute')
@@ -310,12 +311,14 @@ export default {
       removeIconSpace,
       collapsed,
       userAgentHeight,
-      position
+      position,
+      keepOneMenuOpenAtAtime
     }
   },
   watch: {
     routerPushBlockList(valur){
-      if(!this.closeOpenMenuOnHrefPush || (this.item[this.symbolId]===valur))return
+      if(!(this.keepOneMenuOpenAtAtime || this.closeOpenMenuOnHrefPush))return
+      if((this.item[this.symbolId]===valur))return
       if(this.item.children){
         let isFound = false
         const self = this
@@ -572,8 +575,9 @@ export default {
         this.updateIsCollapsed(true)
       }
       this.emitOut('item-click', this.item)
-      if (this.vueRouterEnabel && this.item?.href && this.$router){
+      if ((this.vueRouterEnabel && this.item?.href && this.$router)||this.keepOneMenuOpenAtAtime){
         this.pushToRouterPush(this.item[this.symbolId])
+        if(!(this.vueRouterEnabel && this.item?.href && this.$router)) return
         this.$router?.push(this.item?.href)
       }
     },
